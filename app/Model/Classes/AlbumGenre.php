@@ -20,4 +20,19 @@ class AlbumGenre {
     public function getIdGenre() {
         return $this->id_genre;
     }
+
+    public function setAlbumId($album_id) {
+        $this->album_id = $album_id;
+    }
+
+    public function setIdGenre($id_genre) {
+        $this->id_genre = $id_genre;
+    }
+
+    public function toArray() {
+        return array(
+            "album_id" => $this->album_id,
+            "id_genre" => $this->id_genre
+        );
+    }
 }

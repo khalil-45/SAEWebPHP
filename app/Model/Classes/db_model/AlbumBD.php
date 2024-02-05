@@ -28,7 +28,85 @@ class AlbumBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des albums, etc.
+
+    public function getAllAlbums()
+    {
+        $sql = "SELECT * FROM ALBUM";
+        $stmt = $this->cnx->query($sql);
+        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albums;
+    }
+
+    public function getAlbumById($id)
+    {
+        $sql = "SELECT * FROM ALBUM WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $album = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $album;
+    }
+
+    public function getAlbumsByArtisteId($id)
+    {
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albums;
+    }
+
+    public function getAlbumsByGenre($genre)
+    {
+        $sql = "SELECT * FROM ALBUM WHERE genre = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $genre, PDO::PARAM_STR);
+        $stmt->execute();
+        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albums;
+    }
+
+    public function getAlbumsByAnnee($annee)
+    {
+        $sql = "SELECT * FROM ALBUM WHERE annee = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $annee, PDO::PARAM_INT);
+        $stmt->execute();
+        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albums;
+    }
+
+    public function getAlbumsByArtisteIdAndGenre($id, $genre)
+    {
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ? AND genre = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $genre, PDO::PARAM_STR);
+        $stmt->execute();
+        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albums;
+    }
+
+    public function deleteAlbumById($id)
+    {
+        $sql = "DELETE FROM ALBUM WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    
+    public function getAlbumsByArtisteIdAndAnnee($id, $annee)
+    {
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ? AND annee = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $annee, PDO::PARAM_INT);
+        $stmt->execute();
+        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albums;
+    }
 }
 
 ?>

@@ -26,7 +26,34 @@ class UtilisateurBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des utilisateurs, etc.
+    public function getUtilisateurById($id)
+    {
+        $sql = "SELECT * FROM UTILISATEUR WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $utilisateur;
+    }
+
+    public function getUtilisateurByUsername($username)
+    {
+        $sql = "SELECT * FROM UTILISATEUR WHERE username = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->execute();
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $utilisateur;
+    }
+
+    public function deleteUtilisateur($id)
+    {
+        $sql = "DELETE FROM UTILISATEUR WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 
 ?>

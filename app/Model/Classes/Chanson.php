@@ -31,4 +31,29 @@ class Chanson {
     public function getAlbumId() {
         return $this->album_id;
     }
+
+    public function setChansonId($chanson_id) {
+        $this->chanson_id = $chanson_id;
+    }
+
+    public function setTitre($titre) {
+        $this->titre = $titre;
+    }
+
+    public function setDuree($duree) {
+        $this->duree = $duree;
+    }
+
+    public function setAlbumId($album_id) {
+        $this->album_id = $album_id;
+    }
+
+    public function toArray() {
+        return [
+            "chanson_id" => $this->chanson_id,
+            "titre" => $this->titre,
+            "duree" => $this->duree,
+            "album_id" => $this->album_id
+        ];
+    }
 }

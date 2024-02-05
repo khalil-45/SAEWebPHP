@@ -26,7 +26,42 @@ class ArtisteBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des artistes, etc.
+    public function getArtisteById($id)
+    {
+        $sql = "SELECT * FROM ARTISTE WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $artiste = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $artiste;
+    }
+
+    public function getAllArtistes()
+    {
+        $sql = "SELECT * FROM ARTISTE";
+        $stmt = $this->cnx->query($sql);
+        $artistes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $artistes;
+    }
+
+    public function getArtisteByNom($nom)
+    {
+        $sql = "SELECT * FROM ARTISTE WHERE nom = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $nom, PDO::PARAM_STR);
+        $stmt->execute();
+        $artiste = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $artiste;
+    }
+
+    public function deleteArtiste($id)
+    {
+        $sql = "DELETE FROM ARTISTE WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 
 ?>

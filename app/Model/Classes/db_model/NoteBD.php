@@ -26,7 +26,34 @@ class NoteBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des notes, etc.
+    public function getNoteByAlbumId($album_id)
+    {
+        $sql = "SELECT * FROM NOTE WHERE album_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $note = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $note;
+    }
+
+    public function getNoteByUserId($user_id)
+    {
+        $sql = "SELECT * FROM NOTE WHERE user_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $note = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $note;
+    }
+
+    public function deleteNoteByAlbumId($album_id)
+    {
+        $sql = "DELETE FROM NOTE WHERE album_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 
 ?>

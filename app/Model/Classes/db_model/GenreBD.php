@@ -24,7 +24,52 @@ class GenreBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des genres, etc.
+    public function getGenreById($id)
+    {
+        $sql = "SELECT * FROM GENRE WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $genre = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $genre;
+    }
+
+    public function getAllGenres()
+    {
+        $sql = "SELECT * FROM GENRE";
+        $stmt = $this->cnx->query($sql);
+        $genres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $genres;
+    }
+
+    public function getGenreByNom($nom_genre)
+    {
+        $sql = "SELECT * FROM GENRE WHERE nom_genre = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $nom_genre, PDO::PARAM_STR);
+        $stmt->execute();
+        $genre = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $genre;
+    }
+
+    public function getGenresByAlbum($album_id)
+    {
+        $sql = "SELECT * FROM ALBUM_GENRE WHERE album_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $genres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $genres;
+    }
+
+    public function deleteGenre($id)
+    {
+        $sql = "DELETE FROM GENRE WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 
 ?>

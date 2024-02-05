@@ -25,4 +25,24 @@ class Playlist {
     public function getTitre() {
         return $this->titre;
     }
+
+    public function setPlaylistId($playlist_id) {
+        $this->playlist_id = $playlist_id;
+    }
+
+    public function setUserId($user_id) {
+        $this->user_id = $user_id;
+    }
+
+    public function setTitre($titre) {
+        $this->titre = $titre;
+    }
+
+    public function toArray() {
+        return [
+            "playlist_id" => $this->playlist_id,
+            "user_id" => $this->user_id,
+            "titre" => $this->titre
+        ];
+    }
 }

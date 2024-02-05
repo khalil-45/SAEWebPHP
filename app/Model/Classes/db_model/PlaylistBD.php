@@ -25,7 +25,34 @@ class PlaylistBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des playlists, etc.
+    public function getPlaylistById($id)
+    {
+        $sql = "SELECT * FROM PLAYLIST WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $playlist = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $playlist;
+    }
+
+    public function getPlaylistByUserId($user_id)
+    {
+        $sql = "SELECT * FROM PLAYLIST WHERE user_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $playlist = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $playlist;
+    }
+
+    public function deletePlaylist($id)
+    {
+        $sql = "DELETE FROM PLAYLIST WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 
 ?>

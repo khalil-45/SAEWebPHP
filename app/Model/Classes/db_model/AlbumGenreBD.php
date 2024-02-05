@@ -25,7 +25,43 @@ class AlbumGenreBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des relations entre albums et genres, etc.
+    public function getAllAlbumsGenres()
+    {
+        $sql = "SELECT * FROM ALBUM_GENRE";
+        $stmt = $this->cnx->query($sql);
+        $albumsGenres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albumsGenres;
+    }
+
+    public function getAlbumsByGenre($id_genre)
+    {
+        $sql = "SELECT * FROM ALBUM_GENRE WHERE id_genre = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id_genre, PDO::PARAM_INT);
+        $stmt->execute();
+        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $albums;
+    }
+
+    public function getGenresByAlbum($album_id)
+    {
+        $sql = "SELECT * FROM ALBUM_GENRE WHERE album_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $genres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $genres;
+    }
+
+    public function deleteAlbumGenre($album_id, $id_genre)
+    {
+        $sql = "DELETE FROM ALBUM_GENRE WHERE album_id = ? AND id_genre = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $id_genre, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 
 ?>

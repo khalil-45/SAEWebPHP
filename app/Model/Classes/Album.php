@@ -50,4 +50,36 @@ class Album {
     public function getChansons() {
         return $this->chansons;
     }
+
+    public function setAlbumId($album_id) {
+        $this->album_id = $album_id;
+    }
+
+    public function setTitre($titre) {
+        $this->titre = $titre;
+    }
+
+    public function setAnnee($annee) {
+        $this->annee = $annee;
+    }
+
+    public function setGenre($genre) {
+        $this->genre = $genre;
+    }
+
+    public function setPochette($pochette) {
+        $this->pochette = $pochette;
+    }
+
+    public function toArray() {
+        return array(
+            "album_id" => $this->album_id,
+            "titre" => $this->titre,
+            "annee" => $this->annee,
+            "genre" => $this->genre,
+            "pochette" => $this->pochette,
+            "artiste_id" => $this->artiste_id,
+            "chansons" => $this->chansons
+        );
+    }
 }

@@ -30,4 +30,29 @@ class Utilisateur {
     public function getEmail() {
         return $this->email;
     }
+
+    public function setUserId($user_id) {
+        $this->user_id = $user_id;
+    }
+
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function toArray() {
+        return [
+            "user_id" => $this->user_id,
+            "username" => $this->username,
+            "password" => $this->password,
+            "email" => $this->email
+        ];
+    }
 }

@@ -26,7 +26,47 @@ class ChansonBD
         $stmt->execute();
     }
 
-    // Ajoutez d'autres méthodes au besoin pour récupérer des chansons, etc.
+    public function getAllChansons(){
+        $sql = "SELECT * FROM CHANSON";
+        $stmt = $this->cnx->query($sql);
+        $chansons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $chansons;
+    }
+
+    public function getChansonsByAlbumId($id){
+        $sql = "SELECT * FROM CHANSON WHERE album_id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $chansons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $chansons;
+    }
+
+    public function getChansonByAlbumTitre($titre){
+        $sql = "SELECT * FROM CHANSON WHERE album_id = (SELECT id FROM ALBUM WHERE titre = ?)";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $titre, PDO::PARAM_STR);
+        $stmt->execute();
+        $chansons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $chansons;
+    }
+
+
+    public function getChansonById($id){
+        $sql = "SELECT * FROM CHANSON WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $chanson = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $chanson;
+    }
+
+    public function deleteChanson($id){
+        $sql = "DELETE FROM CHANSON WHERE id = ?";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
 }
 
 ?>

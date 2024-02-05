@@ -32,4 +32,29 @@ class Note {
     public function getNote() {
         return $this->note;
     }
+
+    public function setNoteId($note_id) {
+        $this->note_id = $note_id;
+    }
+
+    public function setAlbumId($album_id) {
+        $this->album_id = $album_id;
+    }
+
+    public function setUserId($user_id) {
+        $this->user_id = $user_id;
+    }
+
+    public function setNote($note) {
+        $this->note = $note;
+    }
+
+    public function toArray() {
+        return [
+            "note_id" => $this->note_id,
+            "album_id" => $this->album_id,
+            "user_id" => $this->user_id,
+            "note" => $this->note
+        ];
+    }
 }

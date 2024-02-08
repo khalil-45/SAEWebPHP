@@ -1,3 +1,18 @@
+<?php
+require __DIR__ . '/../app/Model/Connection.php';
+require __DIR__ . '/../app/Model/Classes/db_model/AlbumBD.php';
+
+use BD\Connection_BD;
+
+$connection = Connection_BD::getInstance();
+
+use Model\Classes\db_model\AlbumBD;
+
+$albums = new AlbumBD($connection);
+$album = $albums->getAllAlbums();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -112,16 +127,13 @@
             <h2>Écouter</h2>
         </div>
         <div class="musiques">
+        <?php foreach($album as $a): ?>
             <div class="musique">
-                <img src="images/Gazo-album.webp" alt="musique">
-                <p>Titre</p>
-                <p>Artiste</p>
+                <img src="images/<?php echo $a['image']; ?>" alt="musique">
+                <p><?php echo $a['titre']; ?></p>
+                <p><?php echo $a['artiste']; ?></p>
             </div>
-            <div class="musique">
-                <img src="images/Gazo-album.jpg" alt="musique">
-                <p>Titre</p>
-                <p>Artiste</p>
-            </div>
+        <?php endforeach; ?>
         </div>
     </main>
 </body>

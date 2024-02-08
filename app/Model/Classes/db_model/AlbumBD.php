@@ -1,10 +1,9 @@
 <?php
 
 namespace Model\Classes\db_model;
+require_once __DIR__ . '/../../Connection_BD.php';
 
-require_once __DIR__ . '/../Connection_BD.php';
-
-use Model\Classes\Album;
+use Classes\Album;
 use PDO;
 
 class AlbumBD

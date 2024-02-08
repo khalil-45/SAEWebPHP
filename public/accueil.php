@@ -1,15 +1,14 @@
 <?php
-require __DIR__ . '/../app/Model/Connection.php';
-require __DIR__ . '/../app/Model/Classes/db_model/AlbumBD.php';
+require '../app/Autoloader.php';
+Autoloader::register();
 
-use BD\Connection_BD;
-
-$connection = Connection_BD::getInstance();
-
+use Model\Connection_BD;
 use Model\Classes\db_model\AlbumBD;
 
-$albums = new AlbumBD($connection);
-$album = $albums->getAllAlbums();
+$cnx = Connection_BD::getInstance();
+$albumBD = new AlbumBD($cnx);
+
+$album = $albumBD->getAllAlbums();
 
 ?>
 

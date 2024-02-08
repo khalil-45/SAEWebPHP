@@ -65,7 +65,8 @@ $album = $albumBD->getAllAlbums();
                 <p>Se connecter</p>
             </button>
         </div>
-        <div class="connection-popup">
+    </aside>
+    <div class="connection-popup">
             <div class="form-container" id="loginform">
                 <p class="title">De retour</p>
                 <form class="form">
@@ -110,7 +111,7 @@ $album = $albumBD->getAllAlbums();
         </div>
         <div class="connection-popup">
             <div class="form-container" id="mdpoublie">
-                <p class="title">Mot de passe oublié ?   Entrez votre adresse mail</p>
+                <p class="title">Mot de passe oublié ? Entrez votre adresse mail</p>
                 <form class="form">
                     <input type="text" class="input" placeholder="Entrez votre adresse mail">
                     <button class="form-btn">Envoyer</button>
@@ -121,35 +122,39 @@ $album = $albumBD->getAllAlbums();
                 <button class="close" onclick="closeFormMDP()">X</button>
             </div>
         </div>
-    </aside>
     <main>
         <div class="titre">
             <h2>Écouter</h2>
         </div>
-        <div class="musiques">
             <!--
-        <?php #foreach($album as $a): ?>
+        <?php #foreach($album as $a): 
+        ?>
             <div class="musique">
-                <img src="./images/img_albums/<?php #echo $a['pochette']; ?>" alt="musique">
-                <p><?php #echo $a['titre']; ?></p>
-                <p><?php #echo $a['artiste']; ?></p>
+                <img src="./images/img_albums/<?php #echo $a['pochette']; 
+                                                ?>" alt="musique">
+                <p><?php #echo $a['titre']; 
+                    ?></p>
+                <p><?php #echo $a['artiste']; 
+                    ?></p>
             </div>
-        <?php #endforeach; ?>
+        <?php #endforeach; 
+        ?>
         -->
-        <div class="grid">
-        <?php foreach($album as $a): ?>
-            <div class="head">
-                <i class='fab fa-apple' style='font-size:13.5px;'></i>
-                <h5 class="top">Music</h5>
-                <div class="center"></div>
-                <span class="left"></span>
-                <div class="right"></div>
-                <div class="line"></div>
-                <div class="bottom"><?php echo $a['titre']; ?></div>
+            <div class="grid">
+                <?php foreach ($album as $a) : ?>
+                    <div class="head">
+                        <i class='fab fa-apple' style='font-size:13.5px;'></i>
+                        <h5 class="top">Music</h5>
+                        <div class="center"></div>
+                        <span class="left"></span>
+                        <div class="right"></div>
+                        <div class="line"></div>
+                        <div class="bottom"><?php echo $a['titre']; ?></div>
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
-        </div>
     </main>
 </body>
 <script src="js/popup_connexion.js"></script>
+
 </html>

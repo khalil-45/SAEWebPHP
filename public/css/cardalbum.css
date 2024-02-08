@@ -28,32 +28,6 @@
     }
   }
   
-  .text {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    justify-items: space-around;
-    align-items: center;
-    column-gap: 164px;
-    row-gap: 0px;
-    overflow: hidden;
-  }
-  
-  .text h1 {
-    width: 170px;
-    weight: 10px;
-  }
-  
-  .profile {
-    height: 40px;
-    width: 40px;
-    background-color: #666666;
-    background-image: url("https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
-    background-size: cover;
-    background-position: 95% 0%;
-    /*   clip-path: ellipse(45% 45% at 50% 50%); */
-    border-radius: 50%;
-  }
-  
   .grid h2 {
     margin-top: -5px;
   }
@@ -66,7 +40,7 @@
   }
   
   .grid {
-    display: grid;
+    display: flex;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     justify-items: stretch;
     align-items: stretch;
@@ -95,7 +69,10 @@
     scroll-margin-left: 20px;
     scroll-snap-align: start;
   }
-  
+  .grid .head{
+    flex: 0 0 auto;
+    margin-right: 20px;
+  }
   .head:hover,
   .profile:hover {
    filter: brightness(1.07);
@@ -297,23 +274,8 @@
   
   /* cursor */
   
-  .profile, .grid {
+  .grid {
     cursor: pointer;
   }
-  
-  p {
-    margin-top: -20px;
-    font-size: 14px;
-    font-weight: 600;
-  }
-  
-  .linktr {
-    background-image: url("https://upload.wikimedia.org/wikipedia/en/b/bf/Linktree_logo.svg");
-    background-color: transparent;
-    background-position: 0% 55%;
-    background-repeat: no-repeat;
-    color: transparent;
-  }
-  
     
   

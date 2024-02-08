@@ -1,9 +1,12 @@
 /* Positionnez la forme Popup */
 .connection-popup {
-position: relative;
-text-align: center;
-width: 100%;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
+
 /* Masquez la forme Popup */
 .form-container {
 display: none;
@@ -13,6 +16,7 @@ top: 5%;
 transform: translate(-45%, 5%);
 border: 2px solid #666;
 z-index: 9;
+border-radius: 5px;
 }
 
 .form-container {
@@ -61,10 +65,11 @@ z-index: 9;
     cursor: pointer;
     font-size: 9px;
     font-weight: 700;
+    color: #fff;
   }
   
   .page-link-label:hover {
-    color: #fff;
+    color: #fe0a69;
   }
   
   .form-btn {

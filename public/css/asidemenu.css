@@ -8,6 +8,7 @@ body{
     padding: 0;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 /* MENU ASIDE */
@@ -140,4 +141,11 @@ aside ul img{
     font-size: 1.5rem;
     cursor: pointer;
     outline: none;
+}
+
+.musiques {
+    width: 100%; /* ou la largeur que vous voulez */
+    height: 90vh; /* ou la hauteur que vous voulez */
+    overflow-y: auto;
+    padding: 10px;
 }

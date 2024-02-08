@@ -22,6 +22,7 @@ $album = $albumBD->getAllAlbums();
     <link rel="stylesheet" href="css/asidemenu.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/popupForm.css">
+    <link rel="stylesheet" href="css/cardalbum.css">
 </head>
 
 <body>
@@ -126,13 +127,27 @@ $album = $albumBD->getAllAlbums();
             <h2>Écouter</h2>
         </div>
         <div class="musiques">
-        <?php foreach($album as $a): ?>
+            <!--
+        <?php #foreach($album as $a): ?>
             <div class="musique">
-                <img src="images/<?php echo $a['image']; ?>" alt="musique">
-                <p><?php echo $a['titre']; ?></p>
-                <p><?php echo $a['artiste']; ?></p>
+                <img src="./images/img_albums/<?php #echo $a['pochette']; ?>" alt="musique">
+                <p><?php #echo $a['titre']; ?></p>
+                <p><?php #echo $a['artiste']; ?></p>
             </div>
-        <?php endforeach; ?>
+        <?php #endforeach; ?>
+        -->
+        <div class="grid">
+        <?php foreach($album as $a): ?>
+            <div class="head">
+                <i class='fab fa-apple' style='font-size:13.5px;'></i>
+                <h5 class="top">Music</h5>
+                <div class="center"></div>
+                <span class="left"></span>
+                <div class="right"></div>
+                <div class="line"></div>
+                <div class="bottom"><?php echo $a['titre']; ?></div>
+            </div>
+            <?php endforeach; ?>
         </div>
     </main>
 </body>

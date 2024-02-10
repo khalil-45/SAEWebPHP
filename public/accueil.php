@@ -4,11 +4,14 @@ Autoloader::register();
 
 use Model\Connection_BD;
 use Model\Classes\db_model\AlbumBD;
+use Model\Classes\db_model\UtilisateurBD;
 
 $cnx = Connection_BD::getInstance();
 $albumBD = new AlbumBD($cnx);
 
 $album = $albumBD->getAllAlbums();
+$user = new UtilisateurBD($cnx);
+
 
 ?>
 
@@ -23,6 +26,7 @@ $album = $albumBD->getAllAlbums();
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/popupForm.css">
     <link rel="stylesheet" href="css/cardalbum.css">
+    <style src="js/connexion.js"></style>
 </head>
 
 <body>
@@ -75,16 +79,15 @@ $album = $albumBD->getAllAlbums();
                     <p class="page-link">
                         <a class="page-link-label" onclick="closeFormLogIn(); openFormMDP()">Mot de passe oublié ?</a>
                     </p>
-                    <button class="form-btn">Se connecter</button>
+                    <button class="form-btn-log">Se connecter</button>
                 </form>
                 <p class="sign-up-label">
                     <a class="sign-up-link" onclick="closeFormLogIn(); openFormSignUp();">S'inscrire</a>
                 </p>
                 <div class="buttons-container">
-                    <div class="google-login-button">
-                        <span>Se connecter avec Google</span>
-                    </div>
-                </div>
+                    <button class="google-login-button">Se connecter avec Google
+                    </button>
+                </div>     
                 <button class="close" onclick="closeFormLogIn()">X</button>
             </div>
         </div>
@@ -96,14 +99,14 @@ $album = $albumBD->getAllAlbums();
                     <input type="email" class="input" placeholder="Email">
                     <input type="password" class="input" placeholder="Mot de passe">
                     <input type="password" class="input" placeholder="Confirmer le mot de passe">
-                    <button class="form-btn">S'inscrire</button>
+                    <button class="form-btn-sig">S'inscrire</button>
                 </form>
                 <p class="sign-up-label">
                     Déjà un compte ? <a class="sign-up-link" onclick="closeFormSignUp(); openFormLogIn();">Connectez-vous</a>
                 </p>
                 <div class="buttons-container">
-                    <div class="google-login-button">
-                        <span>S'inscrire avec Google</span>
+                    <div class="google-signin-button">
+                        <button class="google-signin-button" onclick= "openGoogleSignInPopup();">S'inscrire avec Google</button>
                     </div>
                 </div>
                 <button class="close" onclick="closeFormSignUp()">X</button>
@@ -158,3 +161,53 @@ $album = $albumBD->getAllAlbums();
 <script src="js/popup_connexion.js"></script>
 
 </html>
+
+<?php
+// Traitement du formulaire de connexion
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form-btn-log'])) { 
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Vérifier l'authentification de l'utilisateur
+    // Par exemple, en utilisant les méthodes de votre modèle UtilisateurBD
+    $user = $user->getUtilisateurByEmailAndPassword($email, $password);
+
+
+    if ($user) {
+        // Authentification réussie, vous pouvez rediriger l'utilisateur vers une autre page
+        // ou stocker des informations de session pour le garder connecté.
+        session_start();
+        $_SESSION['user'] = $user;
+        // Rediriger vers une autre page après la connexion
+        header("Location: accueil.php");
+        exit();
+    } else {
+        // Authentification échouée, afficher un message d'erreur à l'utilisateur
+        $login_error = "Email ou mot de passe incorrect.";
+    }
+}
+
+// Traitement du formulaire d'inscription
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form-btn-sig'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+
+
+    // Vérifier si l'email est déjà utilisé
+    if ($user->isEmailTaken($email)) {
+        $signup_error = "Cet email est déjà utilisé.";
+    } elseif ($password != $confirm_password) {
+        $signup_error = "Les mots de passe ne correspondent pas.";
+    } else {
+        // Insérer le nouvel utilisateur dans la base de données
+       $user = $user -> insertUtilisateur($username, $password, $email);
+       header("Location: #loginform");
+       exit();
+    }
+}
+?>
+
+
+

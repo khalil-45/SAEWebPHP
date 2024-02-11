@@ -28,7 +28,7 @@ class NoteBD
 
     public function getNoteByAlbumId($album_id)
     {
-        $sql = "SELECT * FROM NOTE WHERE album_id = ?";
+        $sql = "SELECT * FROM NOTE WHERE album_id = :album_id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -38,7 +38,7 @@ class NoteBD
 
     public function getNoteByUserId($user_id)
     {
-        $sql = "SELECT * FROM NOTE WHERE user_id = ?";
+        $sql = "SELECT * FROM NOTE WHERE user_id = :user_id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -48,7 +48,7 @@ class NoteBD
 
     public function deleteNoteByAlbumId($album_id)
     {
-        $sql = "DELETE FROM NOTE WHERE album_id = ?";
+        $sql = "DELETE FROM NOTE WHERE album_id = :album_id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
         $stmt->execute();

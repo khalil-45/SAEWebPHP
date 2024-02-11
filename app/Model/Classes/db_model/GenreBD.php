@@ -26,7 +26,7 @@ class GenreBD
 
     public function getGenreById($id)
     {
-        $sql = "SELECT * FROM GENRE WHERE id = ?";
+        $sql = "SELECT * FROM GENRE WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -44,7 +44,7 @@ class GenreBD
 
     public function getGenreByNom($nom_genre)
     {
-        $sql = "SELECT * FROM GENRE WHERE nom_genre = ?";
+        $sql = "SELECT * FROM GENRE WHERE nom_genre = :nom_genre";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $nom_genre, PDO::PARAM_STR);
         $stmt->execute();
@@ -54,7 +54,7 @@ class GenreBD
 
     public function getGenresByAlbum($album_id)
     {
-        $sql = "SELECT * FROM ALBUM_GENRE WHERE album_id = ?";
+        $sql = "SELECT * FROM ALBUM_GENRE WHERE album_id = :album_id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -64,7 +64,7 @@ class GenreBD
 
     public function deleteGenre($id)
     {
-        $sql = "DELETE FROM GENRE WHERE id = ?";
+        $sql = "DELETE FROM GENRE WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

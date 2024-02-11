@@ -38,7 +38,7 @@ class AlbumBD
 
     public function getAlbumById($id)
     {
-        $sql = "SELECT * FROM ALBUM WHERE id = ?";
+        $sql = "SELECT * FROM ALBUM WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -48,7 +48,7 @@ class AlbumBD
 
     public function getAlbumsByArtisteId($id)
     {
-        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ?";
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -58,7 +58,7 @@ class AlbumBD
 
     public function getAlbumsByGenre($genre)
     {
-        $sql = "SELECT * FROM ALBUM WHERE genre = ?";
+        $sql = "SELECT * FROM ALBUM WHERE genre = :genre";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $genre, PDO::PARAM_STR);
         $stmt->execute();
@@ -68,7 +68,7 @@ class AlbumBD
 
     public function getAlbumsByAnnee($annee)
     {
-        $sql = "SELECT * FROM ALBUM WHERE annee = ?";
+        $sql = "SELECT * FROM ALBUM WHERE annee = :annee";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $annee, PDO::PARAM_INT);
         $stmt->execute();
@@ -78,7 +78,7 @@ class AlbumBD
 
     public function getAlbumsByArtisteIdAndGenre($id, $genre)
     {
-        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ? AND genre = ?";
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id AND genre = :genre";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->bindParam(2, $genre, PDO::PARAM_STR);

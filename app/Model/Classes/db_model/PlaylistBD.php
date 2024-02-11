@@ -27,7 +27,7 @@ class PlaylistBD
 
     public function getPlaylistById($id)
     {
-        $sql = "SELECT * FROM PLAYLIST WHERE id = ?";
+        $sql = "SELECT * FROM PLAYLIST WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -37,7 +37,7 @@ class PlaylistBD
 
     public function getPlaylistByUserId($user_id)
     {
-        $sql = "SELECT * FROM PLAYLIST WHERE user_id = ?";
+        $sql = "SELECT * FROM PLAYLIST WHERE user_id = :user_id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $user_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -47,7 +47,7 @@ class PlaylistBD
 
     public function deletePlaylist($id)
     {
-        $sql = "DELETE FROM PLAYLIST WHERE id = ?";
+        $sql = "DELETE FROM PLAYLIST WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

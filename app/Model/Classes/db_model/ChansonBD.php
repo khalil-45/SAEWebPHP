@@ -34,7 +34,7 @@ class ChansonBD
     }
 
     public function getChansonsByAlbumId($id){
-        $sql = "SELECT * FROM CHANSON WHERE album_id = ?";
+        $sql = "SELECT * FROM CHANSON WHERE album_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -43,7 +43,7 @@ class ChansonBD
     }
 
     public function getChansonByAlbumTitre($titre){
-        $sql = "SELECT * FROM CHANSON WHERE album_id = (SELECT id FROM ALBUM WHERE titre = ?)";
+        $sql = "SELECT * FROM CHANSON WHERE album_id = (SELECT id FROM ALBUM WHERE titre = :titre)";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $titre, PDO::PARAM_STR);
         $stmt->execute();
@@ -53,7 +53,7 @@ class ChansonBD
 
 
     public function getChansonById($id){
-        $sql = "SELECT * FROM CHANSON WHERE id = ?";
+        $sql = "SELECT * FROM CHANSON WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -62,7 +62,7 @@ class ChansonBD
     }
 
     public function deleteChanson($id){
-        $sql = "DELETE FROM CHANSON WHERE id = ?";
+        $sql = "DELETE FROM CHANSON WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

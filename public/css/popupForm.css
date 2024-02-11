@@ -1,6 +1,6 @@
 /* Positionnez la forme Popup */
 .connection-popup {
-  position: relative;
+  position: absolute;
   text-align: center;
   width: 100%;
   align-items: center;

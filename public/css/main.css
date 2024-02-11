@@ -1,10 +1,11 @@
 main{
     background-color: #282828;
-    flex: 1;
-    
+    flex : 1;
+    width: 80%;
 }
 
 .titre h2{
     color: #fff;
     padding: 1rem;
 }
+

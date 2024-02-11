@@ -67,92 +67,82 @@ $album = $albumBD->getAllAlbums();
         </div>
     </aside>
     <div class="connection-popup">
-            <div class="form-container" id="loginform">
-                <p class="title">De retour</p>
-                <form class="form">
-                    <input type="email" class="input" placeholder="Email">
-                    <input type="password" class="input" placeholder="Mot de passe">
-                    <p class="page-link">
-                        <a class="page-link-label" onclick="closeFormLogIn(); openFormMDP()">Mot de passe oublié ?</a>
-                    </p>
-                    <button class="form-btn">Se connecter</button>
-                </form>
-                <p class="sign-up-label">
-                    <a class="sign-up-link" onclick="closeFormLogIn(); openFormSignUp();">S'inscrire</a>
+        <div class="form-container" id="loginform">
+            <p class="title">De retour</p>
+            <form class="form">
+                <input type="email" class="input" placeholder="Email">
+                <input type="password" class="input" placeholder="Mot de passe">
+                <p class="page-link">
+                    <a class="page-link-label" onclick="closeFormLogIn(); openFormMDP()">Mot de passe oublié ?</a>
                 </p>
-                <div class="buttons-container">
-                    <div class="google-login-button">
-                        <span>Se connecter avec Google</span>
-                    </div>
+                <button class="form-btn">Se connecter</button>
+            </form>
+            <p class="sign-up-label">
+                <a class="sign-up-link" onclick="closeFormLogIn(); openFormSignUp();">S'inscrire</a>
+            </p>
+            <div class="buttons-container">
+                <div class="google-login-button">
+                    <span>Se connecter avec Google</span>
                 </div>
-                <button class="close" onclick="closeFormLogIn()">X</button>
             </div>
+            <button class="close" onclick="closeFormLogIn()">X</button>
         </div>
-        <div class="connection-popup">
-            <div class="form-container" id="signupform">
-                <p class="title">Inscription</p>
-                <form class="form">
-                    <input type="text" class="input" placeholder="Username">
-                    <input type="email" class="input" placeholder="Email">
-                    <input type="password" class="input" placeholder="Mot de passe">
-                    <input type="password" class="input" placeholder="Confirmer le mot de passe">
-                    <button class="form-btn">S'inscrire</button>
-                </form>
-                <p class="sign-up-label">
-                    Déjà un compte ? <a class="sign-up-link" onclick="closeFormSignUp(); openFormLogIn();">Connectez-vous</a>
-                </p>
-                <div class="buttons-container">
-                    <div class="google-login-button">
-                        <span>S'inscrire avec Google</span>
-                    </div>
+    </div>
+    <div class="connection-popup">
+        <div class="form-container" id="signupform">
+            <p class="title">Inscription</p>
+            <form class="form">
+                <input type="text" class="input" placeholder="Username">
+                <input type="email" class="input" placeholder="Email">
+                <input type="password" class="input" placeholder="Mot de passe">
+                <input type="password" class="input" placeholder="Confirmer le mot de passe">
+                <button class="form-btn">S'inscrire</button>
+            </form>
+            <p class="sign-up-label">
+                Déjà un compte ? <a class="sign-up-link" onclick="closeFormSignUp(); openFormLogIn();">Connectez-vous</a>
+            </p>
+            <div class="buttons-container">
+                <div class="google-login-button">
+                    <span>S'inscrire avec Google</span>
                 </div>
-                <button class="close" onclick="closeFormSignUp()">X</button>
             </div>
+            <button class="close" onclick="closeFormSignUp()">X</button>
         </div>
-        <div class="connection-popup">
-            <div class="form-container" id="mdpoublie">
-                <p class="title">Mot de passe oublié ? Entrez votre adresse mail</p>
-                <form class="form">
-                    <input type="text" class="input" placeholder="Entrez votre adresse mail">
-                    <button class="form-btn">Envoyer</button>
-                </form>
-                <p class="sign-up-label">
-                    Votre mot de passe vous revient ? <a class="sign-up-link" onclick="closeFormMDP(); openFormLogIn();">Connectez-vous</a>
-                </p>
-                <button class="close" onclick="closeFormMDP()">X</button>
-            </div>
+    </div>
+    <div class="connection-popup">
+        <div class="form-container" id="mdpoublie">
+            <p class="title">Mot de passe oublié ? Entrez votre adresse mail</p>
+            <form class="form">
+                <input type="text" class="input" placeholder="Entrez votre adresse mail">
+                <button class="form-btn">Envoyer</button>
+            </form>
+            <p class="sign-up-label">
+                Votre mot de passe vous revient ? <a class="sign-up-link" onclick="closeFormMDP(); openFormLogIn();">Connectez-vous</a>
+            </p>
+            <button class="close" onclick="closeFormMDP()">X</button>
         </div>
+    </div>
     <main>
         <div class="titre">
             <h2>Écouter</h2>
         </div>
-            <!--
-        <?php #foreach($album as $a): 
-        ?>
-            <div class="musique">
-                <img src="./images/img_albums/<?php #echo $a['pochette']; 
-                                                ?>" alt="musique">
-                <p><?php #echo $a['titre']; 
-                    ?></p>
-                <p><?php #echo $a['artiste']; 
-                    ?></p>
-            </div>
-        <?php #endforeach; 
-        ?>
-        -->
-            <div class="grid">
-                <?php foreach ($album as $a) : ?>
-                    <div class="head">
-                        <i class='fab fa-apple' style='font-size:13.5px;'></i>
-                        <h5 class="top">Music</h5>
-                        <div class="center"></div>
-                        <span class="left"></span>
-                        <div class="right"></div>
-                        <div class="line"></div>
-                        <div class="bottom"><?php echo $a['titre']; ?></div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+        <div class="grid">
+            <?php foreach ($album as $a) : ?>
+                <div class="head">
+                    <i class='fab fa-apple' style='font-size:13.5px;'></i>
+                    <h5 class="top">Music</h5>
+                    <img src="images/img_albums/<?php
+                        if ($a['pochette'] != null) {
+                            echo urlencode(trim($a['pochette']));
+                        } else {
+                            echo "default.jpg";
+                        }
+                        ?>" alt="pochette de l'album">
+                    <div class="line"></div>
+                    <div class="bottom"><?php echo $a['titre']; ?></div>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </main>
 </body>
 <script src="js/popup_connexion.js"></script>

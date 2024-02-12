@@ -11,6 +11,7 @@ class Genre {
         $this->nom_genre = $nom_genre;
     }
 
+    // getters
     public function getIdGenre() {
         return $this->id_genre;
     }
@@ -19,6 +20,7 @@ class Genre {
         return $this->nom_genre;
     }
 
+    // setters
     public function setIdGenre($id_genre) {
         $this->id_genre = $id_genre;
     }

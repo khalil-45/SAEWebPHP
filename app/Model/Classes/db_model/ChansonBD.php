@@ -16,16 +16,26 @@ class ChansonBD
         $this->cnx = $cnx;
     }
 
-    public function insertChanson(Chanson $chanson)
+    /**
+     * @param string $titre
+     * @param int $duree
+     * @param int $album_id
+     * @return bool
+     */
+    public function insertChanson($titre, $duree, $album_id)
     {
-        $sql = "INSERT INTO CHANSON (titre, duree, album_id) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO CHANSON (titre, duree, album_id) VALUES (:titre, :duree, :album_id)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $chanson->getTitre(), PDO::PARAM_STR);
-        $stmt->bindParam(2, $chanson->getDuree(), PDO::PARAM_INT);
-        $stmt->bindParam(3, $chanson->getAlbumId(), PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':duree', $duree, PDO::PARAM_INT);
+        $stmt->bindParam(':album_id', $album_id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
+
+    /**
+     * @return array
+     */
     public function getAllChansons(){
         $sql = "SELECT * FROM CHANSON";
         $stmt = $this->cnx->query($sql);
@@ -33,6 +43,10 @@ class ChansonBD
         return $chansons;
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getChansonsByAlbumId($id){
         $sql = "SELECT * FROM CHANSON WHERE album_id = :id";
         $stmt = $this->cnx->prepare($sql);
@@ -42,6 +56,10 @@ class ChansonBD
         return $chansons;
     }
 
+    /**
+     * @param string $titre
+     * @return array
+     */
     public function getChansonByAlbumTitre($titre){
         $sql = "SELECT * FROM CHANSON WHERE album_id = (SELECT id FROM ALBUM WHERE titre = :titre)";
         $stmt = $this->cnx->prepare($sql);
@@ -51,7 +69,10 @@ class ChansonBD
         return $chansons;
     }
 
-
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getChansonById($id){
         $sql = "SELECT * FROM CHANSON WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
@@ -61,6 +82,9 @@ class ChansonBD
         return $chanson;
     }
 
+    /**
+     * @param int $id
+     */
     public function deleteChanson($id){
         $sql = "DELETE FROM CHANSON WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);

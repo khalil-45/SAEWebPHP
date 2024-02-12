@@ -16,15 +16,24 @@ class PlaylistBD
         $this->cnx = $cnx;
     }
 
-    public function insertPlaylist(Playlist $playlist)
-    {
-        $sql = "INSERT INTO PLAYLIST (user_id, titre) VALUES (?, ?)";
-        $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $playlist->getUserId(), PDO::PARAM_INT);
-        $stmt->bindParam(2, $playlist->getTitre(), PDO::PARAM_STR);
-        $stmt->execute();
-    }
+    /**
+     * @param int $user_id
+     * @param string $titre
+     * @return bool
+     */
+    public function insertPlaylist($user_id, $titre)
+{
+    $sql = "INSERT INTO PLAYLIST (user_id, titre) VALUES (:user_id, :titre)";
+    $stmt = $this->cnx->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+    return $stmt->execute();
+}
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getPlaylistById($id)
     {
         $sql = "SELECT * FROM PLAYLIST WHERE id = :id";
@@ -35,6 +44,10 @@ class PlaylistBD
         return $playlist;
     }
 
+    /**
+     * @param int $user_id
+     * @return array
+     */
     public function getPlaylistByUserId($user_id)
     {
         $sql = "SELECT * FROM PLAYLIST WHERE user_id = :user_id";

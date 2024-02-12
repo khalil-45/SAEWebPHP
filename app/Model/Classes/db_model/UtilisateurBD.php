@@ -25,13 +25,17 @@ class UtilisateurBD
     {
         $sql = "INSERT INTO UTILISATEUR (username, password, email) VALUES (:username, :password, :email)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $username, PDO::PARAM_STR);
-        $stmt->bindParam(2, $password, PDO::PARAM_STR);
-        $stmt->bindParam(3, $email, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getUtilisateurById($id)
     {
         $sql = "SELECT * FROM UTILISATEUR WHERE id = :id";
@@ -42,6 +46,10 @@ class UtilisateurBD
         return $utilisateur;
     }
 
+    /**
+     * @param string $username
+     * @return array
+     */
     public function getUtilisateurByUsername($username)
     {
         $sql = "SELECT * FROM UTILISATEUR WHERE username = :username";
@@ -52,6 +60,11 @@ class UtilisateurBD
         return $utilisateur;
     }
 
+    /**
+     * @param string $email
+     * @param string $password
+     * @return array
+     */
     public function getUtilisateurByEmailandPassword($email, $password)
     {
         $sql = "SELECT * FROM UTILISATEUR WHERE email = :email AND password = :password";
@@ -63,6 +76,7 @@ class UtilisateurBD
         return $utilisateur;
     }
 
+    
     public function deleteUtilisateur($id)
     {
         $sql = "DELETE FROM UTILISATEUR WHERE id = :id";

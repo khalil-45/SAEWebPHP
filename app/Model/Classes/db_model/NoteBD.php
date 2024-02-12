@@ -16,16 +16,26 @@ class NoteBD
         $this->cnx = $cnx;
     }
 
-    public function insertNote(Note $note)
+    /**
+     * @param int $album_id
+     * @param int $user_id
+     * @param int $note
+     * @return bool
+     */
+    public function insertNote($album_id, $user_id, $note)
     {
-        $sql = "INSERT INTO NOTE (album_id, user_id, note) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO NOTE (album_id, user_id, note) VALUES (:album_id, :user_id, :note)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $note->getAlbumId(), PDO::PARAM_INT);
-        $stmt->bindParam(2, $note->getUserId(), PDO::PARAM_INT);
-        $stmt->bindParam(3, $note->getNote(), PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->bindParam(':album_id', $album_id, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':note', $note, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
+    /**
+     * @param int $album_id
+     * @return array
+     */
     public function getNoteByAlbumId($album_id)
     {
         $sql = "SELECT * FROM NOTE WHERE album_id = :album_id";
@@ -36,6 +46,10 @@ class NoteBD
         return $note;
     }
 
+    /**
+     * @param int $user_id
+     * @return array
+     */
     public function getNoteByUserId($user_id)
     {
         $sql = "SELECT * FROM NOTE WHERE user_id = :user_id";

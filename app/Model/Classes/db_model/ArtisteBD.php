@@ -16,16 +16,26 @@ class ArtisteBD
         $this->cnx = $cnx;
     }
 
-    public function insertArtiste(Artiste $artiste)
+    /**
+     * @param string $nom
+     * @param string $bio
+     * @param string $photo
+     * @return bool
+     */
+    public function insertArtiste($nom, $bio, $photo)
     {
-        $sql = "INSERT INTO ARTISTE (nom, bio, photo) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO ARTISTE (nom, bio, photo) VALUES (:nom, :bio, :photo)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $artiste->getNom(), PDO::PARAM_STR);
-        $stmt->bindParam(2, $artiste->getBio(), PDO::PARAM_STR);
-        $stmt->bindParam(3, $artiste->getPhoto(), PDO::PARAM_STR);
-        $stmt->execute();
+        $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':bio', $bio, PDO::PARAM_STR);
+        $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getArtisteById($id)
     {
         $sql = "SELECT * FROM ARTISTE WHERE id = :id";
@@ -36,6 +46,9 @@ class ArtisteBD
         return $artiste;
     }
 
+    /**
+     * @return array
+     */
     public function getAllArtistes()
     {
         $sql = "SELECT * FROM ARTISTE";
@@ -44,6 +57,10 @@ class ArtisteBD
         return $artistes;
     }
 
+    /**
+     * @param string $nom
+     * @return array
+     */
     public function getArtisteByNom($nom)
     {
         $sql = "SELECT * FROM ARTISTE WHERE nom = :nom";

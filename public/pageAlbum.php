@@ -1,28 +1,15 @@
-<?php
-require '../app/Autoloader.php';
-Autoloader::register();
-
-use Model\Connection_BD;
-use Model\Classes\db_model\AlbumBD;
-
-$cnx = Connection_BD::getInstance();
-$albumBD = new AlbumBD($cnx);
-
-$album = $albumBD->getAllAlbums();
-
-?>
-
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raspberry Music</title>
     <link rel="stylesheet" href="css/asidemenu.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/popupForm.css">
     <link rel="stylesheet" href="css/cardalbum.css">
+    <link rel="stylesheet" href="css/pageAlbum.css">
+    <title>page Album</title>
 </head>
 
 <body>
@@ -130,30 +117,44 @@ $album = $albumBD->getAllAlbums();
         </div>
     </div>
     <main>
-        <div class="titre">
-            <h2>Écouter</h2>
-        </div>
-        <div class="grid">
-            <?php foreach ($album as $a) : ?>
-                <div class="head">
-                    <i class='fab fa-apple' style='font-size:13.5px;'></i>
-                    <h5 class="top">Music</h5>
-                    <img src="images/img_albums/<?php
-                                                if ($a['pochette'] != null) {
-                                                    echo urlencode(trim($a['pochette']));
-                                                } else {
-                                                    echo "default.jpg";
-                                                }
-                                                ?>" alt="pochette de l'album">
-                    <div class="line"></div>
-                    <div class="bottom"><?php echo $a['titre']; ?></div>
+        <section class="info-album">
+            <div class="album-cover">
+                <img src="images/img_albums/220px-Folklore_hp.jpg" alt="album cover">
+            </div>
+            <div class="album-info">
+                <h2>Titre de l'album</h2>
+                <p>Artiste</p>
+                <div class="date-genre">
+                    <p>Genre</p>
+                    <p>Année de sortie</p>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <div class="buttons">
+                    <button class="play-button">
+                        <img src="images/bouton-jouer.png" alt="play button">
+                        <p>Lecture</p>
+                    </button>
+                    <button class="add-button">
+                        <img src="images/ajouter.png" alt="add button">
+                        <p>Ajouter à la playlist</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="titres">
+            <ul>
+                <button>
+                    <li><img src="images/bouton-jouer-petit.png" alt="bouton play">Titre 1</li>
+                </button>
+                <button>
+                    <li><img src="images/bouton-jouer-petit.png" alt="bouton play">Titre 2</li>
+                </button>
+            </ul>
+        </section>
     </main>
 </body>
-<script src="js/popup_connexion.js">
-</script>
+
+<script src="js/popup_connexion.js"></script>
 <script>
     var menuButton = document.querySelector('.menu-button');
     var aside = document.querySelector('aside');
@@ -163,5 +164,4 @@ $album = $albumBD->getAllAlbums();
         menuButton.classList.toggle('rotate');
     });
 </script>
-
 </html>

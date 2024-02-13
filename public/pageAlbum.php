@@ -1,5 +1,27 @@
+<?php
+require '../app/Autoloader.php';
+Autoloader::register();
+
+use Model\Connection_BD;
+use Model\Classes\db_model\AlbumBD;
+use Model\Classes\db_model\ChansonBD;
+use Model\Classes\db_model\ArtisteBD;
+
+$cnx = Connection_BD::getInstance();
+$chansonBD = new ChansonBD($cnx);
+$albumBD = new AlbumBD($cnx);
+$artisteBD = new ArtisteBD($cnx);
+
+$chansons = $chansonBD->getChansonsByAlbumId($_GET['id_album']);
+
+$album = $albumBD->getAlbumById($_GET['id_album']);
+
+$artiste = $artisteBD->getArtisteById($album['artiste_id']);
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -119,14 +141,20 @@
     <main>
         <section class="info-album">
             <div class="album-cover">
-                <img src="images/img_albums/220px-Folklore_hp.jpg" alt="album cover">
+                <img src="images/img_albums/<?php
+                if ($album['pochette'] != null) {
+                    echo urlencode(trim($album['pochette']));
+                } else {
+                    echo "default.jpg";
+                }
+                ?>" alt="pochette de l'album">
             </div>
             <div class="album-info">
-                <h2>Titre de l'album</h2>
-                <p>Artiste</p>
+                <h2><?php echo $album['titre']?></h2>
+                <p><?php echo $artiste['nom']?></p>
                 <div class="date-genre">
-                    <p>Genre</p>
-                    <p>Année de sortie</p>
+                    <p><?php echo $album['genre']?></p>
+                    <p><?php echo $album['annee']?></p>
                 </div>
                 <div class="buttons">
                     <button class="play-button">
@@ -143,12 +171,11 @@
 
         <section class="titres">
             <ul>
-                <button>
-                    <li><img src="images/bouton-jouer-petit.png" alt="bouton play">Titre 1</li>
-                </button>
-                <button>
-                    <li><img src="images/bouton-jouer-petit.png" alt="bouton play">Titre 2</li>
-                </button>
+                <?php foreach ($chansons as $chanson) : ?>
+                    <button>
+                        <li><p><?php echo $chanson['chanson_id'] ?></p><img src="images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson['titre'] ?></li>
+                    </button>
+                <?php endforeach; ?>
             </ul>
         </section>
     </main>
@@ -164,4 +191,5 @@
         menuButton.classList.toggle('rotate');
     });
 </script>
+
 </html>

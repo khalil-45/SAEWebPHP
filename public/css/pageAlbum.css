@@ -127,6 +127,11 @@
     margin-left: 10px;
 }
 
+.titres ul li img:hover{
+    cursor: pointer;
+    color: #fe0a69;
+}
+
 .titres ul button{
     background-color: #202020;
     color: #fff;
@@ -139,4 +144,9 @@
 
 .titres ul button:hover{
     background-color: #424242;
+}
+
+.titres ul li p{
+    color:#6d6d6d;
+    font-weight: bold;
 }

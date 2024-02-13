@@ -46,7 +46,7 @@ aside {
     }
 
     .menu-button {
-        display: block;
+        display: block !important;
         background: transparent;
         z-index: 1;
     }
@@ -62,7 +62,7 @@ aside {
     cursor: pointer;
     position: fixed;
     z-index: 2;
-    display: block;
+    display: none;
 }
 
 

@@ -45,7 +45,7 @@ CREATE TABLE ALBUM_GENRE (
 -- Création de la table UTILISATEUR
 CREATE TABLE UTILISATEUR (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username VARCHAR(500),
+    username VARCHAR(500) UNIQUE,
     password VARCHAR(500),
     email VARCHAR(500)
 );
@@ -58,6 +58,7 @@ CREATE TABLE PLAYLIST (
     FOREIGN KEY (user_id) REFERENCES UTILISATEUR(user_id)
 );
 
+
 -- Création de la table CHANSON
 
 CREATE TABLE CHANSON (
@@ -66,6 +67,15 @@ CREATE TABLE CHANSON (
     duree INT,
     album_id INT,
     FOREIGN KEY (album_id) REFERENCES ALBUM(album_id)
+);
+
+-- Création de la table CHANSON_PLAYLIST (liaison entre CHANSON et PLAYLIST)
+CREATE TABLE CHANSON_PLAYLIST (
+    chanson_id INT,
+    playlist_id INT,
+    PRIMARY KEY (chanson_id, playlist_id),
+    FOREIGN KEY (chanson_id) REFERENCES CHANSON(chanson_id),
+    FOREIGN KEY (playlist_id) REFERENCES PLAYLIST(playlist_id)
 );
 
 -- Création de la table IMAGE_ARTISTE

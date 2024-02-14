@@ -3,7 +3,7 @@
 namespace Model\Classes\db_model;
 require_once __DIR__ . '/../../Connection_BD.php';
 
-use Classes\Album;
+use Model\Classes\Album;
 use PDO;
 
 class AlbumBD
@@ -53,7 +53,7 @@ class AlbumBD
         return $album;
     }
 
-    /**
+        /**
      * @param int $id
      * @return array
      */
@@ -61,9 +61,13 @@ class AlbumBD
     {
         $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $albums = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+            $albums[] = $album;
+        }
         return $albums;
     }
 
@@ -75,9 +79,13 @@ class AlbumBD
     {
         $sql = "SELECT * FROM ALBUM WHERE genre = :genre";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $genre, PDO::PARAM_STR);
+        $stmt->bindParam(':genre', $genre, PDO::PARAM_STR);
         $stmt->execute();
-        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $albums = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+            $albums[] = $album;
+        }
         return $albums;
     }
 
@@ -89,9 +97,13 @@ class AlbumBD
     {
         $sql = "SELECT * FROM ALBUM WHERE annee = :annee";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $annee, PDO::PARAM_INT);
+        $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
         $stmt->execute();
-        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $albums = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+            $albums[] = $album;
+        }
         return $albums;
     }
 
@@ -104,10 +116,14 @@ class AlbumBD
     {
         $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id AND genre = :genre";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
-        $stmt->bindParam(2, $genre, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':genre', $genre, PDO::PARAM_STR);
         $stmt->execute();
-        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $albums = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+            $albums[] = $album;
+        }
         return $albums;
     }
 
@@ -118,7 +134,7 @@ class AlbumBD
     {
         $sql = "DELETE FROM ALBUM WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
 
@@ -130,12 +146,30 @@ class AlbumBD
     {
         $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id AND annee = :annee";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
-        $stmt->bindParam(2, $annee, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
         $stmt->execute();
-        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $albums = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+            $albums[] = $album;
+        }
         return $albums;
     }
+
+    public function updateAlbum($id, $titre, $annee, $genre, $pochette, $artiste_id)
+    {
+        $sql = "UPDATE ALBUM SET titre = :titre, annee = :annee, genre = :genre, pochette = :pochette, artiste_id = :artiste_id WHERE album_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
+        $stmt->bindParam(':genre', $genre, PDO::PARAM_STR);
+        $stmt->bindParam(':pochette', $pochette, PDO::PARAM_STR);
+        $stmt->bindParam(':artiste_id', $artiste_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
 }
 
 ?>

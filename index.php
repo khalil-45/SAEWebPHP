@@ -21,7 +21,7 @@ ob_start();
 // Exécuter l'action
 switch ($action) {
     case 'index':
-        include 'public/accueil.php';
+        include 'templates/accueil.php';
         break;
     
     case 'album':
@@ -30,7 +30,7 @@ switch ($action) {
         $album = $albumBD->getAlbumById($_GET['id_album']);
 
         $artiste = $artisteBD->getArtisteById($album['artiste_id']);
-        include 'public/pageAlbum.php';
+        include 'templates/pageAlbum.php';
         break;
     // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
     default:

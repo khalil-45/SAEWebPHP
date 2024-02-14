@@ -120,21 +120,23 @@
             <h2>Écouter</h2>
         </div>
         <div class="grid">
-            <?php foreach ($album as $a) : ?>
-                <div class="head">
-                    <i class='fab fa-apple' style='font-size:13.5px;'></i>
-                    <h5 class="top">Music</h5>
-                    <img src="../static/images/img_albums/<?php
-                                                if ($a['pochette'] != null) {
-                                                    echo urlencode(trim($a['pochette']));
-                                                } else {
-                                                    echo "default.jpg";
-                                                }
-                                                ?>" alt="pochette de l'album">
-                    <div class="line"></div>
-                    <div class="bottom"><?php echo $a['titre']; ?></div>
-                </div>
-            <?php endforeach; ?>
+        <?php foreach ($album as $a) : ?>
+    <a href="index.php?action=album&id_album=<?php echo $a['album_id']; ?>">
+        <div class="head">
+            <i class='fab fa-apple' style='font-size:13.5px;'></i>
+            <h5 class="top">Music</h5>
+            <img src="../static/images/img_albums/<?php
+                if ($a['pochette'] != null) {
+                    echo urlencode(trim($a['pochette']));
+                } else {
+                    echo "default.jpg";
+                }
+                ?>" alt="pochette de l'album">
+            <div class="line"></div>
+            <div class="bottom"><?php echo $a['titre']; ?></div>
+        </div>
+    </a>
+<?php endforeach; ?>
         </div>
     </main>
 </body>

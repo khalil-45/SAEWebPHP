@@ -3,8 +3,9 @@
 namespace Model\Classes\db_model;
 
 require_once __DIR__ . '/../../Connection_BD.php';
+require_once __DIR__ . '/../../Classes/Artiste.php'; // Ajout de l'inclusion de la classe Artiste
 
-use Classes\Artiste;
+use Model\Classes\Artiste; // Ajout de l'inclusion de la classe Artiste
 use PDO;
 
 class ArtisteBD
@@ -34,16 +35,19 @@ class ArtisteBD
 
     /**
      * @param int $id
-     * @return array
+     * @return Artiste|null
      */
     public function getArtisteById($id)
     {
         $sql = "SELECT * FROM ARTISTE WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        $artiste = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $artiste;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new Artiste($row['artiste_id'], $row['nom'], $row['bio'], $row['photo']);
+        }
+        return null;
     }
 
     /**
@@ -53,31 +57,42 @@ class ArtisteBD
     {
         $sql = "SELECT * FROM ARTISTE";
         $stmt = $this->cnx->query($sql);
-        $artistes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $artistes = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $artiste = new Artiste($row['artiste_id'], $row['nom'], $row['bio'], $row['photo']);
+            $artistes[] = $artiste;
+        }
         return $artistes;
     }
 
     /**
      * @param string $nom
-     * @return array
+     * @return Artiste|null
      */
     public function getArtisteByNom($nom)
     {
         $sql = "SELECT * FROM ARTISTE WHERE nom = :nom";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
         $stmt->execute();
-        $artiste = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $artiste;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new Artiste($row['artiste_id'], $row['nom'], $row['bio'], $row['photo']);
+        }
+        return null;
     }
 
+    /**
+     * @param int $id
+     */
     public function deleteArtiste($id)
     {
-        $sql = "DELETE FROM ARTISTE WHERE id = :id";
+        $sql = "DELETE FROM ARTISTE WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
+
 
 }
 

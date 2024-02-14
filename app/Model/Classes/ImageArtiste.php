@@ -3,19 +3,19 @@
 namespace Model\Classes;
 
 class ImageArtiste {
-    private $id_image;
+    private $image_id;
     private $nom_image;
     private $artiste_id;
 
 
-    public function __construct($id_image, $nom_image, $artiste_id) {
-        $this->id_image = $id_image;
+    public function __construct($image_id, $nom_image, $artiste_id) {
+        $this->image_id = $image_id;
         $this->nom_image = $nom_image;
         $this->artiste_id = $artiste_id;
     }
 
     public function getIdImage() {
-        return $this->id_image;
+        return $this->image_id;
     }
 
     public function getNomImage() {
@@ -26,8 +26,8 @@ class ImageArtiste {
         return $this->artiste_id;
     }
 
-    public function setIdImage($id_image) {
-        $this->id_image = $id_image;
+    public function setIdImage($image_id) {
+        $this->image_id = $image_id;
     }
 
     public function setNomImage($nom_image) {
@@ -40,7 +40,7 @@ class ImageArtiste {
 
     public function toArray() {
         return [
-            "id_image" => $this->id_image,
+            "image_id" => $this->image_id,
             "nom_image" => $this->nom_image,
             "artiste_id" => $this->artiste_id
         ];

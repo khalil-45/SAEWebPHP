@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Création d'un nouvel utilisateur
             $user->insertUtilisateur($username, $password, $email);
             $newUser = $user->getUtilisateurByUsername($username);
-            $_SESSION['username'] = $newUser['username'];
+            $_SESSION['username'] = $newUser->getUsername();
             echo "Utilisateur créé";
             header("Location: /");
             exit();

@@ -17,6 +17,9 @@ if (isset($_GET['admin'])) {
 } else {
     $action = NAN;
 }
+
+$artistes = $artisteBD->getAllArtistes();
+$genres = $genreBD->getAllGenres();
 ?>
 
 <!DOCTYPE html>
@@ -42,11 +45,15 @@ if (isset($_GET['admin'])) {
         <div class="content">
             <?php
             if ($action == 'admin_ajout_album') {
-                render_ajout_album();
+                render_ajout_album($albumBD, $artistes, $genreBD);
             } else if ($action == 'admin_editer_album') {
                 $album = $albumBD->getAlbumById($_GET['id_album']);
                 render_editer_album($album);
-            } else {
+            } else if ($action == 'admin_supprimer_album') {
+                $albumBD->deleteAlbumById($_GET['id_album']);
+                header('Location: ?action=admin_albums');
+            }
+            else {
                 render_albums_admin($album);
             }
             ?>

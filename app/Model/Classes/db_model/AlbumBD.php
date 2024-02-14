@@ -116,7 +116,7 @@ class AlbumBD
      */
     public function deleteAlbumById($id)
     {
-        $sql = "DELETE FROM ALBUM WHERE id = :id";
+        $sql = "DELETE FROM ALBUM WHERE album_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

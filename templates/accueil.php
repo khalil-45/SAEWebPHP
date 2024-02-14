@@ -50,6 +50,9 @@
                 <a href="#">
                     <li><img src="../static/images/parametres.png" alt="icone paramètres">Paramètres</li>
                 </a>
+                <a href="?action=admin">
+                    <li><img src="../static/images/parametres.png" alt="icone déconnexion">Admin</li>
+                </a>
             </ul>
         </nav>
         <?php

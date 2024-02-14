@@ -1,17 +1,3 @@
-<?php
-require '../app/Autoloader.php';
-Autoloader::register();
-
-use Model\Connection_BD;
-use Model\Classes\db_model\AlbumBD;
-
-$cnx = Connection_BD::getInstance();
-$albumBD = new AlbumBD($cnx);
-
-$album = $albumBD->getAllAlbums();
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -19,48 +5,55 @@ $album = $albumBD->getAllAlbums();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raspberry Music</title>
-    <link rel="stylesheet" href="css/asidemenu.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/popupForm.css">
-    <link rel="stylesheet" href="css/cardalbum.css">
+    <link rel="stylesheet" href="../static/css/asidemenu.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/popupForm.css">
+    <link rel="stylesheet" href="../static/css/cardalbum.css">
 </head>
 
 <body>
     <div class="overlay"></div>
+    <button class="menu-button">
+        <div class="toggle">
+            <div class="bars" id="bar1"></div>
+            <div class="bars" id="bar2"></div>
+            <div class="bars" id="bar3"></div>
+        </div>
+    </button>
     <aside>
         <div class="titre-logo">
-            <img src="images/logoRaspberry.jpeg" alt="logo">
+            <img src="../static/images/logoRaspberry.jpeg" alt="logo">
             <h1>Raspberry Music</h1>
         </div>
         <div class="recherche">
             <form action="" method="post">
                 <input type="text" name="recherche" id="recherche" placeholder="Rechercher">
                 <button type="submit">
-                    <img src="images/loupe.png" alt="bouton recherche">
+                    <img src="../static/images/loupe.png" alt="bouton recherche">
                 </button>
             </form>
         </div>
         <nav>
             <ul>
                 <a href="#">
-                    <li><img src="images/play.png" alt="icone jouer">Écouter</li>
+                    <li><img src="../static/images/play.png" alt="icone jouer">Écouter</li>
                 </a>
                 <a href="#">
-                    <li><img src="images/decouvrir.png" alt="icone decouvrir">Découvrir</li>
+                    <li><img src="../static/images/decouvrir.png" alt="icone decouvrir">Découvrir</li>
                 </a>
                 <a href="#">
-                    <li><img src="images/bibliotheque.png" alt="icone bibliothèque">Ma Bibliothèque</li>
+                    <li><img src="../static/images/bibliotheque.png" alt="icone bibliothèque">Ma Bibliothèque</li>
                 </a>
                 <a href="#">
-                    <li><img src="images/playlist.png" alt="icone playlists">Mes Playlists</li>
+                    <li><img src="../static/images/playlist.png" alt="icone playlists">Mes Playlists</li>
                 </a>
                 <a href="#">
-                    <li><img src="images/parametres.png" alt="icone paramètres">Paramètres</li>
+                    <li><img src="../static/images/parametres.png" alt="icone paramètres">Paramètres</li>
                 </a>
             </ul>
         </nav>
         <div class="profil">
-            <button class="connexion-inscription" onclick="openFormLogIn()"><img src="images/pdpBase.png" alt="profil"></button>
+            <button class="connexion-inscription" onclick="openFormLogIn()"><img src="../static/images/pdpBase.png" alt="profil"></button>
             <button class="connexion-inscription" onclick="openFormLogIn()">
                 <p>Se connecter</p>
             </button>
@@ -127,24 +120,36 @@ $album = $albumBD->getAllAlbums();
             <h2>Écouter</h2>
         </div>
         <div class="grid">
-            <?php foreach ($album as $a) : ?>
-                <div class="head">
-                    <i class='fab fa-apple' style='font-size:13.5px;'></i>
-                    <h5 class="top">Music</h5>
-                    <img src="images/img_albums/<?php
-                        if ($a['pochette'] != null) {
-                            echo urlencode(trim($a['pochette']));
-                        } else {
-                            echo "default.jpg";
-                        }
-                        ?>" alt="pochette de l'album">
-                    <div class="line"></div>
-                    <div class="bottom"><?php echo $a['titre']; ?></div>
-                </div>
-            <?php endforeach; ?>
+        <?php foreach ($album as $a) : ?>
+    <a href="index.php?action=album&id_album=<?php echo $a['album_id']; ?>">
+        <div class="head">
+            <i class='fab fa-apple' style='font-size:13.5px;'></i>
+            <h5 class="top">Music</h5>
+            <img src="../static/images/img_albums/<?php
+                if ($a['pochette'] != null) {
+                    echo urlencode(trim($a['pochette']));
+                } else {
+                    echo "default.jpg";
+                }
+                ?>" alt="pochette de l'album">
+            <div class="line"></div>
+            <div class="bottom"><?php echo $a['titre']; ?></div>
+        </div>
+    </a>
+<?php endforeach; ?>
         </div>
     </main>
 </body>
-<script src="js/popup_connexion.js"></script>
+<script src="../static/js/popup_connexion.js">
+</script>
+<script>
+    var menuButton = document.querySelector('.menu-button');
+    var aside = document.querySelector('aside');
+
+    menuButton.addEventListener('click', function() {
+        aside.classList.toggle('open');
+        menuButton.classList.toggle('rotate');
+    });
+</script>
 
 </html>

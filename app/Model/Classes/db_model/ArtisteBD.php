@@ -2,9 +2,9 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
+require_once __DIR__ . '/../../Connection_BD.php';
 
-use Model\Classes\Artiste;
+use Classes\Artiste;
 use PDO;
 
 class ArtisteBD
@@ -28,7 +28,7 @@ class ArtisteBD
 
     public function getArtisteById($id)
     {
-        $sql = "SELECT * FROM ARTISTE WHERE id = ?";
+        $sql = "SELECT * FROM ARTISTE WHERE artiste_id = ?";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

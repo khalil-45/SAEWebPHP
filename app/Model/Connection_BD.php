@@ -1,14 +1,13 @@
 <?php
 
-namespace BD;
-
+namespace Model;
 class Connection_BD {
     private static $instance;
 
     private function __construct() {
         // Connexion à la base de données SQLite
         try {
-            self::$instance = new \PDO("sqlite:" . __DIR__ . DIRECTORY_SEPARATOR . "../../" . DIRECTORY_SEPARATOR . "php_music_db");
+            self::$instance = new \PDO("sqlite:" . __DIR__ . DIRECTORY_SEPARATOR . "../../" . DIRECTORY_SEPARATOR . "php_music.db");
 
         } catch (\PDOException $e) {
             throw new \Exception("Erreur de connexion à la base de données : " . $e->getMessage());

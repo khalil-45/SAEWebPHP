@@ -17,6 +17,7 @@ class Artiste {
         $this->images = $images;
     }
 
+    // getters
     public function getArtisteId() {
         return $this->artiste_id;
     }
@@ -37,6 +38,7 @@ class Artiste {
         return $this->images;
     }
 
+    // setters
     public function setArtisteId($artiste_id) {
         $this->artiste_id = $artiste_id;
     }

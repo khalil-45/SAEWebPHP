@@ -13,6 +13,7 @@ class AlbumGenre {
         $this->id_genre = $id_genre;
     }
 
+    // getters
     public function getAlbumId() {
         return $this->album_id;
     }
@@ -21,6 +22,7 @@ class AlbumGenre {
         return $this->id_genre;
     }
 
+    // setters
     public function setAlbumId($album_id) {
         $this->album_id = $album_id;
     }

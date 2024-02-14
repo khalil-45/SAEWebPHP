@@ -1,0 +1,226 @@
+*{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100%;
+}
+
+/* MENU ASIDE */
+
+aside {
+    background-color: #202020;
+    width: 20%; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1; 
+}
+
+/* Styles pour les écrans de petite taille */
+@media (max-width: 768px) {
+    aside {
+        width: 100%;
+        position: absolute;
+        top: 10;
+        left: -100%;
+        height: 100%;
+        transition: left 0.3s ease;
+    }
+
+    /* Lorsque le menu est ouvert, nous changeons la position gauche à 0 */
+    aside.open {
+        left: 0;
+    }
+
+    /* Nous modifions également le style des liens pour qu'ils s'affichent verticalement */
+    aside nav ul li {
+        display: block;
+    }
+
+    .menu-button {
+        display: block !important;
+        background: transparent;
+        z-index: 1;
+    }
+
+    .titre{
+        margin-top: 80px;
+    }
+}
+
+.menu-button {
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    position: fixed;
+    z-index: 2;
+    display: none;
+}
+
+
+.toggle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition-duration: .5s;
+  }
+  
+  .bars {
+    width: 100%;
+    height: 4px;
+    background-color: rgb(176, 92, 255);
+    border-radius: 4px;
+  }
+  
+  #bar2 {
+    transition-duration: .8s;
+  }
+  
+  #bar1,#bar3 {
+    width: 70%;
+  }
+
+  .menu-button.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.5s ease-in-out;
+}
+
+aside ul{
+    list-style: none;
+    padding: 0;
+}
+
+aside ul a li{
+    color: #fff;
+    padding: 0.7rem;
+    background-color: #202020;
+    margin-bottom: 0.9rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+aside ul a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+aside ul a li:hover{
+    background-color: #282828;
+}
+
+aside ul img{
+    margin-right: 0.7rem;
+}
+
+/* TITRE ET LOGO */
+
+.titre-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+}
+
+.titre-logo img{
+    width : 50px;
+    border-radius: 5em;
+    margin: 5px;
+}
+
+.titre-logo h1{
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+/* RECHERCHE */
+
+/* RECHERCHE */
+
+.recherche {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2d2d2d;
+    margin-bottom: 2em;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: #ccc 1px solid;
+}
+
+.recherche button{
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    outline: none;
+    height: 100%;
+}
+
+.recherche input{
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0.5rem;
+    outline: none;
+}
+
+/* PROFIL */
+
+.profil {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #ccc;
+    margin-top:auto;
+}
+
+.profil img{
+    width: 50px;
+    border-radius: 5em;
+    margin: 10px;
+}
+
+.profil p{
+    color: #fff;
+    margin-left: 15px;
+}
+
+.profil button{
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.profil p:hover{
+    color: #fe0a69;
+}
+
+.musiques {
+    width: 100%; /* ou la largeur que vous voulez */
+    height: 90vh; /* ou la hauteur que vous voulez */
+    overflow-y: auto;
+    padding: 10px;
+}

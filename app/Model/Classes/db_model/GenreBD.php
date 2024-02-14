@@ -16,17 +16,26 @@ class GenreBD
         $this->cnx = $cnx;
     }
 
-    public function insertGenre(Genre $genre)
+    /**
+     * @param string $nom_genre
+     * @return bool
+     */
+    public function insertGenre($nom_genre)
     {
-        $sql = "INSERT INTO GENRE (nom_genre) VALUES (?)";
+        $sql = "INSERT INTO GENRE (nom_genre) VALUES (:nom_genre)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $genre->getNomGenre(), PDO::PARAM_STR);
+        $stmt->bindParam(':nom_genre', $nom_genre, PDO::PARAM_STR);
         $stmt->execute();
+        return $stmt->execute();
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getGenreById($id)
     {
-        $sql = "SELECT * FROM GENRE WHERE id = ?";
+        $sql = "SELECT * FROM GENRE WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -34,6 +43,9 @@ class GenreBD
         return $genre;
     }
 
+    /**
+     * @return array
+     */
     public function getAllGenres()
     {
         $sql = "SELECT * FROM GENRE";
@@ -42,9 +54,13 @@ class GenreBD
         return $genres;
     }
 
+    /**
+     * @param string $nom_genre
+     * @return array
+     */
     public function getGenreByNom($nom_genre)
     {
-        $sql = "SELECT * FROM GENRE WHERE nom_genre = ?";
+        $sql = "SELECT * FROM GENRE WHERE nom_genre = :nom_genre";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $nom_genre, PDO::PARAM_STR);
         $stmt->execute();
@@ -52,9 +68,13 @@ class GenreBD
         return $genre;
     }
 
+    /**
+     * @param int $album_id
+     * @return array
+     */
     public function getGenresByAlbum($album_id)
     {
-        $sql = "SELECT * FROM ALBUM_GENRE WHERE album_id = ?";
+        $sql = "SELECT * FROM ALBUM_GENRE WHERE album_id = :album_id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $album_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -62,9 +82,12 @@ class GenreBD
         return $genres;
     }
 
+    /**
+     * @param int $id
+     */
     public function deleteGenre($id)
     {
-        $sql = "DELETE FROM GENRE WHERE id = ?";
+        $sql = "DELETE FROM GENRE WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

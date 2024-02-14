@@ -12,7 +12,8 @@ class Album {
     private $pochette;
     private $artiste_id;
     private $chansons;
-
+    
+    
     public function __construct($album_id, $titre, $annee, $genre, $pochette, $artiste_id, $chansons) {
         $this->album_id = $album_id;
         $this->titre = $titre;
@@ -23,6 +24,7 @@ class Album {
         $this->chansons = $chansons;
     }
 
+    // getters
     public function getAlbumId() {
         return $this->album_id;
     }
@@ -51,6 +53,7 @@ class Album {
         return $this->chansons;
     }
 
+    // setters
     public function setAlbumId($album_id) {
         $this->album_id = $album_id;
     }
@@ -70,6 +73,7 @@ class Album {
     public function setPochette($pochette) {
         $this->pochette = $pochette;
     }
+
 
     public function toArray() {
         return array(

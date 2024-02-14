@@ -1,34 +1,23 @@
 <?php
-
-namespace app;
-
+/**
+ * Class Autoloader
+ */
 class Autoloader{
+
     /**
      * Enregistre notre autoloader
      */
-    public static function register(){
+    static function register(){
         spl_autoload_register(array(__CLASS__, 'autoload'));
     }
 
-    public static function autoload($className){
-        // Vérifie si la classe commence par "app"
-        $namespace = 'app\\';
-        $namespaceLength = strlen($namespace);
-        if (strncmp($namespace, $className, $namespaceLength) !== 0) { // Comparaison binaire des $namespaceLength premiers caractères de $className et $namespace
-            return;
-        }
-
-        // Remplace le namespace par le chemin vers le dossier
-        $filePath = __DIR__ . '/' . str_replace('\\', '/', substr($className, $namespaceLength)) . '.php';
-
-        // Vérifie si le fichier existe
-        if (file_exists($filePath)) {
-            require_once $filePath;
-        }
-        
+    /**
+     * Inclue le fichier correspondant à notre classe
+     * @param $class string Le nom de la classe à charger
+     */
+    static function autoload($fqcn){
+        $path = str_replace('\\', '/', $fqcn);
+        require '' . $path . '.php';
     }
 
-    
 }
-
-Autoloader::register(); // Enregistre l'autoload

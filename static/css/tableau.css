@@ -1,0 +1,49 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 0;
+    border: 1px solid #fe0a69;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #fe0a69;
+}
+
+
+.actions  a{
+    margin: 1rem;
+}
+
+table a {
+    color: #fff;
+    text-decoration: none;
+}
+
+table img {
+    width: 60px;
+    height: auto;
+    cursor: pointer;
+}
+
+.titre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.titre img {
+    margin: 1rem;
+}
+
+
+
+
+

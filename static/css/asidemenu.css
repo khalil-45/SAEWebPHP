@@ -150,8 +150,6 @@ aside ul img{
 
 /* RECHERCHE */
 
-/* RECHERCHE */
-
 .recherche {
     display: flex;
     flex-direction: column;
@@ -218,9 +216,23 @@ aside ul img{
     color: #fe0a69;
 }
 
-.musiques {
-    width: 100%; /* ou la largeur que vous voulez */
-    height: 90vh; /* ou la hauteur que vous voulez */
-    overflow-y: auto;
-    padding: 10px;
+.username {
+    font-size: 18px;
+    color: #333;
+}
+
+.logout-link {
+    color: #fff;
+    display: inline-block;
+    margin : 0.5rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    background-color: #fe0a69;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-left: 5rem;
+}
+
+.logout-link:hover {
+    background-color: #ff4d9e;
 }

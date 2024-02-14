@@ -82,7 +82,9 @@ class GenreBD
         return $genres;
     }
 
-
+    /**
+     * @param int $id
+     */
     public function deleteGenre($id)
     {
         $sql = "DELETE FROM GENRE WHERE id = :id";

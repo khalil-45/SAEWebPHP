@@ -15,19 +15,23 @@ class AlbumBD
         $this->cnx = $cnx;
     }
 
-    public function insertAlbum(Album $album)
+    
+    public function insertAlbum($titre, $annee, $genre, $pochette, $artiste_id)
     {
-        $sql = "INSERT INTO ALBUM (titre, annee, genre, pochette, artiste_id) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO ALBUM (titre, annee, genre, pochette, artiste_id) VALUES (:titre, :annee, :genre, :pochette, :artiste_id)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $album->getTitre(), PDO::PARAM_STR);
-        $stmt->bindParam(2, $album->getAnnee(), PDO::PARAM_INT);
-        $stmt->bindParam(3, $album->getGenre(), PDO::PARAM_STR);
-        $stmt->bindParam(4, $album->getPochette(), PDO::PARAM_STR);
-        $stmt->bindParam(5, $album->getArtisteId(), PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
+        $stmt->bindParam(':genre', $genre, PDO::PARAM_STR);
+        $stmt->bindParam(':pochette', $pochette, PDO::PARAM_STR);
+        $stmt->bindParam(':artiste_id', $artiste_id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
 
+    /**
+     * @return array
+     */
     public function getAllAlbums()
     {
         $sql = "SELECT * FROM ALBUM";
@@ -36,9 +40,13 @@ class AlbumBD
         return $albums;
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getAlbumById($id)
     {
-        $sql = "SELECT * FROM ALBUM WHERE album_id = ?";
+        $sql = "SELECT * FROM ALBUM WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -46,9 +54,13 @@ class AlbumBD
         return $album;
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getAlbumsByArtisteId($id)
     {
-        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ?";
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -56,9 +68,13 @@ class AlbumBD
         return $albums;
     }
 
+    /**
+     * @param string $genre
+     * @return array
+     */
     public function getAlbumsByGenre($genre)
     {
-        $sql = "SELECT * FROM ALBUM WHERE genre = ?";
+        $sql = "SELECT * FROM ALBUM WHERE genre = :genre";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $genre, PDO::PARAM_STR);
         $stmt->execute();
@@ -66,9 +82,13 @@ class AlbumBD
         return $albums;
     }
 
+    /**
+     * @param int $annee
+     * @return array
+     */
     public function getAlbumsByAnnee($annee)
     {
-        $sql = "SELECT * FROM ALBUM WHERE annee = ?";
+        $sql = "SELECT * FROM ALBUM WHERE annee = :annee";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $annee, PDO::PARAM_INT);
         $stmt->execute();
@@ -76,9 +96,14 @@ class AlbumBD
         return $albums;
     }
 
+    /**
+     * @param int $id
+     * @param string genre
+     * @return array
+     */
     public function getAlbumsByArtisteIdAndGenre($id, $genre)
     {
-        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ? AND genre = ?";
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id AND genre = :genre";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->bindParam(2, $genre, PDO::PARAM_STR);
@@ -87,18 +112,24 @@ class AlbumBD
         return $albums;
     }
 
+    /**
+     * @param int $id
+     */
     public function deleteAlbumById($id)
     {
-        $sql = "DELETE FROM ALBUM WHERE id = ?";
+        $sql = "DELETE FROM ALBUM WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
     }
 
-    
+    /**
+     * @param int $id
+     * @param int $annee
+     */
     public function getAlbumsByArtisteIdAndAnnee($id, $annee)
     {
-        $sql = "SELECT * FROM ALBUM WHERE artiste_id = ? AND annee = ?";
+        $sql = "SELECT * FROM ALBUM WHERE artiste_id = :id AND annee = :annee";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->bindParam(2, $annee, PDO::PARAM_INT);

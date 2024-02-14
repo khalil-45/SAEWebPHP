@@ -17,6 +17,7 @@ class Note {
         $this->note = $note;
     }
 
+    // getters
     public function getNoteId() {
         return $this->note_id;
     }
@@ -33,6 +34,7 @@ class Note {
         return $this->note;
     }
 
+    // setters
     public function setNoteId($note_id) {
         $this->note_id = $note_id;
     }

@@ -2,9 +2,8 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
+require_once __DIR__ . '/../../Connection_BD.php';
 
-use Model\Classes\Utilisateur;
 use PDO;
 
 class UtilisateurBD
@@ -16,19 +15,30 @@ class UtilisateurBD
         $this->cnx = $cnx;
     }
 
-    public function insertUtilisateur(Utilisateur $utilisateur)
+    /**
+     * @param $username
+     * @param $password
+     * @param $email
+     * @return bool
+     */
+    public function insertUtilisateur($username, $password, $email)
     {
-        $sql = "INSERT INTO UTILISATEUR (username, password, email) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO UTILISATEUR (username, password, email) VALUES (:username, :password, :email)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $utilisateur->getUsername(), PDO::PARAM_STR);
-        $stmt->bindParam(2, $utilisateur->getPassword(), PDO::PARAM_STR);
-        $stmt->bindParam(3, $utilisateur->getEmail(), PDO::PARAM_STR);
-        $stmt->execute();
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 
+
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getUtilisateurById($id)
     {
-        $sql = "SELECT * FROM UTILISATEUR WHERE id = ?";
+        $sql = "SELECT * FROM UTILISATEUR WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -36,9 +46,13 @@ class UtilisateurBD
         return $utilisateur;
     }
 
+    /**
+     * @param string $username
+     * @return array
+     */
     public function getUtilisateurByUsername($username)
     {
-        $sql = "SELECT * FROM UTILISATEUR WHERE username = ?";
+        $sql = "SELECT * FROM UTILISATEUR WHERE username = :username";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $username, PDO::PARAM_STR);
         $stmt->execute();
@@ -46,12 +60,39 @@ class UtilisateurBD
         return $utilisateur;
     }
 
+    /**
+     * @param string $email
+     * @param string $password
+     * @return array
+     */
+    public function getUtilisateurByEmailandPassword($email, $password)
+    {
+        $sql = "SELECT * FROM UTILISATEUR WHERE email = :email AND password = :password";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $email, PDO::PARAM_STR);
+        $stmt->bindParam(2, $password, PDO::PARAM_STR);
+        $stmt->execute();
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $utilisateur;
+    }
+
+    
     public function deleteUtilisateur($id)
     {
-        $sql = "DELETE FROM UTILISATEUR WHERE id = ?";
+        $sql = "DELETE FROM UTILISATEUR WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    public function isEmailTaken($email)
+    {
+        $sql = "SELECT * FROM UTILISATEUR WHERE email = :email";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $utilisateur;
     }
 
 }

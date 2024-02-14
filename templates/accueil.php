@@ -52,56 +52,63 @@
                 </a>
             </ul>
         </nav>
-        <div class="profil">
-            <button class="connexion-inscription" onclick="openFormLogIn()"><img src="../static/images/pdpBase.png" alt="profil"></button>
-            <button class="connexion-inscription" onclick="openFormLogIn()">
-                <p>Se connecter</p>
-            </button>
-        </div>
+        <?php
+        // Vérifiez si l'utilisateur est connecté
+        if(isset($_SESSION['username'])) {
+            // L'utilisateur est connecté, affichez un message de bienvenue
+            $username = $_SESSION['username'];
+            echo "<p>Bienvenue, $username !</p>";
+
+            // Ajoutez un lien de déconnexion
+            echo '<a href="logout.php">Déconnexion</a>';
+        } else {
+            // L'utilisateur n'est pas connecté, affichez les boutons de connexion
+            ?>
+            <div class="profil">
+                <button class="connexion-inscription" onclick="openFormLogIn()">
+                    <img src="images/pdpBase.png" alt="profil">
+                </button>
+                <button class="connexion-inscription" onclick="openFormLogIn()">
+                    <p>Se connecter</p>
+                </button>
+            </div>
+            <?php
+        }
+        ?>
     </aside>
     <div class="connection-popup">
-        <div class="form-container" id="loginform">
-            <p class="title">De retour</p>
-            <form class="form">
-                <input type="email" class="input" placeholder="Email">
-                <input type="password" class="input" placeholder="Mot de passe">
-                <p class="page-link">
-                    <a class="page-link-label" onclick="closeFormLogIn(); openFormMDP()">Mot de passe oublié ?</a>
+            <div class="form-container" id="loginform">
+                <p class="title">De retour</p>
+                <form class="form" action="login-bd.php" method="POST">
+                    <input type="email" class="input" placeholder="Email" id="email" name="email">
+                    <input type="password" class="input" placeholder="Mot de passe" id="password" name="password">
+                    <p class="page-link">
+                        <a class="page-link-label" onclick="closeFormLogIn(); openFormMDP()">Mot de passe oublié ?</a>
+                    </p>
+                    <button class="form-btn-log">Se connecter</button>
+                </form>
+                <p class="sign-up-label">
+                    <a class="sign-up-link" onclick="closeFormLogIn(); openFormSignUp();">S'inscrire</a>
+                </p>  
+                <button class="close" onclick="closeFormLogIn()">X</button>
+            </div>
+        </div>
+        <div class="connection-popup">
+            <div class="form-container" id="signupform">
+                <p class="title">Inscription</p>
+                <form class="form" action="register-bd.php" method="POST">
+                    <input type="text" class="input" placeholder="Username" id="username" name ="username">
+                    <input type="email" class="input" placeholder="Email" id="email" name = "email">
+                    <input type="password" class="input" placeholder="Mot de passe" id="password" name="password">
+                    <input type="password" class="input" placeholder="Confirmer le mot de passe">
+                    <button class="form-btn-sig">S'inscrire</button>
+                </form>
+                <p class="sign-up-label">
+                    Déjà un compte ? <a class="sign-up-link" onclick="closeFormSignUp(); openFormLogIn();">Connectez-vous</a>
                 </p>
-                <button class="form-btn">Se connecter</button>
-            </form>
-            <p class="sign-up-label">
-                <a class="sign-up-link" onclick="closeFormLogIn(); openFormSignUp();">S'inscrire</a>
-            </p>
-            <div class="buttons-container">
-                <div class="google-login-button">
-                    <span>Se connecter avec Google</span>
-                </div>
+                <button class="close" onclick="closeFormSignUp()">X</button>
             </div>
-            <button class="close" onclick="closeFormLogIn()">X</button>
         </div>
-    </div>
-    <div class="connection-popup">
-        <div class="form-container" id="signupform">
-            <p class="title">Inscription</p>
-            <form class="form">
-                <input type="text" class="input" placeholder="Username">
-                <input type="email" class="input" placeholder="Email">
-                <input type="password" class="input" placeholder="Mot de passe">
-                <input type="password" class="input" placeholder="Confirmer le mot de passe">
-                <button class="form-btn">S'inscrire</button>
-            </form>
-            <p class="sign-up-label">
-                Déjà un compte ? <a class="sign-up-link" onclick="closeFormSignUp(); openFormLogIn();">Connectez-vous</a>
-            </p>
-            <div class="buttons-container">
-                <div class="google-login-button">
-                    <span>S'inscrire avec Google</span>
-                </div>
-            </div>
-            <button class="close" onclick="closeFormSignUp()">X</button>
-        </div>
-    </div>
     <div class="connection-popup">
         <div class="form-container" id="mdpoublie">
             <p class="title">Mot de passe oublié ? Entrez votre adresse mail</p>
@@ -153,3 +160,13 @@
 </script>
 
 </html>
+
+<?php
+     if (isset($_GET['error']) && $_GET['error'] === "1") { // Si on a une erreur et que ce sont les identifiants incorrects
+        echo "<p>Identifiants incorrects</p>";
+    } elseif (isset($_GET['error']) && $_GET['error'] === "2")  { // Si on a une erreur et que ce sont les mots de passe incorrects
+        echo "<p>Mot de passe incorrect</p>";
+    } elseif (isset($_GET['error']) && $_GET['error'] === "3")  { // Si on a une erreur et que ce sont les identifiants déjà utilisés
+        echo "<p>Identifiants déjà utilisés</p>";
+    }
+?>

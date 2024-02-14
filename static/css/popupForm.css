@@ -72,7 +72,7 @@ border-radius: 5px;
     color: #fe0a69;
   }
   
-  .form-btn {
+  .form-btn-sig {
     padding: 10px 15px;
     border-radius: 20px;
     border: 0 !important;
@@ -83,7 +83,22 @@ border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
   
-  .form-btn:active {
+  .form-btn-sig:active {
+    box-shadow: none;
+  }
+
+  .form-btn-log {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 0 !important;
+    outline: 0 !important;
+    background: #fe0a69;
+    color: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .form-btn-log:active {
     box-shadow: none;
   }
   
@@ -125,6 +140,7 @@ border-radius: 5px;
     font-size: 18px;
     margin-bottom: 1px;
   }
+
 
   .close {
     background-color: transparent; /* Pas de couleur de fond */

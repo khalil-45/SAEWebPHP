@@ -1,6 +1,6 @@
 <?php
 
-require '../app/Autoloader.php';
+require '../Autoloader.php';
 Autoloader::register();
 
 session_start();
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($existingUser) {
             // Identifiants déjà utilisés, rediriger avec un message d'erreur
-            header("Location: accueil.php?error=3");
+            header("Location: /?error=3");
             echo "Utilisateur déjà existant";
             exit();
         } else {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $newUser = $user->getUtilisateurByUsername($username);
             $_SESSION['username'] = $newUser['username'];
             echo "Utilisateur créé";
-            header('Location: ./accueil.php');
+            header("Location: /");
             exit();
         }
     } else {

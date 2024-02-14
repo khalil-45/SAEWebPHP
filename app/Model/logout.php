@@ -18,6 +18,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirigez vers la page de connexion ou une autre page après la déconnexion
-header("Location: ./accueil.php");
+header("Location: /");
 exit();
 ?>

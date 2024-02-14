@@ -45,7 +45,7 @@ class AlbumBD
      */
     public function getAlbumById($id)
     {
-        $sql = "SELECT * FROM ALBUM WHERE id = :id";
+        $sql = "SELECT * FROM ALBUM WHERE album_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

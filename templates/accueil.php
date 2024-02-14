@@ -60,13 +60,13 @@
             echo "<p>Bienvenue, $username !</p>";
 
             // Ajoutez un lien de déconnexion
-            echo '<a href="logout.php">Déconnexion</a>';
+            echo '<a href="../app/Model/logout.php">Déconnexion</a>';
         } else {
             // L'utilisateur n'est pas connecté, affichez les boutons de connexion
             ?>
             <div class="profil">
                 <button class="connexion-inscription" onclick="openFormLogIn()">
-                    <img src="images/pdpBase.png" alt="profil">
+                    <img src="../static/images/pdpBase.png" alt="profil">
                 </button>
                 <button class="connexion-inscription" onclick="openFormLogIn()">
                     <p>Se connecter</p>
@@ -79,7 +79,7 @@
     <div class="connection-popup">
             <div class="form-container" id="loginform">
                 <p class="title">De retour</p>
-                <form class="form" action="login-bd.php" method="POST">
+                <form class="form" action="../app/Model/login-bd.php" method="POST">
                     <input type="email" class="input" placeholder="Email" id="email" name="email">
                     <input type="password" class="input" placeholder="Mot de passe" id="password" name="password">
                     <p class="page-link">
@@ -96,7 +96,7 @@
         <div class="connection-popup">
             <div class="form-container" id="signupform">
                 <p class="title">Inscription</p>
-                <form class="form" action="register-bd.php" method="POST">
+                <form class="form" action="../app/Model/register-bd.php" method="POST">
                     <input type="text" class="input" placeholder="Username" id="username" name ="username">
                     <input type="email" class="input" placeholder="Email" id="email" name = "email">
                     <input type="password" class="input" placeholder="Mot de passe" id="password" name="password">
@@ -128,7 +128,7 @@
         </div>
         <div class="grid">
         <?php foreach ($album as $a) : ?>
-    <a href="index.php?action=album&id_album=<?php echo $a['album_id']; ?>">
+    <a href="?action=album&id_album=<?php echo $a['album_id']; ?>">
         <div class="head">
             <i class='fab fa-apple' style='font-size:13.5px;'></i>
             <h5 class="top">Music</h5>

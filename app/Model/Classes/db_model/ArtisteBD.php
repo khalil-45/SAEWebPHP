@@ -38,7 +38,7 @@ class ArtisteBD
      */
     public function getArtisteById($id)
     {
-        $sql = "SELECT * FROM ARTISTE WHERE id = :id";
+        $sql = "SELECT * FROM ARTISTE WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

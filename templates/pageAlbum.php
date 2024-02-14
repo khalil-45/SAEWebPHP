@@ -129,9 +129,21 @@
             </div>
             <div class="album-info">
                 <h2><?php echo $album['titre']?></h2>
-                <p><?php echo $artiste['nom']?></p>
+                <p><?php 
+                if ($artiste['nom'] != null){
+                    echo $artiste['nom'];
+                } else {
+                    echo "Artiste inconnu";
+                }
+                ?></p>
                 <div class="date-genre">
-                    <p><?php echo $album['genre']?></p>
+                    <p><?php 
+                    if ($album['genre'] != null){
+                    echo $album['genre'];
+                    } else {
+                        echo "Genres inconnu";
+                    }
+                    ?></p>
                     <p><?php echo $album['annee']?></p>
                 </div>
                 <div class="buttons">

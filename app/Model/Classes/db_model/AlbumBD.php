@@ -15,7 +15,6 @@ class AlbumBD
         $this->cnx = $cnx;
     }
 
-    
     public function insertAlbum($titre, $annee, $genre, $pochette, $artiste_id)
     {
         $sql = "INSERT INTO ALBUM (titre, annee, genre, pochette, artiste_id) VALUES (:titre, :annee, :genre, :pochette, :artiste_id)";

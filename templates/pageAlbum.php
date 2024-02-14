@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../static/css/popupForm.css">
     <link rel="stylesheet" href="../static/css/cardalbum.css">
     <link rel="stylesheet" href="../static/css/pageAlbum.css">
-    <title>page Album</title>
+    <title>Infos <?php echo $album['titre']?></title>
 </head>
 
 <body>

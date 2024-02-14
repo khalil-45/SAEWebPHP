@@ -15,7 +15,7 @@
     <?php include 'aside_menu.php'; ?>
     <main>
         <div class="titre">
-            <h2>Écouter</h2>
+            <h2>Découvrir</h2>
         </div>
         <div class="grid">
         <?php foreach ($album as $a) : ?>

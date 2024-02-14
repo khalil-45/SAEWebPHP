@@ -22,17 +22,19 @@ aside {
     flex-direction: column;
     position: relative;
     z-index: 1; 
+    transition: transform 0.5s ease-out;
 }
 
 /* Styles pour les écrans de petite taille */
-@media (max-width: 768px) {
+@media (max-width: 1134px) {
     aside {
         width: 100%;
         position: absolute;
         top: 10;
         left: -100%;
         height: 100%;
-        transition: left 0.3s ease;
+        transition: left 1s ease;
+        transform: translateX(-100%);
     }
 
     /* Lorsque le menu est ouvert, nous changeons la position gauche à 0 */
@@ -49,6 +51,7 @@ aside {
         display: block !important;
         background: transparent;
         z-index: 1;
+        opacity : 1;
     }
 
     .titre{
@@ -63,6 +66,7 @@ aside {
     position: fixed;
     z-index: 2;
     display: none;
+    transition: opacity 0.5s ease-out;
 }
 
 

@@ -21,19 +21,13 @@
         </div>
         <nav>
             <ul>
-                <a href="#">
-                    <li><img src="../static/images/play.png" alt="icone jouer">Écouter</li>
-                </a>
-                <a href="#">
+                <a href="/">
                     <li><img src="../static/images/decouvrir.png" alt="icone decouvrir">Découvrir</li>
                 </a>
-                <a href="#">
-                    <li><img src="../static/images/bibliotheque.png" alt="icone bibliothèque">Ma Bibliothèque</li>
-                </a>
-                <a href="#">
+                <a href="/?action=playlists">
                     <li><img src="../static/images/playlist.png" alt="icone playlists">Mes Playlists</li>
                 </a>
-                <a href="#">
+                <a href="?action=parametres">
                     <li><img src="../static/images/parametres.png" alt="icone paramètres">Paramètres</li>
                 </a>
             </ul>

@@ -39,6 +39,14 @@ switch ($action) {
         $artiste = $artisteBD->getArtisteById($album['artiste_id']);
         include 'templates/pageAlbum.php';
         break;
+    
+    case 'playlists':
+        include 'templates/playlists.php';
+        break;
+
+    case 'playlist':
+        include 'templates/playlist.php';
+        break;
     // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
     default:
         http_response_code(404);

@@ -10,19 +10,25 @@ use Model\Classes\db_model\AlbumBD;
 use Model\Classes\db_model\ChansonBD;
 use Model\Classes\db_model\ArtisteBD;
 use Model\Classes\db_model\UtilisateurBD;
+use Model\Classes\db_model\PlaylistBD;
+use Model\Classes\ChansonPlaylist;
+use Model\Classes\db_model\ChansonPlaylistBD;
 use Model\Classes\db_model\GenreBD;
 use Model\Classes\db_model\ImageArtisteBD;
+
 
 
 $cnx = Connection_BD::getInstance();
 $albumBD = new AlbumBD($cnx);
 $chansonBD = new ChansonBD($cnx);
 $artisteBD = new ArtisteBD($cnx);
+$userBD = new UtilisateurBD($cnx);
+$playlistBD = new PlaylistBD($cnx);
+$chansonPlaylistBD = new ChansonPlaylistBD($cnx);
 $genreBD = new GenreBD($cnx);
 $imageBD = new ImageArtisteBD($cnx);
 $user = new UtilisateurBD($cnx);
 $utilisateurBD = new UtilisateurBD($cnx);
-
 
 $album = $albumBD->getAllAlbums();
 
@@ -39,16 +45,37 @@ switch ($action) {
         $chansons = $chansonBD->getChansonsByAlbumId($_GET['id_album']);
 
         $album = $albumBD->getAlbumById($_GET['id_album']);
+    
+        if ($artisteBD->getArtisteById($album->getArtisteId()) != null){
+        $artiste = $artisteBD->getArtisteById($album->getArtisteId());
+        }else{
+            $artiste = null;
+        }
 
-        $artiste = $artisteBD->getArtisteById($album->getAlbumId());
+        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+
         include 'templates/pageAlbum.php';
         break;
     
     case 'playlists':
+        if ($_SESSION['user'] != null){
+        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        }
         include 'templates/playlists.php';
         break;
 
     case 'playlist':
+        if ($_SESSION['user'] != null){
+            $playlistId = urldecode($_GET['id_playlist']);
+            $playlist = $playlistBD->getPlaylistById($playlistId);
+            $chansons = $chansonPlaylistBD->getAllChansonsPlaylistByPlaylistId($playlistId);
+            $userIdPlaylist = $playlist->getUserId();
+            $username = $userBD->getUtilisateurById($userIdPlaylist);
+            if ($chansons != null){
+                $premiereChanson = $chansonBD->getChansonById($chansons[0]->getChansonId());
+                $imageAlbum = $albumBD->getAlbumById($premiereChanson->getAlbumId())->getPochette();
+            }
+        }
         include 'templates/playlist.php';
 
     case 'admin':
@@ -72,6 +99,6 @@ switch ($action) {
         break;
     // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
     default:
-        http_response_code(404);
-        echo "Page not found";
+        include 'templates/404.php';
+        break;
 }

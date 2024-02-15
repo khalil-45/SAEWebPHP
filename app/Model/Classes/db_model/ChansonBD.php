@@ -3,7 +3,6 @@
 namespace Model\Classes\db_model;
 
 require_once __DIR__ . '/../../Connection_BD.php';
-require_once __DIR__ . '/../../Classes/Chanson.php';
 
 use Model\Classes\Chanson;
 use PDO;
@@ -90,7 +89,7 @@ class ChansonBD
      */
     public function getChansonById($id)
     {
-        $sql = "SELECT * FROM CHANSON WHERE id = :id";
+        $sql = "SELECT * FROM CHANSON WHERE chanson_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

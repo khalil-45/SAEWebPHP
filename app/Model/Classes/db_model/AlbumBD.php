@@ -28,7 +28,7 @@ class AlbumBD
     }
 
 
-    /**
+/**
      * @return array
      * 
      */
@@ -41,9 +41,9 @@ class AlbumBD
             $albums[] = $album;
         }
         return $albums;
-    }
+    } 
 
-    /**
+/**
      * @param int $id
      * @return Album | null
      */

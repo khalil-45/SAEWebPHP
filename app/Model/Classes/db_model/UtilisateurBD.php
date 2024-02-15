@@ -43,6 +43,7 @@ class UtilisateurBD
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
             return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email'], $row['isAdmin']);
+
         }
         return null;
     }
@@ -60,6 +61,7 @@ class UtilisateurBD
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
             return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email'], $row['isAdmin']);
+
         }
         return null;
     }
@@ -79,6 +81,7 @@ class UtilisateurBD
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
             return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email'], $row['isAdmin']);
+
         }
         return null;
     }

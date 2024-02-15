@@ -2,8 +2,6 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
-require_once __DIR__ . '/../../Classes/Playlist.php';
 
 use Model\Classes\Playlist;
 use PDO;
@@ -26,6 +24,7 @@ class PlaylistBD
         return $stmt->execute();
     }
 
+
     /**
      * @param int $id
      * @return Playlist|null
@@ -41,6 +40,20 @@ class PlaylistBD
             return new Playlist($row['playlist_id'], $row['user_id'], $row['titre']);
         }
         return null;
+    }
+
+    public function getAllPlaylistsByUserId($user_id)
+    {
+        $sql = "SELECT * FROM PLAYLIST WHERE user_id = :user_id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $playlists = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $playlist = new Playlist($row['playlist_id'], $row['user_id'], $row['titre']);
+            $playlists[] = $playlist;
+        }
+        return $playlists;
     }
 
     /**
@@ -70,7 +83,7 @@ class PlaylistBD
 
     public function updatePlaylist($id, $titre)
     {
-        $sql = "UPDATE PLAYLIST SET titre = :titre WHERE id = :id";
+        $sql = "UPDATE PLAYLIST SET titre = :titre WHERE playlist_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);

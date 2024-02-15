@@ -2,7 +2,6 @@
 
 namespace Model\Classes;
 
-
 class Album {
     private $album_id;
     private $titre;

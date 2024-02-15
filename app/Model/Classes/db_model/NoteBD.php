@@ -39,7 +39,7 @@ class NoteBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Note($row['id'], $row['album_id'], $row['user_id'], $row['note']);
+            return new Note($row['note_id'], $row['album_id'], $row['user_id'], $row['note']);
         }
         return null;
     }
@@ -56,7 +56,7 @@ class NoteBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Note($row['id'], $row['album_id'], $row['user_id'], $row['note']);
+            return new Note($row['note_id'], $row['album_id'], $row['user_id'], $row['note']);
         }
         return null;
     }

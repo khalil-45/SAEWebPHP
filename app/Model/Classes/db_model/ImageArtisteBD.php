@@ -17,12 +17,12 @@ class ImageArtisteBD
         $this->cnx = $cnx;
     }
 
-    public function insertImageArtiste($id_artiste, $id_image)
+    public function insertImageArtiste($nom_image,$artiste_id)
     {
-        $sql = "INSERT INTO IMAGE_ARTISTE (id_artiste, id_image) VALUES (?, ?)";
+        $sql = "INSERT INTO IMAGE_ARTISTE (nom_image,artiste_id) VALUES (:nom_image,:artiste_id)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id_artiste, PDO::PARAM_INT);
-        $stmt->bindParam(2, $id_image, PDO::PARAM_INT);
+        $stmt->bindParam(1, $artiste_id, PDO::PARAM_INT);
+        $stmt->bindParam(2, $nom_image, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
@@ -32,13 +32,13 @@ class ImageArtisteBD
      */
     public function getImageArtisteById($id)
     {
-        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE id = ?";
+        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE image_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new ImageArtiste($row['id'], $row['id_artiste'], $row['id_image']);
+            return new ImageArtiste($row['image_id'], $row['nom_image'], $row['artiste_id']);
         }
         return null;
     }
@@ -52,7 +52,7 @@ class ImageArtisteBD
         $stmt = $this->cnx->query($sql);
         $imagesArtiste = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $imageArtiste = new ImageArtiste($row['id'], $row['id_artiste'], $row['id_image']);
+            $imageArtiste = new ImageArtiste($row['image_id'], $row['nom_image'], $row['artiste_id']);
             $imagesArtiste[] = $imageArtiste;
         }
         return $imagesArtiste;
@@ -64,13 +64,13 @@ class ImageArtisteBD
      */
     public function getImagesArtisteByIdArtiste($id_artiste)
     {
-        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE id_artiste = ?";
+        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE artiste_id = :id_artiste";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id_artiste, PDO::PARAM_INT);
         $stmt->execute();
         $imagesArtiste = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $imageArtiste = new ImageArtiste($row['id'], $row['id_artiste'], $row['id_image']);
+            $imageArtiste = new ImageArtiste($row['image_id'], $row['nom_image'], $row['artiste_id']);
             $imagesArtiste[] = $imageArtiste;
         }
         return $imagesArtiste;
@@ -78,7 +78,7 @@ class ImageArtisteBD
 
     public function deleteImageArtiste($id)
     {
-        $sql = "DELETE FROM IMAGE_ARTISTE WHERE id = ?";
+        $sql = "DELETE FROM IMAGE_ARTISTE WHERE image_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

@@ -32,13 +32,13 @@ class PlaylistBD
      */
     public function getPlaylistById($id)
     {
-        $sql = "SELECT * FROM PLAYLIST WHERE id = :id";
+        $sql = "SELECT * FROM PLAYLIST WHERE playlist_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Playlist($row['id'], $row['user_id'], $row['titre']);
+            return new Playlist($row['playlist_id'], $row['user_id'], $row['titre']);
         }
         return null;
     }
@@ -55,14 +55,14 @@ class PlaylistBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Playlist($row['id'], $row['user_id'], $row['titre']);
+            return new Playlist($row['playlist_id'], $row['user_id'], $row['titre']);
         }
         return null;
     }
 
     public function deletePlaylist($id)
     {
-        $sql = "DELETE FROM PLAYLIST WHERE id = :id";
+        $sql = "DELETE FROM PLAYLIST WHERE playlist_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

@@ -59,7 +59,7 @@ class ChansonBD
         $stmt->execute();
         $chansons = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $chanson = new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chanson = new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
             $chansons[] = $chanson;
         }
         return $chansons;
@@ -77,7 +77,7 @@ class ChansonBD
         $stmt->execute();
         $chansons = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $chanson = new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chanson = new Chanson($row['album_id'], $row['titre'], $row['duree'], $row['album_id']);
             $chansons[] = $chanson;
         }
         return $chansons;
@@ -89,13 +89,13 @@ class ChansonBD
      */
     public function getChansonById($id)
     {
-        $sql = "SELECT * FROM CHANSON WHERE id = :id";
+        $sql = "SELECT * FROM CHANSON WHERE chanson_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            return new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
         }
         return null;
     }

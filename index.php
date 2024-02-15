@@ -39,23 +39,34 @@ switch ($action) {
 
         $album = $albumBD->getAlbumById($_GET['id_album']);
 
+        if ($artisteBD->getArtisteById($album->getArtisteId()) != null){
         $artiste = $artisteBD->getArtisteById($album->getArtisteId());
+        }else{
+            $artiste = null;
+        }
+
+        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
         include 'templates/pageAlbum.php';
         break;
     
     case 'playlists':
         if ($_SESSION['user'] != null){
-        $playlists = $playlistBD->getPlaylistByUserId($_SESSION['user']->getId());
+        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
         }
         include 'templates/playlists.php';
         break;
 
     case 'playlist':
         if ($_SESSION['user'] != null){
-        $playlist = $playlistBD->getPlaylistById($_GET['id_playlist']);
-        $chansons = $chansonPlaylistBD->getChansonPlaylistByPlaylistId($_GET['id_playlist']);
-        $userIdPlaylist = $playlist->getUserId();
-        $username = $userBD->getUtilisateurById($userIdPlaylist);
+            $playlistId = urldecode($_GET['id_playlist']);
+            $playlist = $playlistBD->getPlaylistById($playlistId);
+            $chansons = $chansonPlaylistBD->getAllChansonsPlaylistByPlaylistId($playlistId);
+            $userIdPlaylist = $playlist->getUserId();
+            $username = $userBD->getUtilisateurById($userIdPlaylist);
+            if ($chansons != null){
+                $premiereChanson = $chansonBD->getChansonById($chansons[0]->getChansonId());
+                $imageAlbum = $albumBD->getAlbumById($premiereChanson->getAlbumId())->getPochette();
+            }
         }
         include 'templates/playlist.php';
         break;

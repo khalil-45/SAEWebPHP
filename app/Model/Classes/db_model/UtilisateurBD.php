@@ -33,13 +33,13 @@ class UtilisateurBD
      */
     public function getUtilisateurById($id)
     {
-        $sql = "SELECT * FROM UTILISATEUR WHERE id = :id";
+        $sql = "SELECT * FROM UTILISATEUR WHERE user_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Utilisateur($row['id'], $row['username'], $row['password'], $row['email']);
+            return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email']);
         }
         return null;
     }
@@ -56,7 +56,7 @@ class UtilisateurBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Utilisateur($row['id'], $row['username'], $row['password'], $row['email']);
+            return new Utilisateur($row['id_user'], $row['username'], $row['password'], $row['email']);
         }
         return null;
     }
@@ -75,7 +75,7 @@ class UtilisateurBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Utilisateur($row['id'], $row['username'], $row['password'], $row['email']);
+            return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email']);
         }
         return null;
     }

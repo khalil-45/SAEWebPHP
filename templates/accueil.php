@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    <?php include 'aside_menu.php'; ?>
+    <?php include 'aside_menu.php';
+    ?>
     <main>
         <div class="titre">
             <h2>Découvrir</h2>

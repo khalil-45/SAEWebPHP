@@ -20,8 +20,8 @@
                 <img src="../static/images/img_albums/220px-Folklore_hp.jpg" alt="image de la playlist">
             </div>
             <div class="playlist-info">
-                <h2><?php $playlist->getTitre() ?></h2>
-                <p><?php $username ?></p>
+                <h2><?php echo $playlist->getTitre() ?></h2>
+                <p><?php echo $username ?></p>
                 <div class="buttons">
                     <button class="play-button">
                         <img src="../static/images/bouton-jouer.png" alt="play button">
@@ -33,9 +33,17 @@
 
         <section class="titres">
             <ul>
-                <?php foreach ($chansons as $chanson) : ?>
-                    <button><li><img src="../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson['titre'] ?></li></button>
-                <?php endforeach; ?>
+                <?php 
+                if ($chansons != null) {
+                foreach ($chansons as $chanson) : 
+                    $chanson = $chansonBD->getChansonById($chanson->getChansonId());
+                    ?>
+                    <button><li><img src="../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson->getTitre() ?></li></button>
+                <?php endforeach;
+                } else {
+                    echo "<p style='text-align: center;'>Aucune chanson dans cette playlist</p>";
+                }
+                ?>
             </ul>
         </section>
     </main>

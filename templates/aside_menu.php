@@ -27,11 +27,9 @@
                 <a href="/?action=playlists">
                     <li><img src="../static/images/playlist.png" alt="icone playlists">Mes Playlists</li>
                 </a>
-                <a href="?action=parametres">
-                    <li><img src="../static/images/parametres.png" alt="icone paramètres">Paramètres</li>
-                </a>
                 <a href="?action=admin">
-                    <li><img src="../static/images/parametres.png" alt="admin">Admin</li>a
+                    <li><img src="../static/images/parametres.png" alt="admin">Admin</li>
+                </a>
             </ul>
         </nav>
         <div class="profil">

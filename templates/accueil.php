@@ -1,3 +1,6 @@
+<?php
+$artiste = $artisteBD->getAllArtistes();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -19,23 +22,53 @@
         </div>
         <div class="grid">
         <?php foreach ($album as $a) : ?>
-    <a href="?action=album&id_album=<?php echo $a['album_id']; ?>">
-        <div class="head">
-            <i class='fab fa-apple' style='font-size:13.5px;'></i>
-            <h5 class="top">Music</h5>
-            <img src="../static/images/img_albums/<?php
-                if ($a['pochette'] != null) {
-                    echo urlencode(trim($a['pochette']));
+            <a href="?action=album&id_album=<?php echo $a['album_id']; ?>">
+                <div class="head">
+                    <i class='fab fa-apple' style='font-size:13.5px;'></i>
+                    <h5 class="top">Music</h5>
+                    <img src="../static/images/img_albums/<?php
+                        if ($a['pochette'] != null) {
+                            echo urlencode(trim($a['pochette']));
+                        } else {
+                            echo "default.jpg";
+                        }
+                        ?>" alt="pochette de l'album">
+                    <div class="line"></div>
+                    <div class="bottom"><?php echo $a['titre']; ?></div>
+                </div>
+            </a>
+        <?php endforeach; ?>
+        </div>
+        <div class="titre">
+            <h2>Artistes</h2>
+        </div>
+        <div class="grid">
+        <?php foreach ($artiste as $art) : ?>
+
+            <?php
+                $photo = $imageBD->getImageArtisteById($art->getArtisteId())->getNomImage();
+                if ($photo != null) {
+                    $photo = urlencode(trim($photo));
                 } else {
-                    echo "default.jpg";
+                    $photo = "default.jpg";
                 }
-                ?>" alt="pochette de l'album">
-            <div class="line"></div>
-            <div class="bottom"><?php echo $a['titre']; ?></div>
+            ?>
+            <a href="?action=detail_artiste&id_artiste=<?php echo $art->getArtisteId(); ?>">
+                <div class="head">
+                    <i class='fab fa-apple' style='font-size:13.5px;'></i>
+                    <h5 class="top">Music
+                    </h5>
+                    <img src="../static/images/img_artistes/<?php echo $photo; ?>" alt="photo de l'artiste">
+                    <div class="line"></div>
+                    <div class="bottom"><?php
+                        echo $art->getNom();
+                        ?>
+                    </div>
+                </div>
+            </a>
+        <?php endforeach; ?>
         </div>
-    </a>
-<?php endforeach; ?>
-        </div>
+
     </main>
 </body>
 <?php include 'insertion_js.php'; ?>

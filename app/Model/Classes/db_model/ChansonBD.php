@@ -42,7 +42,7 @@ class ChansonBD
         $stmt = $this->cnx->query($sql);
         $chansons = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $chanson = new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chanson = new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
             $chansons[] = $chanson;
         }
         return $chansons;
@@ -60,7 +60,7 @@ class ChansonBD
         $stmt->execute();
         $chansons = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $chanson = new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chanson = new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
             $chansons[] = $chanson;
         }
         return $chansons;
@@ -78,7 +78,7 @@ class ChansonBD
         $stmt->execute();
         $chansons = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $chanson = new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chanson = new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
             $chansons[] = $chanson;
         }
         return $chansons;
@@ -96,7 +96,7 @@ class ChansonBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            return new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
         }
         return null;
     }
@@ -114,7 +114,7 @@ class ChansonBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Chanson($row['id'], $row['titre'], $row['duree'], $row['album_id']);
+            return new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
         }
         return null;
     }
@@ -124,7 +124,7 @@ class ChansonBD
      */
     public function deleteChanson($id)
     {
-        $sql = "DELETE FROM CHANSON WHERE id = :id";
+        $sql = "DELETE FROM CHANSON WHERE chanson_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

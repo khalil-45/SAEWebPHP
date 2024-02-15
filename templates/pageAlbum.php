@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../static/css/popupForm.css">
     <link rel="stylesheet" href="../static/css/cardalbum.css">
     <link rel="stylesheet" href="../static/css/pageAlbum.css">
-    <title>Infos <?php echo $album['titre']?></title>
+    <title>Infos <?php echo $album->getTitre()?></title>
 </head>
 
 <body>
@@ -21,8 +21,8 @@
         <section class="info-album">
             <div class="album-cover">
                 <img src="../static/images/img_albums/<?php
-                if ($album['pochette'] != null) {
-                    echo urlencode(trim($album['pochette']));
+                if ($album->getPochette() != null) {
+                    echo urlencode(trim($album->getPochette()));
                 } else {
                     echo "default.jpg";
                 }
@@ -30,7 +30,7 @@
             </div>
             <div class="album-info">
                 <h2><?php
-                    echo $album['titre']?></h2>
+                    echo $album->getTitre()?></h2>
                 <p><?php 
                 if ($artiste->getNom() != null){
                     echo $artiste->getNom();
@@ -40,13 +40,13 @@
                 ?></p>
                 <div class="date-genre">
                     <p><?php 
-                    if ($album['genre'] != null){
-                    echo $album['genre'];
+                    if ($album->getGenre() != null){
+                    echo $album->getGenre();
                     } else {
                         echo "Genres inconnu";
                     }
                     ?></p>
-                    <p><?php echo $album['annee']?></p>
+                    <p><?php echo $album->getAnnee()?></p>
                 </div>
                 <div class="buttons">
                     <button class="play-button">

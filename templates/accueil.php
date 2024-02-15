@@ -22,19 +22,19 @@ $artiste = $artisteBD->getAllArtistes();
         </div>
         <div class="grid">
         <?php foreach ($album as $a) : ?>
-            <a href="?action=album&id_album=<?php echo $a['album_id']; ?>">
+            <a href="?action=album&id_album=<?php echo $a->getAlbumId(); ?>">
                 <div class="head">
                     <i class='fab fa-apple' style='font-size:13.5px;'></i>
                     <h5 class="top">Music</h5>
                     <img src="../static/images/img_albums/<?php
-                        if ($a['pochette'] != null) {
-                            echo urlencode(trim($a['pochette']));
+                        if ($a->getPochette() != null) {
+                            echo urlencode(trim($a->getPochette()));
                         } else {
                             echo "default.jpg";
                         }
                         ?>" alt="pochette de l'album">
                     <div class="line"></div>
-                    <div class="bottom"><?php echo $a['titre']; ?></div>
+                    <div class="bottom"><?php echo $a->getTitre(); ?></div>
                 </div>
             </a>
         <?php endforeach; ?>

@@ -40,7 +40,7 @@ switch ($action) {
 
         $album = $albumBD->getAlbumById($_GET['id_album']);
 
-        $artiste = $artisteBD->getArtisteById($album['artiste_id']);
+        $artiste = $artisteBD->getArtisteById($album->getAlbumId());
         include 'templates/pageAlbum.php';
         break;
     

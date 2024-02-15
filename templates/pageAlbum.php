@@ -1,3 +1,6 @@
+<?php
+global $artiste,$chansons,$album;
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

@@ -2,7 +2,7 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
+require_once __DIR__ . '/../../Connection_BD.php';
 
 use Model\Classes\Genre;
 use PDO;
@@ -27,7 +27,7 @@ class ImageArtisteBD
 
     public function getImageArtisteById($id)
     {
-        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE id = ?";
+        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE artiste_id = ?";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

@@ -71,7 +71,7 @@ class ArtisteBD
         return $artiste;
     }
 
-    public function deleteArtiste($id)
+    public function deleteArtisteById($id)
     {
         $sql = "DELETE FROM ARTISTE WHERE id = :id";
         $stmt = $this->cnx->prepare($sql);

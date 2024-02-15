@@ -100,12 +100,6 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
     echo '<input type="file" name="pochette" id="pochette" >';
     echo '<label for="artiste">Artiste</label>';
 
-    foreach ($artistes as $artiste) {
-        var_dump($artiste['artiste_id']);
-        var_dump($album['artiste_id']);
-        $selected = ((int)$artiste['artiste_id'] === (int)$album['artiste_id']+1) ? 'selected' : '' ;
-        var_dump($selected);
-    }
     // Créer un champ de sélection pour l'artiste
     echo '<select name="artiste" id="artiste" >';
     foreach ($artistes as $artiste) {
@@ -135,6 +129,68 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
 
     }
 }
+
+
+function render_artistes_admin($artistes,$imageBD)
+{
+    echo '<h1>Gestion des artistes</h1>';
+    echo '<a class="ajout" href="?action=admin_artistes&admin=admin_ajout_artiste">Ajouter un artiste</a>';
+    echo '<table>';
+    echo '<tr>';
+    echo '<th>Nom</th>';
+    echo '<th>Bio</th>';
+    echo '<th colspan="2">Actions</th>';
+    echo '</tr>';
+    foreach ($artistes as $artiste) {
+        $photo = $imageBD->getImageArtisteById($artiste['artiste_id']);
+        $photo = $photo['nom_image'];
+        if ($photo == null) {
+            $photo = "default.png";
+        }
+
+
+
+        echo '<tr>';
+        echo '<td class="titre"> <img src="../static/images/img_artistes/' . $photo .'" alt="pochette de l\'album"> ' . $artiste['nom'] . '</td>';
+        echo '<td>' . $artiste['bio'] . '</td>';
+        echo '<td class="actions">';
+        echo '<a href="?action=admin_artistes&admin=admin_editer_artiste&id_artiste=' . $artiste['artiste_id'] . '">Éditer</a>';
+        echo '<a href="?action=admin_artistes&admin=admin_supprimer_artiste&id_artiste=' . $artiste['artiste_id'] . '">Supprimer</a>';
+        echo '</td>';
+        echo '</tr>';
+    }
+}
+
+function render_ajout_artiste($artisteBD)
+{
+    echo '<h1>Ajout d\'un artiste</h1>';
+    echo '<form  method="post">';
+    echo '<label for="nom">Nom</label>';
+    echo '<input type="text" name="nom" id="nom" required>';
+    echo '<input type="submit" value="Ajouter">';
+    echo '</form>';
+
+    if (isset($_POST['nom'])) {
+        $artisteBD->insertArtiste($_POST['nom']);
+        header('Location: ?action=admin_artistes');
+    }
+}
+
+function render_editer_artiste($artiste,$artisteBD)
+{
+    echo '<h1>Édition d\'un artiste</h1>';
+    echo '<form  method="post">';
+    echo '<label for="nom">Nom</label>';
+    echo '<input type="text" name="nom" id="nom" value="' . $artiste['nom'] . '" required>';
+    echo '<input type="submit" value="Modifier">';
+    echo '</form>';
+
+    if (isset($_POST['nom'])) {
+        $artisteBD->updateArtiste($artiste['artiste_id'],$_POST['nom']);
+        header('Location: ?action=admin_artistes');
+    }
+}
+
 
 
 ?>

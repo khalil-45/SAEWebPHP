@@ -11,6 +11,7 @@ use Model\Classes\db_model\ChansonBD;
 use Model\Classes\db_model\ArtisteBD;
 use Model\Classes\db_model\UtilisateurBD;
 use Model\Classes\db_model\GenreBD;
+use Model\Classes\db_model\ImageArtisteBD;
 
 
 $cnx = Connection_BD::getInstance();
@@ -18,6 +19,7 @@ $albumBD = new AlbumBD($cnx);
 $chansonBD = new ChansonBD($cnx);
 $artisteBD = new ArtisteBD($cnx);
 $genreBD = new GenreBD($cnx);
+$imageBD = new ImageArtisteBD($cnx);
 $user = new UtilisateurBD($cnx);
 
 

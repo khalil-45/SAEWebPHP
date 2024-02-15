@@ -136,6 +136,19 @@ class AlbumBD
         $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $albums;
     }
+
+    public function updateAlbum($id, $titre, $annee, $genre, $pochette, $artiste_id)
+    {
+        $sql = "UPDATE ALBUM SET titre = :titre, annee = :annee, genre = :genre, pochette = :pochette, artiste_id = :artiste_id WHERE album_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
+        $stmt->bindParam(':genre', $genre, PDO::PARAM_STR);
+        $stmt->bindParam(':pochette', $pochette, PDO::PARAM_STR);
+        $stmt->bindParam(':artiste_id', $artiste_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
 
 ?>

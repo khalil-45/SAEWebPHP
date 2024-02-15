@@ -48,13 +48,13 @@ $genres = $genreBD->getAllGenres();
                 render_ajout_album($albumBD, $artistes, $genreBD);
             } else if ($action == 'admin_editer_album') {
                 $album = $albumBD->getAlbumById($_GET['id_album']);
-                render_editer_album($album);
+                render_editer_album($album, $artistes, $genreBD, $albumBD);
             } else if ($action == 'admin_supprimer_album') {
                 $albumBD->deleteAlbumById($_GET['id_album']);
                 header('Location: ?action=admin_albums');
             }
             else {
-                render_albums_admin($album);
+                render_albums_admin($album, $artistes);
             }
             ?>
         </div>

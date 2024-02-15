@@ -39,7 +39,7 @@ class UtilisateurBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Utilisateur($row['id'], $row['username'], $row['password'], $row['email']);
+            return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email']);
         }
         return null;
     }
@@ -98,7 +98,7 @@ class UtilisateurBD
      */
     public function updateUtilisateur($id, $username, $password, $email)
     {
-        $sql = "UPDATE UTILISATEUR SET username = :username, password = :password, email = :email WHERE id = :id";
+        $sql = "UPDATE UTILISATEUR SET username = :username, password = :password, email = :email WHERE user_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);

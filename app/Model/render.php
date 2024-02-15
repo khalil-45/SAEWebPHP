@@ -281,16 +281,16 @@ function render_editer_utilisateur($utilisateur,$utilisateurBD)
     echo '<h1>Édition d\'un utilisateur</h1>';
     echo '<form  method="post">';
     echo '<label for="username">Nom</label>';
-    echo '<input type="text" name="username" id="username" value="' . $utilisateur['username'] . '" required>';
+    echo '<input type="text" name="username" id="username" value="' . $utilisateur->getUsername() . '" required>';
     echo '<label for="password">Mot de passe</label>';
-    echo '<input type="text" name="password" id="password" value="' . $utilisateur['password'] . '" required>';
+    echo '<input type="text" name="password" id="password" value="' . $utilisateur->getPassword() . '" required>';
     echo '<label for="email">Email</label>';
-    echo '<input type="email" name="email" id="email" value="' . $utilisateur['email'] . '" required>';
+    echo '<input type="email" name="email" id="email" value="' . $utilisateur->getEmail() . '" required>';
     echo '<input type="submit" value="Modifier">';
     echo '</form>';
 
     if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
-        $utilisateurBD->updateUtilisateur($utilisateur['user_id'],$_POST['username'],$_POST['password'],$_POST['email']);
+        $utilisateurBD->updateUtilisateur($utilisateur->getUserId(),$_POST['username'],$_POST['password'],$_POST['email']);
         header('Location: ?action=admin_utilisateurs');
     }
 }

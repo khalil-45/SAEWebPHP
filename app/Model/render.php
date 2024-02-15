@@ -49,20 +49,21 @@ function render_ajout_album($albumBD, $artistes,$genreBD)
     // Récupérer tous les genres
     $genres = $genreBD->getAllGenres();
 
+    $photo = "default.jpg";
+
     echo '<h1>Ajout d\'un album</h1>';
     echo '<form  method="post">';
     echo '<label for="titre">Titre</label>';
     echo '<input type="text" name="titre" id="titre" required>';
-    echo '<label class="file" for="file-upload">Sélectionnez une pochette';
-    echo '<span id = "file-name"></span>';
-    echo '</label>';
-    echo '<input id="file-upload" type="file" name="file-upload" >';
+    echo '<label class="file" for="file-upload">Sélectionnez une pochette</label>';
+    echo '<img id="cover-preview" src="../static/images/img_albums/' . $photo . '" alt="pochette de l\'album">';
+    echo '<input id="file-upload" type="file" name="file-upload" onchange="previewCover(event)">';
     echo '<label for="artiste">Artiste</label>';
 
     // Créer un champ de sélection pour l'artiste
     echo '<select name="artiste" id="artiste" >';
     foreach ($artistes as $artiste) {
-        echo '<option value="' . $artiste['artiste_id'] . '">' . $artiste['nom'] . '</option>';
+        echo '<option value="' . $artiste->getArtisteId() . '" >' . $artiste->getNom() . '</option>';
     }
     echo '</select>';
     echo '<label for="annee">Année</label>';
@@ -72,8 +73,7 @@ function render_ajout_album($albumBD, $artistes,$genreBD)
     // Créer un champ de sélection pour le genre
     echo '<select name="genre" id="genre">';
     foreach ($genres as $genre) {
-        var_dump($genre);
-        echo '<option value="' . $genre['id_genre'] . '">' . $genre['nom_genre'] . '</option>';
+        echo '<option value="' . $genre->getIdGenre() . '">' . $genre->getNomGenre() . '</option>';
     }
     echo '</select>';
     echo '<input type="submit" value="Ajouter">';
@@ -81,10 +81,14 @@ function render_ajout_album($albumBD, $artistes,$genreBD)
 
     if (isset($_POST['titre']) && isset($_POST['artiste']) && isset($_POST['annee']) && isset($_POST['genre'])) {
         $genre = $genreBD->getGenreById($_POST['genre']);
-        $genre = $genre['nom_genre'];
-        $albumBD->insertAlbum($_POST['titre'], $_POST['annee'], $genre, $_POST['pochette'], $_POST['artiste']);
+        $genre = $genre->getNomGenre();
+        var_dump($_POST);
+        $pochette = $_POST['file-upload'];
+        $albumBD->insertAlbum($_POST['titre'],$_POST['annee'],$genre,$pochette,$_POST['artiste']-1);
         header('Location: ?action=admin_albums');
     }
+
+    addScript();
 }
 
 function render_editer_album($album,$artistes,$genreBD,$albumBD)
@@ -95,7 +99,6 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
     if ($photo == null) {
         $photo = "default.jpg";
     }
-
     echo '<h1>Édition d\'un album</h1>';
     echo '<form  method="post" enctype="multipart/form-data">';
     echo '<label for="titre">Titre</label>';
@@ -108,38 +111,33 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
     // Créer un champ de sélection pour l'artiste
     echo '<select name="artiste" id="artiste" >';
     foreach ($artistes as $artiste) {
-        $selected = ((int)$artiste['artiste_id'] === (int)$album['artiste_id']+1) ? 'selected' : '' ;
-        echo '<option value="' . $artiste['artiste_id'] . '" ' . $selected . '>' . $artiste['nom'] . '</option>';
+        $selected = ((int)$artiste->getArtisteId() === (int)$album['artiste_id']+1) ? 'selected' : '' ;
+        echo '<option value="' . $artiste->getArtisteId() . '" ' . $selected . '>' . $artiste->getNom() . '</option>';
     }
     echo '</select>';
     echo '<label for="annee">Année</label>';
     echo '<input type="number" name="annee" id="annee" value="' . $album['annee'] . '" required>';
     echo '<label for="genre">Genre</label>';
 
+
+
     // Créer un champ de sélection pour le genre
     echo '<select name="genre" id="genre">';
+
+
     foreach ($genres as $genre) {
-        $selected = ((int)$genre['id_genre'] === (int)$album['genre_id']) ? 'selected' : '';
-        echo '<option value="' . $genre['id_genre'] . '" ' . $selected . '>' . $genre['nom_genre'] . '</option>';
+        $selected = ($genre->getNomGenre() === $album['genre']) ? 'selected' : '';
+        echo '<option value="' . $genre->getIdGenre() . '" ' . $selected . '>' . $genre->getNomGenre() . '</option>';
     }
     echo '</select>';
     echo '<input type="submit" value="Modifier">';
     echo '</form>';
 
-    echo '<script>
-    function previewCover(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById("cover-preview");
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
-    </script>';
+    addScript();
 
     if (isset($_POST['titre']) && isset($_POST['artiste']) && isset($_POST['annee']) && isset($_POST['genre'])) {
         $genre = $genreBD->getGenreById($_POST['genre']);
-        $genre = $genre['nom_genre'];
+        $genre = $genre->getNomGenre();
         $pochette = $_FILES['file-upload']['name'];
         if ($pochette == null) {
             $pochette = $photo;
@@ -198,6 +196,7 @@ function render_ajout_artiste($artisteBD,$imageBD)
         $imageBD->insertImageArtiste($artisteBD->getMaximumId(),$photo);
         header('Location: ?action=admin_artistes');
     }
+    addScript();
 }
 
 function render_editer_artiste($artiste,$artisteBD,$imageBD)
@@ -219,16 +218,7 @@ function render_editer_artiste($artiste,$artisteBD,$imageBD)
     echo '<input type="submit" value="Modifier">';
     echo '</form>';
 
-    echo '<script>
-    function previewCover(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById("cover-preview");
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
-    </script>';
+    addScript();
 
     if (isset($_POST['nom'])) { // Vérifiez si le fichier a été téléchargé
         $photo_recup = $_FILES['file-upload']['name']; // Récupérez le nom du fichier
@@ -305,6 +295,21 @@ function render_editer_utilisateur($utilisateur,$utilisateurBD)
     }
 }
 
+
+function addScript(): void
+{
+    echo '<script>
+    function previewCover(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById("cover-preview");
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    </script>';
+
+}
 
 
 ?>

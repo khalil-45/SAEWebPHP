@@ -40,7 +40,7 @@ class GenreBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Genre($row['id'], $row['nom_genre']);
+            return new Genre($row['id_genre'], $row['nom_genre']);
         }
         return null;
     }

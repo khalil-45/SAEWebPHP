@@ -85,7 +85,7 @@ function render_ajout_album($albumBD, $artistes,$genreBD)
         $genre = $genre->getNomGenre();
         var_dump($_POST);
         $pochette = $_POST['file-upload'];
-        $albumBD->insertAlbum($_POST['titre'],$_POST['annee'],$genre,$pochette,$_POST['artiste']-1);
+        $albumBD->insertAlbum($_POST['titre'],$_POST['annee'],$genre,$pochette,$_POST['artiste']);
         header('Location: ?action=admin_albums');
     }
 

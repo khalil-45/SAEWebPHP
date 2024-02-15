@@ -46,7 +46,7 @@ $genres = $genreBD->getAllGenres();
     <?php
     if ($action == 'admin_ajout_artiste')
     {
-        render_ajout_artiste($artisteBD);
+        render_ajout_artiste($artisteBD, $imageBD);
     }
     else if ($action == 'admin_editer_artiste')
     {

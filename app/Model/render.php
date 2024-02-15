@@ -147,9 +147,6 @@ function render_artistes_admin($artistes,$imageBD)
         if ($photo == null) {
             $photo = "default.png";
         }
-
-
-
         echo '<tr>';
         echo '<td class="titre"> <img src="../static/images/img_artistes/' . $photo .'" alt="pochette de l\'album"> ' . $artiste['nom'] . '</td>';
         echo '<td>' . $artiste['bio'] . '</td>';
@@ -161,17 +158,22 @@ function render_artistes_admin($artistes,$imageBD)
     }
 }
 
-function render_ajout_artiste($artisteBD)
+function render_ajout_artiste($artisteBD,$imageBD)
 {
     echo '<h1>Ajout d\'un artiste</h1>';
     echo '<form  method="post">';
     echo '<label for="nom">Nom</label>';
     echo '<input type="text" name="nom" id="nom" required>';
+    echo '<label for="photo">Photo</label>';
+    echo '<input type="file" name="photo" id="photo" >';
+    echo '<label for="bio">Bio</label>';
+    echo '<textarea name="bio" id="bio"></textarea>';
     echo '<input type="submit" value="Ajouter">';
     echo '</form>';
 
     if (isset($_POST['nom'])) {
-        $artisteBD->insertArtiste($_POST['nom']);
+        $artisteBD->insertArtiste($_POST['nom'],$_POST['bio'],$_POST['photo']);
+        $imageBD->insertImageArtiste($artisteBD->getMaximumId(),$_POST['photo']);
         header('Location: ?action=admin_artistes');
     }
 }

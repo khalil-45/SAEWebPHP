@@ -1,6 +1,9 @@
 .selection {
     margin-bottom: 20px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 .card {
     border: 1px solid #e6e6e6;
@@ -86,6 +89,8 @@ form {
     width: 50%;
     margin: auto;
     text-align: center;
+    padding: 2rem;
+    border-radius: 0.5rem;
 }
 
 form input {
@@ -112,4 +117,28 @@ form input:last-child:hover {
 body h1 {
     text-align: center;
     margin-top: 2rem;
+}
+
+
+form textarea {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    min-height: 100px;
+    min-width: 200px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+form select {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 1rem;
+}
+form input[type="file"] {
+    background: black;
+    color: #fff;
+    margin: auto;
+    min-height: 30px;
 }

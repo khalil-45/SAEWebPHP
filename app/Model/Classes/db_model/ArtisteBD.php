@@ -73,10 +73,29 @@ class ArtisteBD
 
     public function deleteArtisteById($id)
     {
-        $sql = "DELETE FROM ARTISTE WHERE id = :id";
+        $sql = "DELETE FROM ARTISTE WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    public function updateArtiste($id, $nom, $bio, $photo)
+    {
+        $sql = "UPDATE ARTISTE SET nom = :nom, bio = :bio, photo = :photo WHERE artiste_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':bio', $bio, PDO::PARAM_STR);
+        $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function getMaximumId()
+    {
+        $sql = "SELECT MAX(artiste_id) FROM ARTISTE";
+        $stmt = $this->cnx->query($sql);
+        $maxID = $stmt->fetchColumn();
+        return $maxID;
     }
 
 }

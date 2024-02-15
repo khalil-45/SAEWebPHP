@@ -16,13 +16,18 @@ class ImageArtisteBD
         $this->cnx = $cnx;
     }
 
-    public function insertImageArtiste($id_artiste, $id_image)
+    public function insertImageArtiste($id_artiste, $image)
     {
-        $sql = "INSERT INTO IMAGE_ARTISTE (id_artiste, id_image) VALUES (?, ?)";
+        $maxID = $this->cnx->query("SELECT MAX(image_id) FROM IMAGE_ARTISTE")->fetchColumn();
+        $maxID++;
+
+        $sql = "INSERT INTO IMAGE_ARTISTE (image_id, artiste_id, nom_image) VALUES (:id, :artiste_id, :image)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id_artiste, PDO::PARAM_INT);
-        $stmt->bindParam(2, $id_image, PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->bindParam(':id', $maxID, PDO::PARAM_INT);
+        $stmt->bindParam(':artiste_id', $id_artiste, PDO::PARAM_INT);
+        $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+        return $stmt->execute();
+
     }
 
     public function getImageArtisteById($id)

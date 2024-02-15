@@ -20,9 +20,9 @@ $chansonBD = new ChansonBD($cnx);
 $artisteBD = new ArtisteBD($cnx);
 $genreBD = new GenreBD($cnx);
 $imageBD = new ImageArtisteBD($cnx);
-$user = new UtilisateurBD($cnx);
-$utilisateurBD = new UtilisateurBD($cnx);
-
+$userBD = new UtilisateurBD($cnx);
+$utilisateurBD = new UtilisateurBD($cnx);$playlistBD = new PlaylistBD($cnx);
+$chansonPlaylistBD = new ChansonPlaylistBD($cnx);
 
 $album = $albumBD->getAllAlbums();
 
@@ -40,15 +40,35 @@ switch ($action) {
 
         $album = $albumBD->getAlbumById($_GET['id_album']);
 
-        $artiste = $artisteBD->getArtisteById($album->getAlbumId());
+        if ($artisteBD->getArtisteById($album->getArtisteId()) != null){
+        $artiste = $artisteBD->getArtisteById($album->getArtisteId());
+        }else{
+            $artiste = null;
+        }
+
+        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
         include 'templates/pageAlbum.php';
         break;
     
     case 'playlists':
+        if ($_SESSION['user'] != null){
+        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        }
         include 'templates/playlists.php';
         break;
 
     case 'playlist':
+        if ($_SESSION['user'] != null){
+            $playlistId = urldecode($_GET['id_playlist']);
+            $playlist = $playlistBD->getPlaylistById($playlistId);
+            $chansons = $chansonPlaylistBD->getAllChansonsPlaylistByPlaylistId($playlistId);
+            $userIdPlaylist = $playlist->getUserId();
+            $username = $userBD->getUtilisateurById($userIdPlaylist);
+            if ($chansons != null){
+                $premiereChanson = $chansonBD->getChansonById($chansons[0]->getChansonId());
+                $imageAlbum = $albumBD->getAlbumById($premiereChanson->getAlbumId())->getPochette();
+            }
+        }
         include 'templates/playlist.php';
 
     case 'admin':
@@ -72,6 +92,6 @@ switch ($action) {
         break;
     // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
     default:
-        http_response_code(404);
-        echo "Page not found";
+        include 'templates/404.php';
+        break;
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace Model\Classes;
-require_once __DIR__ . '/user.php';
 
 class Playlist {
     private $playlist_id;

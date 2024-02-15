@@ -43,7 +43,7 @@ class ImageArtisteBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new ImageArtiste($row['id'], $row['id_artiste'], $row['id_image']);
+            return new ImageArtiste($row['image_id'], $row['nom_image'], $row['artiste_id']);
         }
         return null;
     }

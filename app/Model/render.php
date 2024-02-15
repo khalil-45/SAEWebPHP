@@ -159,17 +159,17 @@ function render_artistes_admin($artistes,$imageBD)
     echo '<th colspan="2">Actions</th>';
     echo '</tr>';
     foreach ($artistes as $artiste) {
-        $photo = $imageBD->getImageArtisteById($artiste['artiste_id']);
-        $photo = $photo['nom_image'];
+        $photo = $imageBD->getImageArtisteById($artiste->getArtisteId());
+        $photo = $photo->getNomImage();
         if ($photo == null) {
             $photo = "default.png";
         }
         echo '<tr>';
-        echo '<td class="titre"> <img src="../static/images/img_artistes/' . $photo .'" alt="pochette de l\'album"> ' . $artiste['nom'] . '</td>';
-        echo '<td>' . $artiste['bio'] . '</td>';
+        echo '<td class="titre"> <img src="../static/images/img_artistes/' . $photo .'" alt="pochette de l\'album"> ' . $artiste->getNom() . '</td>';
+        echo '<td>' . $artiste->getBio() . '</td>';
         echo '<td class="actions">';
-        echo '<a href="?action=admin_artistes&admin=admin_editer_artiste&id_artiste=' . $artiste['artiste_id'] . '">Éditer</a>';
-        echo '<a href="?action=admin_artistes&admin=admin_supprimer_artiste&id_artiste=' . $artiste['artiste_id'] . '">Supprimer</a>';
+        echo '<a href="?action=admin_artistes&admin=admin_editer_artiste&id_artiste=' . $artiste->getArtisteId() . '">Éditer</a>';
+        echo '<a href="?action=admin_artistes&admin=admin_supprimer_artiste&id_artiste=' . $artiste->getArtisteId() . '">Supprimer</a>';
         echo '</td>';
         echo '</tr>';
     }
@@ -177,14 +177,14 @@ function render_artistes_admin($artistes,$imageBD)
 
 function render_ajout_artiste($artisteBD,$imageBD)
 {
+    $photo = "default.png";
     echo '<h1>Ajout d\'un artiste</h1>';
     echo '<form  method="post" enctype="multipart/form-data">'; // Ajoutez l'attribut enctype
     echo '<label for="nom">Nom</label>';
     echo '<input type="text" name="nom" id="nom" required>';
-    echo '<label class="file" for="file-upload">Sélectionnez une photo';
-    echo '<span id = "file-name"></span>';
-    echo '</label>';
-    echo '<input id="file-upload" type="file" name="file-upload" >';
+    echo '<label class="file" for="file-upload">Sélectionnez une photo</label>';
+    echo '<img id="cover-preview" src="../static/images/img_artistes/' . $photo . '" alt="pochette de l\'album">';
+    echo '<input id="file-upload" type="file" name="file-upload" onchange="previewCover(event)">';
     echo '<label for="bio">Bio</label>';
     echo '<textarea name="bio" id="bio"></textarea>';
     echo '<input type="submit" value="Ajouter">';
@@ -201,20 +201,20 @@ function render_ajout_artiste($artisteBD,$imageBD)
 
 function render_editer_artiste($artiste,$artisteBD,$imageBD)
 {
-    $photo = $imageBD->getImageArtisteById($artiste['artiste_id']);
-    $photo = $photo['nom_image'];
+    $photo = $imageBD->getImageArtisteById($artiste->getArtisteId());
+    $photo = $photo->getNomImage();
     if ($photo == null) {
         $photo = "default.png";
     }
     echo '<h1>Édition d\'un artiste</h1>';
     echo '<form  method="post" enctype="multipart/form-data">'; // Ajoutez l'attribut enctype
     echo '<label for="nom">Nom</label>';
-    echo '<input type="text" name="nom" id="nom" value="' . $artiste['nom'] . '" required>';
+    echo '<input type="text" name="nom" id="nom" value="' . $artiste->getNom() . '" required>';
     echo '<label class="file" for="file-upload">Sélectionnez une photo</label>';
     echo '<img id="cover-preview" src="../static/images/img_artistes/' . $photo . '" alt="pochette de l\'album">';
     echo '<input id="file-upload" type="file" name="file-upload" onchange="previewCover(event)">';
     echo '<label for="bio">Bio</label>';
-    echo '<textarea name="bio" id="bio">' . $artiste['bio'] . '</textarea>';
+    echo '<textarea name="bio" id="bio">' . $artiste->getBio() . '</textarea>';
     echo '<input type="submit" value="Modifier">';
     echo '</form>';
 
@@ -225,7 +225,7 @@ function render_editer_artiste($artiste,$artisteBD,$imageBD)
         if ($photo_recup == null) {
             $photo_recup = $photo;
         }
-        $artisteBD->updateArtiste($artiste['artiste_id'],$_POST['nom'],$_POST['bio'],$photo_recup);
+        $artisteBD->updateArtiste($artiste->getArtisteId(),$_POST['nom'],$_POST['bio'],$photo_recup);
         header('Location: ?action=admin_artistes');
     }
 

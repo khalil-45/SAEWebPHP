@@ -19,8 +19,7 @@ function render_albums_admin($albums,$artistes)
         if (!isset($artistes[$artiste_id])) {
             $artiste = "Artiste inconnu";
         } else {
-            $artiste = $artistes[$artiste_id];
-            $artiste = $artiste['nom'];
+            $artiste = $artistes[$artiste_id]->getNom();
         }
 
         $genre = $album['genre'];

@@ -22,6 +22,9 @@ class Artiste {
     }
 
     public function getNom() {
+        if ($this->nom == null) {
+            return "Artiste inconnu";
+        }
         return $this->nom;
     }
 

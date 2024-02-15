@@ -30,6 +30,8 @@
                 <a href="?action=parametres">
                     <li><img src="../static/images/parametres.png" alt="icone paramètres">Paramètres</li>
                 </a>
+                <a href="?action=admin">
+                    <li><img src="../static/images/parametres.png" alt="admin">Admin</li>a
             </ul>
         </nav>
         <div class="profil">

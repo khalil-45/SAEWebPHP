@@ -54,7 +54,7 @@ class GenreBD
         $stmt = $this->cnx->query($sql);
         $genres = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $genre = new Genre($row['id'], $row['nom_genre']);
+            $genre = new Genre($row['id_genre'], $row['nom_genre']);
             $genres[] = $genre;
         }
         return $genres;

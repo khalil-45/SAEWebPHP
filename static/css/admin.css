@@ -173,6 +173,11 @@ form input[type="file"]{
     color: #fe0a69;
 }
 
-
+form img {
+    width: 150px;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1rem;
+}
 
 

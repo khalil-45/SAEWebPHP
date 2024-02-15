@@ -81,6 +81,12 @@ class ArtisteBD
 
     public function updateArtiste($id, $nom, $bio, $photo)
     {
+        $sql = "UPDATE IMAGE_ARTISTE SET nom_image = :photo WHERE artiste_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
+        $stmt->execute();
+        
         $sql = "UPDATE ARTISTE SET nom = :nom, bio = :bio, photo = :photo WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

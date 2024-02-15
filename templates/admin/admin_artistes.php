@@ -52,7 +52,7 @@ $genres = $genreBD->getAllGenres();
     else if ($action == 'admin_editer_artiste')
     {
         $artiste = $artisteBD->getArtisteById($_GET['id_artiste']);
-        render_editer_artiste($artiste, $artisteBD);
+        render_editer_artiste($artiste, $artisteBD, $imageBD);
     }
     else if ($action == 'admin_supprimer_artiste')
     {

@@ -15,12 +15,13 @@ function render_albums_admin($albums,$artistes)
     echo '<th colspan="2">Actions</th>';
     echo '</tr>';
     foreach ($albums as $album) {
-        $artiste_id = $album['artiste_id'];
+        $artiste_id = $album['artiste_id']-1;
         if (!isset($artistes[$artiste_id])) {
             $artiste = "Artiste inconnu";
         } else {
             $artiste = $artistes[$artiste_id]->getNom();
         }
+
 
         $genre = $album['genre'];
 
@@ -111,7 +112,7 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
     // Créer un champ de sélection pour l'artiste
     echo '<select name="artiste" id="artiste" >';
     foreach ($artistes as $artiste) {
-        $selected = ((int)$artiste->getArtisteId() === (int)$album['artiste_id']+1) ? 'selected' : '' ;
+        $selected = ((int)$artiste->getArtisteId() === (int)$album['artiste_id']) ? 'selected' : '' ;
         echo '<option value="' . $artiste->getArtisteId() . '" ' . $selected . '>' . $artiste->getNom() . '</option>';
     }
     echo '</select>';
@@ -142,7 +143,7 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
         if ($pochette == null) {
             $pochette = $photo;
         }
-        $albumBD->updateAlbum($album['album_id'],$_POST['titre'],$_POST['annee'],$genre,$pochette,$_POST['artiste']-1);
+        $albumBD->updateAlbum($album['album_id'],$_POST['titre'],$_POST['annee'],$genre,$pochette,$_POST['artiste']);
         header('Location: ?action=admin_albums');
     }
 }

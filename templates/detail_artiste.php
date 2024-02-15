@@ -20,9 +20,13 @@ include 'aside_menu.php';
 
 $artiste = $artisteBD->getArtisteById($_GET['id_artiste']);
 $artiste_id = $artiste->getArtisteId(); // Assuming the artist object has a getId() method
+
 $filtered_albums = array_filter($album, function ($album) use ($artiste_id) {
     return $album['artiste_id'] == $artiste_id; // Assuming the album object has a getArtisteId() method
 });
+
+$filtered_albums = array_values($filtered_albums); // Reindex the array
+
 ?>
 <main>
     <div class="titre">

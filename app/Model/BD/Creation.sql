@@ -47,7 +47,8 @@ CREATE TABLE UTILISATEUR (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username VARCHAR(500) UNIQUE,
     password VARCHAR(500),
-    email VARCHAR(500)
+    email VARCHAR(500),
+    isAdmin BOOLEAN
 );
 
 -- Création de la table PLAYLIST

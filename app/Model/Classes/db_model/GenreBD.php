@@ -72,7 +72,7 @@ class GenreBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Genre($row['id'], $row['nom_genre']);
+            return new Genre($row['id_genre'], $row['nom_genre']);
         }
         return null;
     }
@@ -89,7 +89,7 @@ class GenreBD
         $stmt->execute();
         $genres = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $genre = new Genre($row['id'], $row['nom_genre']);
+            $genre = new Genre($row['id_genre'], $row['nom_genre']);
             $genres[] = $genre;
         }
         return $genres;
@@ -100,7 +100,7 @@ class GenreBD
      */
     public function deleteGenre($id)
     {
-        $sql = "DELETE FROM GENRE WHERE id = :id";
+        $sql = "DELETE FROM GENRE WHERE id_genre = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

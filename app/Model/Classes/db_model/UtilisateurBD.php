@@ -17,21 +17,24 @@ class UtilisateurBD
         $this->cnx = $cnx;
     }
 
-    public function insertUtilisateur($username, $password, $email)
+    public function insertUtilisateur($username, $password, $email, $isAdmin)
     {
-        $sql = "INSERT INTO UTILISATEUR (username, password, email) VALUES (:username, :password, :email)";
+        $sql = "INSERT INTO UTILISATEUR (username, password, email, isAdmin) VALUES (:username, :password, :email, :isAdmin)";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':isAdmin', $isAdmin, PDO::PARAM_BOOL);
         return $stmt->execute();
     }
+    
 
     /**
      * @param int $id
      * @return Utilisateur|null
      */
     public function getUtilisateurById($id)
+
     {
         $sql = "SELECT * FROM UTILISATEUR WHERE user_id = :id";
         $stmt = $this->cnx->prepare($sql);
@@ -39,7 +42,7 @@ class UtilisateurBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email']);
+            return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email'], $row['isAdmin']);
         }
         return null;
     }
@@ -56,7 +59,7 @@ class UtilisateurBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Utilisateur($row['id'], $row['username'], $row['password'], $row['email']);
+            return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email'], $row['isAdmin']);
         }
         return null;
     }
@@ -75,7 +78,7 @@ class UtilisateurBD
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new Utilisateur($row['id'], $row['username'], $row['password'], $row['email']);
+            return new Utilisateur($row['user_id'], $row['username'], $row['password'], $row['email'], $row['isAdmin']);
         }
         return null;
     }
@@ -95,18 +98,20 @@ class UtilisateurBD
      * @param string $username
      * @param string $password
      * @param string $email
+     * @param bool $isAdmin
      */
-    public function updateUtilisateur($id, $username, $password, $email)
+    public function updateUtilisateur($id, $username, $password, $email, $isAdmin)
     {
-        $sql = "UPDATE UTILISATEUR SET username = :username, password = :password, email = :email WHERE user_id = :id";
+        $sql = "UPDATE UTILISATEUR SET username = :username, password = :password, email = :email WHERE id = :id, isAdmin = :isAdmin";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':isAdmin', $isAdmin, PDO::PARAM_BOOL);
         return $stmt->execute();
     }
-
+  
     public function getAllUtilisateurs()
     {
         $sql = "SELECT * FROM UTILISATEUR";

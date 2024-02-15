@@ -27,6 +27,7 @@ class ImageArtisteBD
         $stmt->bindParam(':id', $maxID, PDO::PARAM_INT);
         $stmt->bindParam(':artiste_id', $id_artiste, PDO::PARAM_INT);
         $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+
         return $stmt->execute();
 
     }
@@ -37,7 +38,7 @@ class ImageArtisteBD
      */
     public function getImageArtisteById($id)
     {
-        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE artiste_id = ?";
+        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE image_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -57,7 +58,7 @@ class ImageArtisteBD
         $stmt = $this->cnx->query($sql);
         $imagesArtiste = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $imageArtiste = new ImageArtiste($row['id'], $row['id_artiste'], $row['id_image']);
+            $imageArtiste = new ImageArtiste($row['image_id'], $row['nom_image'], $row['artiste_id']);
             $imagesArtiste[] = $imageArtiste;
         }
         return $imagesArtiste;
@@ -69,13 +70,13 @@ class ImageArtisteBD
      */
     public function getImagesArtisteByIdArtiste($id_artiste)
     {
-        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE id_artiste = ?";
+        $sql = "SELECT * FROM IMAGE_ARTISTE WHERE artiste_id = :id_artiste";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id_artiste, PDO::PARAM_INT);
         $stmt->execute();
         $imagesArtiste = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $imageArtiste = new ImageArtiste($row['id'], $row['id_artiste'], $row['id_image']);
+            $imageArtiste = new ImageArtiste($row['image_id'], $row['nom_image'], $row['artiste_id']);
             $imagesArtiste[] = $imageArtiste;
         }
         return $imagesArtiste;
@@ -83,7 +84,7 @@ class ImageArtisteBD
 
     public function deleteImageArtiste($id)
     {
-        $sql = "DELETE FROM IMAGE_ARTISTE WHERE id = ?";
+        $sql = "DELETE FROM IMAGE_ARTISTE WHERE image_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();

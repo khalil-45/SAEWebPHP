@@ -1,4 +1,5 @@
 <?php
+global $artiste, $album, $chansons;
 
 ?>
 <!DOCTYPE html>

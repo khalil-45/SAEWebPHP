@@ -89,6 +89,16 @@ class PlaylistBD
         $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
         $stmt->execute();
     }
+
+    public function getUserId($id)
+    {
+        $sql = "SELECT user_id FROM PLAYLIST WHERE playlist_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['user_id'];
+    }
 }
 
 ?>

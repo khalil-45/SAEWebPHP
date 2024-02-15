@@ -1,5 +1,6 @@
 <?php
 require 'app/Model/render.php';
+
 /*
 
 if (session_status() === PHP_SESSION_NONE) {

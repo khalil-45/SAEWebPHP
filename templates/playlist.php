@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../static/css/popupForm.css">
     <link rel="stylesheet" href="../static/css/cardalbum.css">
     <link rel="stylesheet" href="../static/css/playlist.css">
-    <title><?php $playlist->getTitre() ?></title>
+    <title><?php echo $playlist->getTitre() ?></title>
 </head>
 
 <body>
@@ -21,7 +21,11 @@
             </div>
             <div class="playlist-info">
                 <h2><?php echo $playlist->getTitre() ?></h2>
-                <p><?php echo $username ?></p>
+                <?php
+                    // Fetch the username from the appropriate source
+                    $username = $username->getUsername();
+                ?>
+                <p><?php echo $username?></p>
                 <div class="buttons">
                     <button class="play-button">
                         <img src="../static/images/bouton-jouer.png" alt="play button">
@@ -33,9 +37,10 @@
 
         <section class="titres">
             <ul>
-                <?php 
+                <?php
                 if ($chansons != null) {
-                foreach ($chansons as $chanson) : 
+                foreach ($chansons as $chanson) :
+                    // Make sure $chansonBD is defined and assigned
                     $chanson = $chansonBD->getChansonById($chanson->getChansonId());
                     ?>
                     <button><li><img src="../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson->getTitre() ?></li></button>

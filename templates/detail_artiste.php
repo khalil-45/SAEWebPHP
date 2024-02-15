@@ -20,13 +20,13 @@ $artiste = $artisteBD->getArtisteById($_GET['id_artiste']);
 $artiste_id = $artiste->getArtisteId();
 
 $filtered_albums = array_filter($album, function ($album) use ($artiste_id) {
-    return $album['artiste_id'] == $artiste_id;
+    return $album->getArtisteId() == $artiste_id;
 });
-
-$filtered_albums = array_values($filtered_albums);
 
 $photo = $imageBD->getImageArtisteById($artiste_id);
 $photo = $photo->getNomImage();
+
+
 ?>
 <main>
     <div class="titre">
@@ -46,19 +46,19 @@ $photo = $photo->getNomImage();
     <h2>Les albums de cet artiste</h2>
     <div class="grid">
         <?php foreach ($filtered_albums as $a) : ?>
-            <a href="?action=album&id_album=<?php echo $a['album_id']; ?>">
+            <a href="?action=album&id_album=<?php echo $a->getAlbumId(); ?>">
                 <div class="head">
                     <i class='fab fa-apple' style='font-size:13.5px;'></i>
                     <h5 class="top">Music</h5>
                     <img src="../static/images/img_albums/<?php
-                    if ($a['pochette'] != null) {
-                        echo urlencode(trim($a['pochette']));
+                    if ($a->getPochette() != null) {
+                        echo urlencode(trim($a->getPochette()));
                     } else {
                         echo "default.jpg";
                     }
                     ?>" alt="pochette de l'album">
                     <div class="line"></div>
-                    <div class="bottom"><?php echo $a['titre']; ?></div>
+                    <div class="bottom"><?php echo $a->getTitre(); ?></div>
                 </div>
             </a>
         <?php endforeach; ?>

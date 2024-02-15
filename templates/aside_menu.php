@@ -12,10 +12,8 @@
             <h1>Raspberry Music</h1>
         </div>
         <div class="recherche">
-        <form class="recherche">
+        <form class="recherche" onsubmit="searchAlbums()">
             <input type="text" id="recherche" placeholder="Rechercher">
-            <button type="button" onclick="searchAlbums()">Rechercher</button>
-            <img src="../static/images/loupe.png" alt="icone loupe">
         </form>
     
         </div>
@@ -35,10 +33,11 @@
         <div class="profil">
     <?php
     // Vérifiez si l'utilisateur est connecté
-    if(isset($_SESSION['username'])) {
+    if(isset($_SESSION['user'])) {
         // L'utilisateur est connecté, affichez un message de bienvenue
-        $username = $_SESSION['username'];
-        echo "<p class='username'> $username </p>";
+        $user = $_SESSION['user'];
+        $nom = $user->getUsername();
+        echo "<p class='username'>$nom </p>";
 
         // Ajoutez un lien de déconnexion
         echo '<a href="../app/Model/logout.php" class="logout-link">Déconnexion</a>';

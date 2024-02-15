@@ -2,6 +2,7 @@
 
 namespace Model\Classes;
 
+
 class Chanson {
     private $chanson_id;
     private $titre;

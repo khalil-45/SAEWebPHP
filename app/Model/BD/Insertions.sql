@@ -185,3 +185,6 @@ INSERT INTO IMAGE_ARTISTE (nom_image, artiste_id) VALUES
     ('Terry_Allen.jpeg', 11),
     ('X.jpeg', 12),
     ('Dave_Alvin.jpeg', 13);
+
+INSERT INTO UTILISATEUR(user_id,username, password, email, isAdmin) VALUES
+    (1, 'user1', 'password1', 'ybarache@icloud.com',1);

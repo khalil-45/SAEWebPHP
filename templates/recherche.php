@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../Model/db_model/AlbumBD.php';
-require_once __DIR__ . '/../Model/Connection_BD.php';
+require_once __DIR__ . '/../app/Model/Classes/db_model/AlbumBD.php';
+require_once __DIR__ . '/../app/Model/Connection_BD.php';
 
 use Model\Classes\db_model\AlbumBD;
 

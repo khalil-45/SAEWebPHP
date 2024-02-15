@@ -12,7 +12,7 @@
 </script>
 
 <script>
-    $(document).ready(function() {
+    (document).ready(function() {
     // Fonction pour effectuer la recherche
     window.searchAlbums = function() {
         // Récupérer le terme de recherche saisi par l'utilisateur

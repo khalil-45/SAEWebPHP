@@ -104,6 +104,17 @@ class UtilisateurBD
         return $utilisateurs;
     }
 
+    public function updateUtilisateur($id, $username, $password, $email)
+    {
+        $sql = "UPDATE UTILISATEUR SET username = :username, password = :password, email = :email WHERE user_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(1, $username, PDO::PARAM_STR);
+        $stmt->bindParam(2, $password, PDO::PARAM_STR);
+        $stmt->bindParam(3, $email, PDO::PARAM_STR);
+        $stmt->bindParam(4, $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 
 ?>

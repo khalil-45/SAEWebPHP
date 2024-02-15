@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user = $user->getUtilisateurByEmailandPassword($email, $password);
 
         if ($user) {
-            $_SESSION['username'] = $user->getUsername();
+            $_SESSION['user'] = $user;
             echo "Utilisateur connecté";
             header("Location: /");
             exit();

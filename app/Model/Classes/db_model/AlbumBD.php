@@ -28,29 +28,35 @@ class AlbumBD
     }
 
 
-    /**
+/**
      * @return array
+     * 
      */
-    public function getAllAlbums()
-    {
+    public function getAllAlbums(){
         $sql = "SELECT * FROM ALBUM";
         $stmt = $this->cnx->query($sql);
-        $albums = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $albums = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+            $albums[] = $album;
+        }
         return $albums;
-    }
+    } 
 
-    /**
+/**
      * @param int $id
-     * @return array
+     * @return Album | null
      */
-    public function getAlbumById($id)
-    {
+    public function getAlbumById($id){
         $sql = "SELECT * FROM ALBUM WHERE album_id = :id";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        $album = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $album;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+        }
+        return null;
     }
 
         /**

@@ -23,12 +23,14 @@
     } else {
      ?>
         <section class="playlists">
+            <?php foreach ($playlists as $p) : ?>
             <a href="/?action=playlist?id_playlist=#">
                 <div class="playlist">
                     <img src="../static/images/img_albums/220px-DarkChords.jpg" alt="image de la playlist">
-                    <p>Playlist 1</p>
+                    <p><?php echo $p->getTitre() ?></p>
                 </div>
             </a>
+            <?php endforeach; ?>
         </section>
         <?php } ?>
     </main>

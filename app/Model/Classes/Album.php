@@ -1,8 +1,6 @@
 <?php
 
 namespace Model\Classes;
-require_once __DIR__ . '/chanson.php';
-require_once __DIR__ . '/artiste.php';
 
 class Album {
     private $album_id;

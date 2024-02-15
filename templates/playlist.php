@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../static/css/popupForm.css">
     <link rel="stylesheet" href="../static/css/cardalbum.css">
     <link rel="stylesheet" href="../static/css/playlist.css">
-    <title><?php //$playlist.getTitre() ?></title>
+    <title><?php $playlist->getTitre() ?></title>
 </head>
 
 <body>
@@ -20,8 +20,8 @@
                 <img src="../static/images/img_albums/220px-Folklore_hp.jpg" alt="image de la playlist">
             </div>
             <div class="playlist-info">
-                <h2><?php //$playlist.getTitre() ?>titre playlist</h2>
-                <p><?php //$playlist.getUtilisateur() ?> Utilisateur</p>
+                <h2><?php $playlist->getTitre() ?></h2>
+                <p><?php $username ?></p>
                 <div class="buttons">
                     <button class="play-button">
                         <img src="../static/images/bouton-jouer.png" alt="play button">
@@ -33,7 +33,9 @@
 
         <section class="titres">
             <ul>
-                <button><li><img src="../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson['titre'] ?>Titre 1</li></button>
+                <?php foreach ($chansons as $chanson) : ?>
+                    <button><li><img src="../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson['titre'] ?></li></button>
+                <?php endforeach; ?>
             </ul>
         </section>
     </main>

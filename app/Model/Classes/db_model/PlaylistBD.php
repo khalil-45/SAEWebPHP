@@ -2,8 +2,6 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
-require_once __DIR__ . '/../../Classes/Playlist.php';
 
 use Model\Classes\Playlist;
 use PDO;

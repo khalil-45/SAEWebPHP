@@ -1,7 +1,6 @@
 <?php
 
 namespace Model\Classes;
-require_once __DIR__ . '/album.php';
 
 class Chanson {
     private $chanson_id;

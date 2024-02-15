@@ -82,10 +82,7 @@ class ArtisteBD
         return null;
     }
 
-    /**
-     * @param int $id
-     */
-    public function deleteArtiste($id)
+    public function deleteArtisteById($id)
     {
         $sql = "DELETE FROM ARTISTE WHERE artiste_id = :id";
         $stmt = $this->cnx->prepare($sql);
@@ -93,6 +90,30 @@ class ArtisteBD
         $stmt->execute();
     }
 
+    public function updateArtiste($id, $nom, $bio, $photo)
+    {
+        $sql = "UPDATE IMAGE_ARTISTE SET nom_image = :photo WHERE artiste_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $sql = "UPDATE ARTISTE SET nom = :nom, bio = :bio, photo = :photo WHERE artiste_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nom', $nom, PDO::PARAM_STR);
+        $stmt->bindParam(':bio', $bio, PDO::PARAM_STR);
+        $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
+    public function getMaximumId()
+    {
+        $sql = "SELECT MAX(artiste_id) FROM ARTISTE";
+        $stmt = $this->cnx->query($sql);
+        $maxID = $stmt->fetchColumn();
+        return $maxID;
+    }
 
 }
 

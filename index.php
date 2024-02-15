@@ -13,6 +13,9 @@ use Model\Classes\db_model\UtilisateurBD;
 use Model\Classes\db_model\PlaylistBD;
 use Model\Classes\ChansonPlaylist;
 use Model\Classes\db_model\ChansonPlaylistBD;
+use Model\Classes\db_model\GenreBD;
+use Model\Classes\db_model\ImageArtisteBD;
+
 
 
 $cnx = Connection_BD::getInstance();
@@ -22,6 +25,10 @@ $artisteBD = new ArtisteBD($cnx);
 $userBD = new UtilisateurBD($cnx);
 $playlistBD = new PlaylistBD($cnx);
 $chansonPlaylistBD = new ChansonPlaylistBD($cnx);
+$genreBD = new GenreBD($cnx);
+$imageBD = new ImageArtisteBD($cnx);
+$user = new UtilisateurBD($cnx);
+$utilisateurBD = new UtilisateurBD($cnx);
 
 $album = $albumBD->getAllAlbums();
 
@@ -38,7 +45,7 @@ switch ($action) {
         $chansons = $chansonBD->getChansonsByAlbumId($_GET['id_album']);
 
         $album = $albumBD->getAlbumById($_GET['id_album']);
-
+    
         if ($artisteBD->getArtisteById($album->getArtisteId()) != null){
         $artiste = $artisteBD->getArtisteById($album->getArtisteId());
         }else{
@@ -46,6 +53,7 @@ switch ($action) {
         }
 
         $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+
         include 'templates/pageAlbum.php';
         break;
     
@@ -69,6 +77,25 @@ switch ($action) {
             }
         }
         include 'templates/playlist.php';
+
+    case 'admin':
+        include 'templates/admin/accueil_admin.php';
+        break;
+
+    case 'admin_albums':
+        include 'templates/admin/admin_albums.php';
+        break;
+
+    case 'admin_artistes':
+        include 'templates/admin/admin_artistes.php';
+        break;
+
+    case 'admin_utilisateurs':
+        include 'templates/admin/admin_utilisateurs.php';
+        break;
+
+    case 'detail_artiste':
+        include 'templates/detail_artiste.php';
         break;
     // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
     default:

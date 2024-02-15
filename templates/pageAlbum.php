@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -28,13 +31,19 @@
                 ?>" alt="pochette de l'album">
             </div>
             <div class="album-info">
-                <h2>
-                    <?php echo $album->getTitre() ?>
-                </h2>
-                <p>
-                    <?php
-                    if (($artiste != null)) {
-                        echo $artiste->getNom();
+                <h2><?php
+                    echo $album->getTitre()?></h2>
+                <p><?php 
+                if ($artiste->getNom() != null){
+                    echo $artiste->getNom();
+                } else {
+                    echo "Artiste inconnu";
+                }
+                ?></p>
+                <div class="date-genre">
+                    <p><?php 
+                    if ($album->getGenre() != null){
+                    echo $album->getGenre();
                     } else {
                         echo "Artiste inconnu";
                     }

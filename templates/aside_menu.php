@@ -12,12 +12,12 @@
             <h1>Raspberry Music</h1>
         </div>
         <div class="recherche">
-            <form action="" method="post">
-                <input type="text" name="recherche" id="recherche" placeholder="Rechercher">
-                <button type="submit">
-                    <img src="../static/images/loupe.png" alt="bouton recherche">
-                </button>
-            </form>
+        <form class="recherche">
+            <input type="text" id="recherche" placeholder="Rechercher">
+            <button type="button" onclick="searchAlbums()">Rechercher</button>
+            <img src="../static/images/loupe.png" alt="icone loupe">
+        </form>
+    
         </div>
         <nav>
             <ul>
@@ -27,8 +27,8 @@
                 <a href="/?action=playlists">
                     <li><img src="../static/images/playlist.png" alt="icone playlists">Mes Playlists</li>
                 </a>
-                <a href="?action=parametres">
-                    <li><img src="../static/images/parametres.png" alt="icone paramètres">Paramètres</li>
+                <a href="?action=admin">
+                    <li><img src="../static/images/parametres.png" alt="admin">Admin</li>
                 </a>
             </ul>
         </nav>

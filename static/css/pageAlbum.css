@@ -2,8 +2,7 @@
 .info-album {
     display: flex;
     flex-direction: row;
-    margin: 20px;
-    height: 300px;
+    align-items: center;
 }
 
 /* Style de la pochette d'album */
@@ -11,6 +10,7 @@
     width: 300px;
     height: auto;
     border-radius: 8px;
+    margin: 20px;
 }
 
 /* Style des informations de l'album */
@@ -35,6 +35,11 @@
     display: flex;
     justify-content: space-between;
     color: #888;
+}
+
+.buttons {
+    display: flex;
+    margin-top: auto;
 }
 
 .buttons button {
@@ -116,12 +121,6 @@
     flex-direction: column;
 }
 
-.titres ul li{
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
-}
-
 .titres ul li img{
     margin-right: 10px;
     margin-left: 10px;
@@ -132,7 +131,7 @@
     color: #fe0a69;
 }
 
-.titres ul button{
+.titres ul li{
     background-color: #202020;
     color: #fff;
     border: none;
@@ -140,10 +139,24 @@
     cursor: pointer;
     border-radius: 5px;
     margin: 5px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
 }
 
-.titres ul button:hover{
+.titres ul li:hover{
     background-color: #424242;
+}
+
+.add-to-playlist-button{
+    background-color: #535353;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 5px;
 }
 
 .titres ul li p{

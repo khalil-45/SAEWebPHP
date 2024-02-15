@@ -50,7 +50,6 @@ global $artiste, $album, $chansons;
                     }
                     ?>
                 </p>
-                <div class="date-genre">
                     <p>
                         <?php
                         if ($album->getGenre() != null) {

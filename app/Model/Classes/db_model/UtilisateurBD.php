@@ -83,10 +83,8 @@ class UtilisateurBD
         return null;
     }
 
-    /**
-     * @param int $id 
-     */
-    public function deleteUtilisateur($id)
+    
+    public function deleteUtilisateurById($id)
     {
         $sql = "DELETE FROM UTILISATEUR WHERE user_id = :id";
         $stmt = $this->cnx->prepare($sql);
@@ -113,9 +111,16 @@ class UtilisateurBD
         $stmt->bindParam(':isAdmin', $isAdmin, PDO::PARAM_BOOL);
         return $stmt->execute();
     }
+  
+    public function getAllUtilisateurs()
+    {
+        $sql = "SELECT * FROM UTILISATEUR";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->execute();
+        $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $utilisateurs;
+    }
 
-
-    
 }
 
 ?>

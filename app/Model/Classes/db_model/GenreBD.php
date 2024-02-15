@@ -2,8 +2,7 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
-require_once __DIR__ . '/../../Classes/Genre.php';
+require_once __DIR__ . '/../../Connection_BD.php';
 
 use Model\Classes\Genre;
 use PDO;
@@ -35,7 +34,7 @@ class GenreBD
      */
     public function getGenreById($id)
     {
-        $sql = "SELECT * FROM GENRE WHERE id = :id";
+        $sql = "SELECT * FROM GENRE WHERE id_genre = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -26,10 +29,11 @@
                 ?>" alt="pochette de l'album">
             </div>
             <div class="album-info">
-                <h2><?php echo $album['titre']?></h2>
+                <h2><?php
+                    echo $album['titre']?></h2>
                 <p><?php 
-                if ($artiste['nom'] != null){
-                    echo $artiste['nom'];
+                if ($artiste->getNom() != null){
+                    echo $artiste->getNom();
                 } else {
                     echo "Artiste inconnu";
                 }
@@ -59,11 +63,11 @@
 
         <section class="titres">
             <ul>
-                <?php foreach ($chansons as $chanson) : ?>
-                    <button>
-                        <li><p><?php echo $chanson['chanson_id'] ?></p><img src="../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson['titre'] ?></li>
-                    </button>
-                <?php endforeach; ?>
+                <?php foreach ($chansons as $id => $chanson) : ?>
+    <button>
+        <li><p><?php echo $id+1 ?></p><img src="../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson->getTitre() ?></li>
+    </button>
+<?php endforeach; ?>
             </ul>
         </section>
     </main>

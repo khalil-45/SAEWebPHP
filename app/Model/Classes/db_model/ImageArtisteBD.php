@@ -2,7 +2,7 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
+require_once __DIR__ . '/../../Connection_BD.php';
 require_once __DIR__ . '/../../Classes/ImageArtiste.php';
 
 use Model\Classes\ImageArtiste;
@@ -17,13 +17,19 @@ class ImageArtisteBD
         $this->cnx = $cnx;
     }
 
-    public function insertImageArtiste($nom_image,$artiste_id)
+    public function insertImageArtiste($id_artiste, $image)
     {
-        $sql = "INSERT INTO IMAGE_ARTISTE (nom_image,artiste_id) VALUES (:nom_image,:artiste_id)";
+        $maxID = $this->cnx->query("SELECT MAX(image_id) FROM IMAGE_ARTISTE")->fetchColumn();
+        $maxID++;
+
+        $sql = "INSERT INTO IMAGE_ARTISTE (image_id, artiste_id, nom_image) VALUES (:id, :artiste_id, :image)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $artiste_id, PDO::PARAM_INT);
-        $stmt->bindParam(2, $nom_image, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $maxID, PDO::PARAM_INT);
+        $stmt->bindParam(':artiste_id', $id_artiste, PDO::PARAM_INT);
+        $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+
         return $stmt->execute();
+
     }
 
     /**

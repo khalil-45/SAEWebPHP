@@ -54,8 +54,10 @@ function render_ajout_album($albumBD, $artistes,$genreBD)
     echo '<form  method="post">';
     echo '<label for="titre">Titre</label>';
     echo '<input type="text" name="titre" id="titre" required>';
-    echo '<label for="pochette">Pochette</label>';
-    echo '<input type="file" name="pochette" id="pochette" >';
+    echo '<label class="file" for="file-upload">Sélectionnez une pochette';
+    echo '<span id = "file-name"></span>';
+    echo '</label>';
+    echo '<input id="file-upload" type="file" name="file-upload" >';
     echo '<label for="artiste">Artiste</label>';
 
     // Créer un champ de sélection pour l'artiste
@@ -96,8 +98,10 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
     echo '<form  method="post">';
     echo '<label for="titre">Titre</label>';
     echo '<input type="text" name="titre" id="titre" value="' . $album['titre'] . '" required>';
-    echo '<label for="pochette">Pochette</label>';
-    echo '<input type="file" name="pochette" id="pochette" >';
+    echo '<label class="file" for="file-upload">Sélectionnez une pochette';
+    echo '<span id = "file-name"></span>';
+    echo '</label>';
+    echo '<input id="file-upload" type="file" name="file-upload" >';
     echo '<label for="artiste">Artiste</label>';
 
     // Créer un champ de sélection pour l'artiste
@@ -161,19 +165,22 @@ function render_artistes_admin($artistes,$imageBD)
 function render_ajout_artiste($artisteBD,$imageBD)
 {
     echo '<h1>Ajout d\'un artiste</h1>';
-    echo '<form  method="post">';
+    echo '<form  method="post" enctype="multipart/form-data">'; // Ajoutez l'attribut enctype
     echo '<label for="nom">Nom</label>';
     echo '<input type="text" name="nom" id="nom" required>';
-    echo '<label for="photo">Photo</label>';
-    echo '<input type="file" name="photo" id="photo" >';
+    echo '<label class="file" for="file-upload">Sélectionnez une photo';
+    echo '<span id = "file-name"></span>';
+    echo '</label>';
+    echo '<input id="file-upload" type="file" name="file-upload" >';
     echo '<label for="bio">Bio</label>';
     echo '<textarea name="bio" id="bio"></textarea>';
     echo '<input type="submit" value="Ajouter">';
     echo '</form>';
 
-    if (isset($_POST['nom'])) {
-        $artisteBD->insertArtiste($_POST['nom'],$_POST['bio'],$_POST['photo']);
-        $imageBD->insertImageArtiste($artisteBD->getMaximumId(),$_POST['photo']);
+    if (isset($_POST['nom']) && isset($_FILES['file-upload'])) { // Vérifiez si le fichier a été téléchargé
+        $photo = $_FILES['file-upload']['name']; // Récupérez le nom du fichier
+        $artisteBD->insertArtiste($_POST['nom'],$_POST['bio'],$photo);
+        $imageBD->insertImageArtiste($artisteBD->getMaximumId(),$photo);
         header('Location: ?action=admin_artistes');
     }
 }

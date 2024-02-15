@@ -24,6 +24,9 @@ $filtered_albums = array_filter($album, function ($album) use ($artiste_id) {
 });
 
 $filtered_albums = array_values($filtered_albums);
+
+$photo = $imageBD->getImageArtisteById($artiste_id);
+$photo = $photo->getNomImage();
 ?>
 <main>
     <div class="titre">
@@ -31,7 +34,7 @@ $filtered_albums = array_values($filtered_albums);
     </div>
     <div class="detail">
         <img src="/static/images/img_artistes/<?php
-        echo htmlspecialchars($artiste->getPhoto() ?? 'default.jpg');
+        echo htmlspecialchars($photo ?? 'default.jpg');
         ?>" alt="photo de l'artiste">
         <div class="info">
             <h2>Le Nom</h2>

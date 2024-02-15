@@ -32,7 +32,6 @@ $genres = $genreBD->getAllGenres();
     <link rel="stylesheet" href="../../static/css/cardalbum.css">
     <link rel="stylesheet" href="../../static/css/admin.css">
     <link rel="stylesheet" href="../../static/css/tableau.css">
-    <script src="../../static/js/affiche_fichier.js"></script>
 </head>
 <header>
     <div class="logo">

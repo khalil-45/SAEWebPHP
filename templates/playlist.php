@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php include 'aside_menu.php'; ?>
+    <?php include 'renders/aside_menu.php'; ?>
     <main>
         <section class="info-playlist">
             <div class="playlist-cover">
@@ -51,10 +51,10 @@
                 ?>
             </ul>
         </section>
+        <a class="retourbtn" href="<?php echo $_SERVER['HTTP_REFERER']?>"><p>Retour</p></a>
     </main>
-
 </body>
 
-<?php include 'insertion_js.php'; ?>
+<?php include 'renders/insertion_js.php'; ?>
 
 </html>

@@ -128,3 +128,26 @@
     color:#6d6d6d;
     font-weight: bold;
 }
+
+.retourbtn{
+    text-decoration: none;
+    color: #fff;
+}
+
+.retourbtn:hover{
+    background-color: #ff4d8a;
+}
+
+.retourbtn p{
+    margin: 10px;
+    background-color: #fe0a69;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 70px;
+}

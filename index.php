@@ -30,14 +30,14 @@ $imageBD = new ImageArtisteBD($cnx);
 $user = new UtilisateurBD($cnx);
 $utilisateurBD = new UtilisateurBD($cnx);
 
-$album = $albumBD->getAllAlbums();
-
 // Analyser la requête pour déterminer l'action à effectuer
 $action = $_GET['action'] ?? 'index'; // Si aucune action n'est spécifiée, l'action par défaut est 'index'
 ob_start();
 // Exécuter l'action
 switch ($action) {
     case 'index':
+        $artiste = $artisteBD->getAllArtistes();
+        $albums = $albumBD->getAllAlbums();
         include 'templates/accueil.php';
         break;
     

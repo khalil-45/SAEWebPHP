@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php include 'aside_menu.php'; ?>
+    <?php include 'renders/aside_menu.php'; ?>
     <main>
         <div class="titre-mes-playlists">
             <h2>Mes playlists</h2>
@@ -45,6 +45,6 @@
     </main>
 </body>
 
-<?php include 'insertion_js.php'; ?>
+<?php include 'renders/insertion_js.php'; ?>
 
 </html>

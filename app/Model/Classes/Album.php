@@ -79,4 +79,8 @@ class Album {
             "artiste_id" => $this->artiste_id
         );
     }
+
+    public function render() {
+        return $this->toArray();
+    }
 }

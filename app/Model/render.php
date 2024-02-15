@@ -201,5 +201,69 @@ function render_editer_artiste($artiste,$artisteBD)
 }
 
 
+function render_utilisateurs_admin($utilisateurs)
+{
+    echo '<h1>Gestion des utilisateurs</h1>';
+    echo '<a class="ajout" href="?action=admin_utilisateurs&admin=admin_ajout_utilisateur">Ajouter un utilisateur</a>';
+    echo '<table>';
+    echo '<tr>';
+    echo '<th>Nom</th>';
+    echo '<th>Prénom</th>';
+    echo '<th>Email</th>';
+    echo '<th colspan="2">Actions</th>';
+    echo '</tr>';
+    foreach ($utilisateurs as $utilisateur) {
+        echo '<tr>';
+        echo '<td>' . $utilisateur['username'] . '</td>';
+        echo '<td>' . $utilisateur['password'] . '</td>';
+        echo '<td>' . $utilisateur['email'] . '</td>';
+        echo '<td class="actions">';
+        echo '<a href="?action=admin_utilisateurs&admin=admin_editer_utilisateur&id_utilisateur=' . $utilisateur['user_id'] . '">Éditer</a>';
+        echo '<a href="?action=admin_utilisateurs&admin=admin_supprimer_utilisateur&id_utilisateur=' . $utilisateur['user_id'] . '">Supprimer</a>';
+        echo '</td>';
+        echo '</tr>';
+    }
+}
+
+
+function render_ajout_utilisateur($user)
+{
+    echo '<h1>Ajout d\'un utilisateur</h1>';
+    echo '<form  method="post">';
+    echo '<label for="username">Nom</label>';
+    echo '<input type="text" name="username" id="username" required>';
+    echo '<label for="password">Mot de passe</label>';
+    echo '<input type="text" name="password" id="password" required>';
+    echo '<label for="email">Email</label>';
+    echo '<input type="email" name="email" id="email" required>';
+    echo '<input type="submit" value="Ajouter">';
+    echo '</form>';
+
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
+        $user->insertUtilisateur($_POST['username'],$_POST['password'],$_POST['email']);
+        header('Location: ?action=admin_utilisateurs');
+    }
+}
+
+function render_editer_utilisateur($utilisateur,$utilisateurBD)
+{
+    echo '<h1>Édition d\'un utilisateur</h1>';
+    echo '<form  method="post">';
+    echo '<label for="username">Nom</label>';
+    echo '<input type="text" name="username" id="username" value="' . $utilisateur['username'] . '" required>';
+    echo '<label for="password">Mot de passe</label>';
+    echo '<input type="text" name="password" id="password" value="' . $utilisateur['password'] . '" required>';
+    echo '<label for="email">Email</label>';
+    echo '<input type="email" name="email" id="email" value="' . $utilisateur['email'] . '" required>';
+    echo '<input type="submit" value="Modifier">';
+    echo '</form>';
+
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
+        $utilisateurBD->updateUtilisateur($utilisateur['user_id'],$_POST['username'],$_POST['password'],$_POST['email']);
+        header('Location: ?action=admin_utilisateurs');
+    }
+}
+
+
 
 ?>

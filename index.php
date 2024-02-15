@@ -21,7 +21,7 @@ $artisteBD = new ArtisteBD($cnx);
 $genreBD = new GenreBD($cnx);
 $imageBD = new ImageArtisteBD($cnx);
 $user = new UtilisateurBD($cnx);
-
+$utilisateurBD = new UtilisateurBD($cnx);
 
 
 $album = $albumBD->getAllAlbums();
@@ -54,6 +54,10 @@ switch ($action) {
 
     case 'admin_artistes':
         include 'templates/admin/admin_artistes.php';
+        break;
+
+    case 'admin_utilisateurs':
+        include 'templates/admin/admin_utilisateurs.php';
         break;
     // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
     default:

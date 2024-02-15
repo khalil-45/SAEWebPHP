@@ -38,7 +38,7 @@ class UtilisateurBD
      */
     public function getUtilisateurById($id)
     {
-        $sql = "SELECT * FROM UTILISATEUR WHERE id = :id";
+        $sql = "SELECT * FROM UTILISATEUR WHERE user_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -77,9 +77,9 @@ class UtilisateurBD
     }
 
     
-    public function deleteUtilisateur($id)
+    public function deleteUtilisateurById($id)
     {
-        $sql = "DELETE FROM UTILISATEUR WHERE id = :id";
+        $sql = "DELETE FROM UTILISATEUR WHERE user_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -93,6 +93,15 @@ class UtilisateurBD
         $stmt->execute();
         $utilisateur = $stmt->fetch(PDO::FETCH_ASSOC);
         return $utilisateur;
+    }
+
+    public function getAllUtilisateurs()
+    {
+        $sql = "SELECT * FROM UTILISATEUR";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->execute();
+        $utilisateurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $utilisateurs;
     }
 
 }

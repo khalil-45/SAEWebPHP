@@ -77,6 +77,7 @@ switch ($action) {
             }
         }
         include 'templates/playlist.php';
+        break;
 
     case 'admin':
         include 'templates/admin/accueil_admin.php';

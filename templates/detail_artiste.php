@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,15 +11,61 @@
     <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="../static/css/popupForm.css">
     <link rel="stylesheet" href="../static/css/cardalbum.css">
+    <link rel="stylesheet" href="../static/css/detail_artiste.css">
 </head>
 
 <body>
-<?php include 'aside_menu.php'; ?>
+<?php
+include 'aside_menu.php';
+
+$artiste = $artisteBD->getArtisteById($_GET['id_artiste']);
+$artiste_id = $artiste->getArtisteId(); // Assuming the artist object has a getId() method
+$filtered_albums = array_filter($album, function ($album) use ($artiste_id) {
+    return $album['artiste_id'] == $artiste_id; // Assuming the album object has a getArtisteId() method
+});
+?>
 <main>
     <div class="titre">
-        <h2>Découvrir</h2>
+        <h2><?php  echo $artiste->getNom() ?></h2>
     </div>
+    <div class="detail">
+        <img src="../static/images/img_artistes/<?php
+        if ($artiste->getPhoto() != null) {
+            echo urlencode(trim($artiste->getPhoto()));
+        } else {
+            echo "default.jpg";
+        }
+        ?>" alt="photo de l'artiste">
+        <div class="info">
+            <h2>Le Nom</h2>
+            <p><?php echo $artiste->getNom() ?></p>
+            <h2>Biographie</h2>
+            <p><?php echo $artiste->getBio() ?></p>
+        </div>
+    </div>
+    <h2>Les albums de cet artiste</h2>
     <div class="grid">
+        <?php foreach ($filtered_albums as $a) : ?>
+            <a href="?action=album&id_album=<?php echo $a['album_id']; ?>">
+                <div class="head">
+                    <i class='fab fa-apple' style='font-size:13.5px;'></i>
+                    <h5 class="top">Music
+                    </h5>
+                    <img src="../static/images/img_albums/<?php
+                    if ($a['pochette'] != null) {
+                        echo urlencode(trim($a['pochette']));
+                    } else {
+                        echo "default.jpg";
+                    }
+                    ?>
+                    " alt="pochette de l'album">
+                    <div class="line"></div>
+                    <div class="bottom"><?php
+                        echo $a['titre'];
+                        ?></div>
+                </div>
+            </a>
+        <?php endforeach; ?>
 
     </div>
 </main>
@@ -34,4 +82,3 @@ if (isset($_GET['error']) && $_GET['error'] === "1") { // Si on a une erreur et 
     echo "<p>Identifiants déjà utilisés</p>";
 }
 ?>
-`

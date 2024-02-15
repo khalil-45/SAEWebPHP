@@ -66,6 +66,10 @@ switch ($action) {
     case 'admin_utilisateurs':
         include 'templates/admin/admin_utilisateurs.php';
         break;
+
+    case 'detail_artiste':
+        include 'templates/detail_artiste.php';
+        break;
     // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
     default:
         http_response_code(404);

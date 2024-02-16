@@ -52,7 +52,9 @@ switch ($action) {
             $artiste = null;
         }
 
-        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        if ($_SESSION['user'] != null){
+            $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        }
 
         include 'templates/pageAlbum.php';
         break;
@@ -61,7 +63,7 @@ switch ($action) {
         if ($_SESSION['user'] != null){
         $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
         }
-        include 'templates/playlists.php';
+        include 'templates/page_playlists.php';
         break;
 
     case 'playlist':

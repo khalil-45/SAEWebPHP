@@ -78,11 +78,11 @@
             <div class="form-container" id="signupform">
                 <p class="title">Inscription</p>
                 <form class="form" action="../app/Model/register-bd.php" method="POST">
-                    <input type="text" class="input" placeholder="Username" id="username" name ="username">
+                    <input type="text" class="input" placeholder="Username" id="user" name ="user">
                     <input type="email" class="input" placeholder="Email" id="email" name = "email">
                     <input type="password" class="input" placeholder="Mot de passe" id="password" name="password">
                     <input type="password" class="input" placeholder="Confirmer le mot de passe">
-                    <button class="form-btn-sig">S'inscrire</button>
+                    <button class="form-btn-sig" type="submit">S'inscrire</button>
                 </form>
                 <p class="sign-up-label">
                     Déjà un compte ? <a class="sign-up-link" onclick="closeFormSignUp(); openFormLogIn();">Connectez-vous</a>

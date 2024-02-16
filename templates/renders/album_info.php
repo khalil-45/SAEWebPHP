@@ -14,13 +14,13 @@
     <div class="album-info">
         <h2><?php
             echo $album->getTitre()?></h2>
-        <p><?php 
-        if ($artiste->getNom() != null){
+        <?php if ($artiste != null) {?>
+        <p><a class="lien-artiste" href="?action=detail_artiste&id_artiste=<?php echo $artiste->getArtisteId()?>"><?php 
             echo $artiste->getNom();
         } else {
             echo "Artiste inconnu";
         }
-        ?></p>
+        ?></a></p>
         <div class="date-genre">
             <p>
                 <?php

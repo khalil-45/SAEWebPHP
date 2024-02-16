@@ -8,14 +8,18 @@
         ?>
         <section class="playlists">
             <?php foreach ($playlists as $p): ?>
-                <a href="/?action=playlist&id_playlist=<?php echo urlencode($p->getPlaylistId()); ?>">
-                    <div class="playlist">
+                <div class="playlist">
+                    <a href="/?action=playlist&id_playlist=<?php echo urlencode($p->getPlaylistId()); ?>">
                         <img src="../../static/images/img_albums/220px-DarkChords.jpg" alt="image de la playlist">
                         <p>
                             <?php echo $p->getTitre() ?>
                         </p>
-                    </div>
-                </a>
+                    </a>
+                    <form action="../../app/Model/supprimer_playlist.php" method="post">
+                        <input type="hidden" name="id_playlist" value="<?php echo $p->getPlaylistId(); ?>">
+                        <button class="delete-playlist-btn" type="submit"><img src="../../static/images/poubelle.png" alt="logo de poubelle">Supprimer Playlist</button>
+                    </form>
+                </div>
             <?php endforeach; ?>
         </section>
         <!-- Formulaire pour ajouter une nouvelle playlist -->

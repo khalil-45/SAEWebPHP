@@ -25,7 +25,7 @@
     flex-direction: column;
 }
 
-.playlist img{
+.playlist a img{
     width: 200px;
     height: 200px;
     border-radius: 10px;
@@ -41,7 +41,58 @@
     color: #ff0000;
 }
 
-.playlist img:hover{
+.playlist a img:hover{
     transform: scale(1.1);
     transition: 0.5s;
+}
+
+.delete-playlist-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fe0a69;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.delete-playlist-btn:hover{
+    background-color: #ff3a85;
+}
+
+.delete-playlist-btn:focus{
+    outline: none;
+}
+
+.delete-playlist-btn img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.ajouter-playlist-form{
+    display: flex;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 35vw;
+}
+
+.ajouter-playlist-form input{
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 10px;
+}
+
+.ajouter-playlist-form button{
+    background-color: #fe0a69;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }

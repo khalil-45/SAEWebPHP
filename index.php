@@ -30,14 +30,14 @@ $imageBD = new ImageArtisteBD($cnx);
 $user = new UtilisateurBD($cnx);
 $utilisateurBD = new UtilisateurBD($cnx);
 
-$album = $albumBD->getAllAlbums();
-
 // Analyser la requête pour déterminer l'action à effectuer
 $action = $_GET['action'] ?? 'index'; // Si aucune action n'est spécifiée, l'action par défaut est 'index'
 ob_start();
 // Exécuter l'action
 switch ($action) {
     case 'index':
+        $artiste = $artisteBD->getAllArtistes();
+        $albums = $albumBD->getAllAlbums();
         include 'templates/accueil.php';
         break;
     
@@ -52,7 +52,9 @@ switch ($action) {
             $artiste = null;
         }
 
-        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        if ($_SESSION['user'] != null){
+            $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        }
 
         include 'templates/pageAlbum.php';
         break;
@@ -61,7 +63,7 @@ switch ($action) {
         if ($_SESSION['user'] != null){
         $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
         }
-        include 'templates/playlists.php';
+        include 'templates/page_playlists.php';
         break;
 
     case 'playlist':
@@ -76,7 +78,7 @@ switch ($action) {
                 $imageAlbum = $albumBD->getAlbumById($premiereChanson->getAlbumId())->getPochette();
             }
         }
-        include 'templates/playlist.php';
+        include 'templates/page_playlist.php';
         break;
 
     case 'admin':

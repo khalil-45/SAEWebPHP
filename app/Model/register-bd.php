@@ -12,18 +12,13 @@ $cnx = Connection_BD::getInstance();
 $user = new UtilisateurBD($cnx);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
-        $username = $_POST['username'];
+    if (isset($_POST['user']) && isset($_POST['password']) && isset($_POST['email'])) {
+        $username = $_POST['user'];
         $password = $_POST['password'];
         $email = $_POST['email'];
 
-        echo "Nom d'utilisateur: $username, Mot de passe: $password, Email: $email";
-
         // Vérifiez d'abord si l'utilisateur existe déjà
         $existingUser = $user->getUtilisateurByUsername($username);
-
-        echo "Résultat de la recherche d'utilisateur existant: ";
-        var_dump($existingUser);
 
         if ($existingUser) {
             // Identifiants déjà utilisés, rediriger avec un message d'erreur
@@ -32,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         } else {
             // Création d'un nouvel utilisateur
-            $user->insertUtilisateur($username, $password, $email);
+            $user->insertUtilisateur($username, $password, $email, false);
             $newUser = $user->getUtilisateurByUsername($username);
-            $_SESSION['username'] = $newUser->getUsername();
+            $_SESSION['user'] = $newUser;
             echo "Utilisateur créé";
             header("Location: /");
             exit();

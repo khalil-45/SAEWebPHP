@@ -243,3 +243,8 @@
     text-transform: uppercase;
     width: 70px;
 }
+
+.lien-artiste{
+    text-decoration: none;
+    color: #fe0a69 !important;
+}

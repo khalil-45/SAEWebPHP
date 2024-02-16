@@ -14,7 +14,7 @@
 
 <body>
 <?php
-include 'aside_menu.php';
+include 'renders/aside_menu.php';
 
 $artiste = $artisteBD->getArtisteById($_GET['id_artiste']);
 $artiste_id = $artiste->getArtisteId();
@@ -65,7 +65,7 @@ $photo = $photo->getNomImage();
     </div>
 </main>
 </body>
-<?php include 'insertion_js.php'; ?>
+<?php include 'renders/insertion_js.php'; ?>
 </html>
 
 <?php

@@ -98,9 +98,10 @@ switch ($action) {
         break;
 
     case 'detail_artiste':
+        $album = $albumBD->getAllAlbums();
         include 'templates/detail_artiste.php';
         break;
-    // Ajoutez ici d'autres cas en fonction des actions que votre application doit gérer
+
     default:
         include 'templates/404.php';
         break;

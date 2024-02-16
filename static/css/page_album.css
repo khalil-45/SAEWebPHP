@@ -177,8 +177,9 @@
 .popup-playlists {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.5);
@@ -186,23 +187,20 @@
     align-items: center;
     z-index: 100;
     animation: fadeIn 0.5s ease-in-out;
-}
-
-.popup-playlists.active{
-    display: flex;
+    backdrop-filter: blur(5px);
 }
 
 .popup-playlists .popup-content {
     background-color: #202020;
     padding: 20px;
     border-radius: 10px;
-    width: 40%; /* Réduire la largeur */
-    max-height: 70%; /* Ajouter une hauteur maximale */
+    width: 40%; 
+    max-height: 70%; 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Aligner le contenu en haut */
+    justify-content: flex-start; 
     align-items: center;
-    overflow-y: auto; /* Ajouter un défilement si nécessaire */
+    overflow-y: auto; 
 }
 
 .popup-playlists .popup-content h3 {

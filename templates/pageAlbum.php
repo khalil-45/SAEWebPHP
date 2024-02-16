@@ -19,19 +19,19 @@ include 'renders/fonctions.php';
 </head>
 
 <body>
-    <?php 
-        renderPageAlbum($album, $artiste, $chansons, $playlists);
+    <?php
+    renderPageAlbum($album, $artiste, $chansons, $playlists);
     ?>
 </body>
 <script>
     function showPlaylistsPopup(chansonId) {
         var playlistsPopup = document.getElementById('popup-playlists' + chansonId);
-        playlistsPopup.style.display = 'block';
+        playlistsPopup.style.display = 'flex'; // Affiche le popup
     }
 
     function closePlaylistsPopup(chansonId) {
         var playlistsPopup = document.getElementById('popup-playlists' + chansonId);
-        playlistsPopup.style.display = 'none';
+        playlistsPopup.style.display = 'none'; // Cache le popup
     }
 </script>
 

@@ -8,9 +8,13 @@
                     <?php echo $chanson->getChansonId() ?>
                 </p>
                 <img src="../../static/images/bouton-jouer-petit.png" alt="bouton play">
-                <?php echo $chanson->getTitre() ?>
+                <?php echo $chanson->getTitre() ;
+                if ($_SESSION['user'] != null) : ?>
                 <button class="add-to-playlist-button" onclick="showPlaylistsPopup(<?php echo $chanson->getChansonId() ?>)">Ajouter à la
                     playlist</button>
+                <?php else : ?>
+                <button class="add-to-playlist-button" onclick="openFormLogIn()">Ajouter à la playlist</button>
+                <?php endif; ?>
 
                 <!-- Add a form to select a playlist -->
                 <div id="popup-playlists<?php echo $chanson->getChansonId() ?>" class="popup-playlists" style="display: none;">

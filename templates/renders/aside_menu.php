@@ -59,7 +59,7 @@
     </aside>
     <div class="connection-popup">
             <div class="form-container" id="loginform">
-                <p class="title">De retour</p>
+                <p class="title">Se connecter</p>
                 <form class="form" action="../app/Model/login-bd.php" method="POST">
                     <input type="email" class="input" placeholder="Email" id="email" name="email">
                     <input type="password" class="input" placeholder="Mot de passe" id="password" name="password">

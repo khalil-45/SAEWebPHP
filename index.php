@@ -78,7 +78,7 @@ switch ($action) {
                 $imageAlbum = $albumBD->getAlbumById($premiereChanson->getAlbumId())->getPochette();
             }
         }
-        include 'templates/playlist.php';
+        include 'templates/page_playlist.php';
         break;
 
     case 'admin':

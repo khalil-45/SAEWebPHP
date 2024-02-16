@@ -79,3 +79,13 @@ function renderPagePlaylists($playlists) {
     renderPlaylists($playlists);
     renderInsertionJs();
 }
+
+function renderPlaylist($playlist, $chansons, $username, $imageAlbum) {
+    include 'playlist.php';
+}
+
+function renderPagePlaylist($playlist, $chansons, $username, $imageAlbum) {
+    renderAsideMenu();
+    renderPlaylist($playlist, $chansons, $username, $imageAlbum);
+    renderInsertionJs();
+}

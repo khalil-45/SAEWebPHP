@@ -43,6 +43,25 @@ class AlbumBD
         return $albums;
     } 
 
+    public function getAlbums($items_per_page, $offset) {
+        $sql = "SELECT * FROM ALBUM LIMIT :items_per_page OFFSET :offset";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':items_per_page', $items_per_page, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+            $albums[] = $album;
+        }
+        return $albums;
+    }
+
+    public function getTotalAlbums(){
+        $sql = "SELECT COUNT(*) FROM ALBUM";
+        $stmt = $this->cnx->query($sql);
+        return $stmt->fetchColumn();
+    }
+
 /**
      * @param int $id
      * @return Album | null

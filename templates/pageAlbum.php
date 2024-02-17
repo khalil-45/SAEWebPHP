@@ -19,6 +19,22 @@ include 'renders/fonctions.php';
 </head>
 
 <body>
+<div id="error-popup" style="display: none;"></div>
+<?php
+if (isset($_SESSION['error'])) {
+    echo "
+    <script type='text/javascript'>
+        var popup = document.getElementById('error-popup');
+        popup.textContent = '" . $_SESSION['error'] . "';
+        popup.style.display = 'block';
+        setTimeout(function() {
+            popup.style.display = 'none';
+        }, 3000);
+    </script>
+    ";
+    unset($_SESSION['error']);
+}
+?>
     <?php
     renderPageAlbum($album, $artiste, $chansons, $playlists);
     ?>

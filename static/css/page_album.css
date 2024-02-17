@@ -248,3 +248,15 @@
     text-decoration: none;
     color: #fe0a69 !important;
 }
+
+#error-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: red;
+    color: white;
+    z-index: 1000;
+}

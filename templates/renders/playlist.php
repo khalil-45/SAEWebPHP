@@ -20,22 +20,37 @@
     </section>
 
     <section class="titres">
-        <ul>
-            <?php
-            global $chansonBD;
-            if ($chansons != null) {
-                foreach ($chansons as $chanson) :
-                    $chanson = $chansonBD->getChansonById($chanson->getChansonId());
-            ?>
-                    <button>
-                        <li><img src="../../static/images/bouton-jouer-petit.png" alt="bouton play"><?php echo $chanson->getTitre() ?></li>
-                    </button>
-            <?php endforeach;
-            } else {
-                echo "<p style='text-align: center;'>Aucune chanson dans cette playlist</p>";
-            }
-            ?>
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Artiste</th>
+                    <th>Durée</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                global $chansonBD;
+                global $albumBD;
+                global $artisteBD;
+                if ($chansons != null) {
+                    foreach ($chansons as $chanson) :
+                        $chanson = $chansonBD->getChansonById($chanson->getChansonId());
+                        $album = $albumBD->getAlbumById($chanson->getAlbumId());
+                        $artiste = $artisteBD->getArtisteById($album->getArtisteId());
+                ?>
+                        <tr>
+                            <td><?php echo $chanson->getTitre() ?></td>
+                            <td><?php echo $artiste->getNom() ?></td>
+                            <td><?php echo $chanson->getDuree() ?></td>
+                        </tr>
+                <?php endforeach;
+                } else {
+                    echo "<tr><td colspan='3' style='text-align: center;'>Aucune chanson dans cette playlist</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
     </section>
     <a class="retourbtn" href="<?php echo $_SERVER['HTTP_REFERER'] ?>">
         <p>Retour</p>

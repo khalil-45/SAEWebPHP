@@ -1,4 +1,4 @@
-<?php 
+<?php
 require '../Autoloader.php';
 Autoloader::register();
 
@@ -17,9 +17,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
     $chansonId = $_POST['chanson_id'];
     $playlistId = $_POST['playlist'];
 
-    $chansonPlaylistBD->insertChansonPlaylist($chansonId, $playlistId);
-
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    // Check if the song is already in the playlist
+    if ($chansonPlaylistBD->isChansonInPlaylist($chansonId, $playlistId)) {
+        $_SESSION['error'] = "The song is already in the playlist.";
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        exit();
+    } else {
+        $chansonPlaylistBD->insertChansonPlaylist($chansonId, $playlistId);
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
     exit();
 } else {
     echo "Unauthorized access or user not logged in.";

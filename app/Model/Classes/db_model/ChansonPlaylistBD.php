@@ -90,6 +90,16 @@ class ChansonPlaylistBD
         return null;
     }
 
+    public function isChansonInPlaylist($chanson_id, $playlist_id)
+{
+    $sql = "SELECT * FROM CHANSON_PLAYLIST WHERE chanson_id = :chanson_id AND playlist_id = :playlist_id";
+    $stmt = $this->cnx->prepare($sql);
+    $stmt->bindParam(':chanson_id', $chanson_id, PDO::PARAM_INT);
+    $stmt->bindParam(':playlist_id', $playlist_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row ? true : false;
+}
 
 }
 ?>

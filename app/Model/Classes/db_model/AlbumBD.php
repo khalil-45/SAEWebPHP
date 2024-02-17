@@ -2,6 +2,7 @@
 
 namespace Model\Classes\db_model;
 require_once __DIR__ . '/../../Connection_BD.php';
+require_once __DIR__ . '/../../Classes/Album.php';
 
 use Model\Classes\Album;
 use PDO;
@@ -175,6 +176,37 @@ class AlbumBD
         $stmt->bindParam(':artiste_id', $artiste_id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function searchAlbums($query) {
+    $sql = "SELECT * FROM ALBUM WHERE titre LIKE :query OR genre LIKE :query OR annee = :annee";
+    $stmt = $this->cnx->prepare($sql);
+    $query = "%$query%";
+    $stmt->bindParam(':query', $query, PDO::PARAM_STR);
+    $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
+    $stmt->execute();
+    $albums = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+        $albums[] = $album;
+    }
+    return $albums;
 }
+
+public function searchAlbumsByAnnee($annee) {
+    $sql = "SELECT * FROM ALBUM WHERE annee = :annee";
+    $stmt = $this->cnx->prepare($sql);
+    $stmt->bindParam(':annee', $annee, PDO::PARAM_INT);
+    $stmt->execute();
+    $albums = [];
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $album = new Album($row['album_id'], $row['titre'], $row['annee'], $row['genre'], $row['pochette'], $row['artiste_id']);
+        $albums[] = $album;
+    }
+    return $albums;
+    
+}
+}
+
+
 
 ?>

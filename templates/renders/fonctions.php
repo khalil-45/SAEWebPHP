@@ -47,6 +47,9 @@ function renderArtiste($artiste) {
     HTML;
 }
 
+
+
+
 function renderAsideMenu() {
     include 'aside_menu.php';
 }

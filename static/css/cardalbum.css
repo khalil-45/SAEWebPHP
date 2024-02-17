@@ -155,4 +155,25 @@
     cursor: pointer;
   }
     
-  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination a, .pagination span {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #fff;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination span {
+    background-color: #8a8a8a;
+    color: #fff;
+}

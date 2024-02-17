@@ -50,6 +50,28 @@ class ArtisteBD
         return null;
     }
 
+    public function getArtistes($items_per_page, $offset)
+    {
+        $sql = "SELECT * FROM ARTISTE LIMIT :items_per_page OFFSET :offset";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':items_per_page', $items_per_page, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $artistes = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $artiste = new Artiste($row['artiste_id'], $row['nom'], $row['bio'], $row['photo']);
+            $artistes[] = $artiste;
+        }
+        return $artistes;
+    }
+
+    public function getTotalArtistes()
+    {
+        $sql = "SELECT COUNT(*) FROM ARTISTE";
+        $stmt = $this->cnx->query($sql);
+        return $stmt->fetchColumn();
+    }
+
     /**
      * @return array
      */

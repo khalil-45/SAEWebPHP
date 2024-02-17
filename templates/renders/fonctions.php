@@ -30,6 +30,8 @@ function renderAlbum($album) {
     HTML;
 }
 
+
+
 function renderArtiste($artiste) {
     $image = getArtisteImage($artiste);
     $id = $artiste->getArtisteId();

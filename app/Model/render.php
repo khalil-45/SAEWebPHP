@@ -15,7 +15,7 @@ function render_albums_admin($albums,$artistes)
     echo '<th colspan="2">Actions</th>';
     echo '</tr>';
     foreach ($albums as $album) {
-        $artiste_id = $album['artiste_id']-1;
+        $artiste_id = $album->getArtisteId()-1;
         if (!isset($artistes[$artiste_id])) {
             $artiste = "Artiste inconnu";
         } else {
@@ -23,7 +23,7 @@ function render_albums_admin($albums,$artistes)
         }
 
 
-        $genre = $album['genre'];
+        $genre = $album->getGenre();
 
         if ($genre == null) {
             $genre = "Genres inconnu";
@@ -31,14 +31,14 @@ function render_albums_admin($albums,$artistes)
 
         echo '<tr>';
         echo '<td class="titre"> <img src="../static/images/img_albums/' .
-    (($album['pochette'] != null) ? urlencode(trim($album['pochette'])) : "default.jpg") .
-    '" alt="pochette de l\'album"> ' . $album['titre'] . '</td>';
+    (($album->getPochette() != null) ? urlencode(trim($album->getPochette())) : "default.jpg") .
+    '" alt="pochette de l\'album"> ' . $album->getTitre(). '</td>';
         echo '<td>' . $artiste . '</td>';
-        echo '<td>' . $album['annee'] . '</td>';
+        echo '<td>' . $album->getAnnee() . '</td>';
         echo '<td>' . $genre . '</td>';
         echo '<td class="actions">';
-        echo '<a href="?action=admin_albums&admin=admin_editer_album&id_album=' . $album['album_id'] . '">Éditer</a>';
-        echo '<a href="?action=admin_albums&admin=admin_supprimer_album&id_album=' . $album['album_id'] . '">Supprimer</a>';
+        echo '<a href="?action=admin_albums&admin=admin_editer_album&id_album=' . $album->getAlbumId() . '">Éditer</a>';
+        echo '<a href="?action=admin_albums&admin=admin_supprimer_album&id_album=' . $album->getAlbumId()  . '">Supprimer</a>';
         echo '</td>';
         echo '</tr>';
     }
@@ -96,14 +96,14 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
 {
     // Récupérer tous les genres
     $genres = $genreBD->getAllGenres();
-    $photo = $album['pochette'];
+    $photo = $album->getPochette();
     if ($photo == null) {
         $photo = "default.jpg";
     }
     echo '<h1>Édition d\'un album</h1>';
     echo '<form  method="post" enctype="multipart/form-data">';
     echo '<label for="titre">Titre</label>';
-    echo '<input type="text" name="titre" id="titre" value="' . $album['titre'] . '" required>';
+    echo '<input type="text" name="titre" id="titre" value="' . $album->getTitre() . '" required>';
     echo '<label class="file" for="file-upload">Sélectionnez une pochette</label>';
     echo '<img id="cover-preview" src="../static/images/img_albums/' . $photo . '" alt="pochette de l\'album">';
     echo '<input id="file-upload" type="file" name="file-upload" onchange="previewCover(event)">';
@@ -112,12 +112,12 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
     // Créer un champ de sélection pour l'artiste
     echo '<select name="artiste" id="artiste" >';
     foreach ($artistes as $artiste) {
-        $selected = ((int)$artiste->getArtisteId() === (int)$album['artiste_id']) ? 'selected' : '' ;
+        $selected = ((int)$artiste->getArtisteId() === (int)$album->getArtisteId()) ? 'selected' : '' ;
         echo '<option value="' . $artiste->getArtisteId() . '" ' . $selected . '>' . $artiste->getNom() . '</option>';
     }
     echo '</select>';
     echo '<label for="annee">Année</label>';
-    echo '<input type="number" name="annee" id="annee" value="' . $album['annee'] . '" required>';
+    echo '<input type="number" name="annee" id="annee" value="' . $album->getAnnee() . '" required>';
     echo '<label for="genre">Genre</label>';
 
 
@@ -127,7 +127,7 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
 
 
     foreach ($genres as $genre) {
-        $selected = ($genre->getNomGenre() === $album['genre']) ? 'selected' : '';
+        $selected = ($genre->getNomGenre() === $album->getGenre()) ? 'selected' : '';
         echo '<option value="' . $genre->getIdGenre() . '" ' . $selected . '>' . $genre->getNomGenre() . '</option>';
     }
     echo '</select>';
@@ -143,7 +143,7 @@ function render_editer_album($album,$artistes,$genreBD,$albumBD)
         if ($pochette == null) {
             $pochette = $photo;
         }
-        $albumBD->updateAlbum($album['album_id'],$_POST['titre'],$_POST['annee'],$genre,$pochette,$_POST['artiste']);
+        $albumBD->updateAlbum($album->getAlbumId(),$_POST['titre'],$_POST['annee'],$genre,$pochette,$_POST['artiste']);
         header('Location: ?action=admin_albums');
     }
 }
@@ -268,10 +268,17 @@ function render_ajout_utilisateur($user)
     echo '<input type="text" name="password" id="password" required>';
     echo '<label for="email">Email</label>';
     echo '<input type="email" name="email" id="email" required>';
+    echo '<label for="role">Admin?</label>';
+    echo '<input type="checkbox" name="role" id="role" value="admin">';
     echo '<input type="submit" value="Ajouter">';
     echo '</form>';
 
     if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
+        if (isset($_POST['role'])) {
+            $role = 1;
+        } else {
+            $role = 0;
+        }
         $user->insertUtilisateur($_POST['username'],$_POST['password'],$_POST['email']);
         header('Location: ?action=admin_utilisateurs');
     }

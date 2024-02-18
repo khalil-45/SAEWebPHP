@@ -53,5 +53,22 @@ Le module administrateur permet de gérer les utilisateurs, les artistes, les ge
 Pour accéder à ce module, il suffit de se connecter avec les identifiants de l'administrateur. 
 Un bouton "Admin" apparaîtra dans la barre de navigation sur le côté gauche.
 
+## Fonctionnalités
+- Inscription
+- Connexion
+- Recherche
+  - Par artiste
+  - Par genre 
+  - Par album
+    - Avec le nom
+    - Avec l'année
+- CRUD admin (Suppression, Modification, Ajout)
+  - Gestion des utilisateurs
+  - Gestion des artistes
+  - Gestion des genres
+  - Gestion des albums
+- Notation des albums
+- Ajout de musiques à une playlist
+- Suppression de musiques de la playlist
 
 

@@ -73,6 +73,7 @@ switch ($action) {
             $chansons = $chansonPlaylistBD->getAllChansonsPlaylistByPlaylistId($playlistId);
             $userIdPlaylist = $playlist->getUserId();
             $username = $userBD->getUtilisateurById($userIdPlaylist);
+            $imageAlbum = "default.jpg";
             if ($chansons != null){
                 $premiereChanson = $chansonBD->getChansonById($chansons[0]->getChansonId());
                 $imageAlbum = $albumBD->getAlbumById($premiereChanson->getAlbumId())->getPochette();

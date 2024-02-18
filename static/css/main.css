@@ -1,0 +1,13 @@
+main{
+    background-color: #282828;
+    flex : 1;
+    width: 80%;
+    overflow-y: auto; /* Ajout de la propriété overflow-y */
+    height: 100%; /* Ajout de la propriété height */
+}
+
+.titre h2{
+    color: #fff;
+    padding: 1rem;
+}
+

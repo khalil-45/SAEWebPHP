@@ -1,7 +1,6 @@
 <?php
 
 namespace Model\Classes;
-require_once __DIR__ . '/user.php';
 
 class Playlist {
     private $playlist_id;
@@ -14,6 +13,7 @@ class Playlist {
         $this->titre = $titre;
     }
 
+    // getters
     public function getPlaylistId() {
         return $this->playlist_id;
     }
@@ -26,6 +26,7 @@ class Playlist {
         return $this->titre;
     }
 
+    // setters
     public function setPlaylistId($playlist_id) {
         $this->playlist_id = $playlist_id;
     }

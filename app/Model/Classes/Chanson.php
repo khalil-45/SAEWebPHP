@@ -1,7 +1,7 @@
 <?php
 
 namespace Model\Classes;
-require_once __DIR__ . '/album.php';
+
 
 class Chanson {
     private $chanson_id;
@@ -16,6 +16,7 @@ class Chanson {
         $this->album_id = $album_id;
     }
 
+    // getters
     public function getChansonId() {
         return $this->chanson_id;
     }
@@ -32,6 +33,7 @@ class Chanson {
         return $this->album_id;
     }
 
+    // setters
     public function setChansonId($chanson_id) {
         $this->chanson_id = $chanson_id;
     }

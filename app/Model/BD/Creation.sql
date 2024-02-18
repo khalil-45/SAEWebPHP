@@ -45,9 +45,10 @@ CREATE TABLE ALBUM_GENRE (
 -- Création de la table UTILISATEUR
 CREATE TABLE UTILISATEUR (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username VARCHAR(500),
+    username VARCHAR(500) UNIQUE,
     password VARCHAR(500),
-    email VARCHAR(500)
+    email VARCHAR(500),
+    isAdmin BOOLEAN
 );
 
 -- Création de la table PLAYLIST
@@ -57,6 +58,7 @@ CREATE TABLE PLAYLIST (
     titre VARCHAR(500),
     FOREIGN KEY (user_id) REFERENCES UTILISATEUR(user_id)
 );
+
 
 -- Création de la table CHANSON
 
@@ -68,6 +70,15 @@ CREATE TABLE CHANSON (
     FOREIGN KEY (album_id) REFERENCES ALBUM(album_id)
 );
 
+-- Création de la table CHANSON_PLAYLIST (liaison entre CHANSON et PLAYLIST)
+CREATE TABLE CHANSON_PLAYLIST (
+    chanson_id INT,
+    playlist_id INT,
+    PRIMARY KEY (chanson_id, playlist_id),
+    FOREIGN KEY (chanson_id) REFERENCES CHANSON(chanson_id),
+    FOREIGN KEY (playlist_id) REFERENCES PLAYLIST(playlist_id)
+);
+
 -- Création de la table IMAGE_ARTISTE
 
 CREATE TABLE IMAGE_ARTISTE (
@@ -76,3 +87,13 @@ CREATE TABLE IMAGE_ARTISTE (
     artiste_id INT,
     FOREIGN KEY (artiste_id) REFERENCES ARTISTE(artiste_id)
 );
+
+CREATE TRIGGER update_note
+AFTER INSERT ON NOTE
+FOR EACH ROW
+WHEN (SELECT COUNT(*) FROM NOTE WHERE album_id = NEW.album_id AND user_id = NEW.user_id) > 1
+BEGIN
+    DELETE FROM NOTE WHERE rowid = (
+        SELECT rowid FROM NOTE WHERE album_id = NEW.album_id AND user_id = NEW.user_id LIMIT 1
+    );
+END;

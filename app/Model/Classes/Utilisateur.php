@@ -8,13 +8,17 @@ class Utilisateur {
     private $password;
     private $email;
 
-    public function __construct($user_id, $username, $password, $email) {
+    private $isAdmin = false;
+
+    public function __construct($user_id, $username, $password, $email, $isAdmin) {
         $this->user_id = $user_id;
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
+        $this->isAdmin = $isAdmin;
     }
 
+    // getters
     public function getUserId() {
         return $this->user_id;
     }
@@ -31,6 +35,7 @@ class Utilisateur {
         return $this->email;
     }
 
+    // setters
     public function setUserId($user_id) {
         $this->user_id = $user_id;
     }
@@ -45,6 +50,10 @@ class Utilisateur {
 
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+    public function isAdmin() {
+        return $this->isAdmin;
     }
 
     public function toArray() {

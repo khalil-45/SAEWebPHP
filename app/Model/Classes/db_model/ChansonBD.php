@@ -2,7 +2,7 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
+require_once __DIR__ . '/../../Connection_BD.php';
 
 use Model\Classes\Chanson;
 use PDO;
@@ -16,55 +16,116 @@ class ChansonBD
         $this->cnx = $cnx;
     }
 
-    public function insertChanson(Chanson $chanson)
+    /**
+     * @param string $titre
+     * @param int $duree
+     * @param int $album_id
+     * @return bool
+     */
+    public function insertChanson($titre, $duree, $album_id)
     {
-        $sql = "INSERT INTO CHANSON (titre, duree, album_id) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO CHANSON (titre, duree, album_id) VALUES (:titre, :duree, :album_id)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $chanson->getTitre(), PDO::PARAM_STR);
-        $stmt->bindParam(2, $chanson->getDuree(), PDO::PARAM_INT);
-        $stmt->bindParam(3, $chanson->getAlbumId(), PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':duree', $duree, PDO::PARAM_INT);
+        $stmt->bindParam(':album_id', $album_id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
-    public function getAllChansons(){
+    /**
+     * @return array
+     */
+    public function getAllChansons()
+    {
         $sql = "SELECT * FROM CHANSON";
         $stmt = $this->cnx->query($sql);
-        $chansons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $chansons = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $chanson = new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chansons[] = $chanson;
+        }
         return $chansons;
     }
 
-    public function getChansonsByAlbumId($id){
-        $sql = "SELECT * FROM CHANSON WHERE album_id = ?";
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getChansonsByAlbumId($id)
+    {
+        $sql = "SELECT * FROM CHANSON WHERE album_id = :id";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        $chansons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $chansons = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $chanson = new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chansons[] = $chanson;
+        }
         return $chansons;
     }
 
-    public function getChansonByAlbumTitre($titre){
-        $sql = "SELECT * FROM CHANSON WHERE album_id = (SELECT id FROM ALBUM WHERE titre = ?)";
+    /**
+     * @param string $titre
+     * @return array
+     */
+    public function getChansonByAlbumTitre($titre)
+    {
+        $sql = "SELECT * FROM CHANSON WHERE album_id = (SELECT id FROM ALBUM WHERE titre = :titre)";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $titre, PDO::PARAM_STR);
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
         $stmt->execute();
-        $chansons = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $chansons = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $chanson = new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
+            $chansons[] = $chanson;
+        }
         return $chansons;
     }
 
-
-    public function getChansonById($id){
-        $sql = "SELECT * FROM CHANSON WHERE id = ?";
+    /**
+     * @param int $id
+     * @return Chanson|null
+     */
+    public function getChansonById($id)
+    {
+        $sql = "SELECT * FROM CHANSON WHERE chanson_id = :id";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
-        $chanson = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $chanson;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
+        }
+        return null;
     }
 
-    public function deleteChanson($id){
-        $sql = "DELETE FROM CHANSON WHERE id = ?";
+    /**
+     * @param string $titre
+     * @return Chanson|null
+     */
+
+    public function getChansonByTitre($titre)
+    {
+        $sql = "SELECT * FROM CHANSON WHERE titre = :titre";
         $stmt = $this->cnx->prepare($sql);
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row) {
+            return new Chanson($row['chanson_id'], $row['titre'], $row['duree'], $row['album_id']);
+        }
+        return null;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function deleteChanson($id)
+    {
+        $sql = "DELETE FROM CHANSON WHERE chanson_id = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
 }

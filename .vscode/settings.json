@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "php_music",
+            "database": "${workspaceFolder:SAEWebPHP}/php_music.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

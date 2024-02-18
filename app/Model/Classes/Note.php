@@ -2,7 +2,6 @@
 
 namespace Model\Classes;
 require_once __DIR__ . '/album.php';
-require_once __DIR__ . '/utilisateur.php';
 
 class Note {
     private $note_id;
@@ -17,6 +16,7 @@ class Note {
         $this->note = $note;
     }
 
+    // getters
     public function getNoteId() {
         return $this->note_id;
     }
@@ -33,6 +33,7 @@ class Note {
         return $this->note;
     }
 
+    // setters
     public function setNoteId($note_id) {
         $this->note_id = $note_id;
     }

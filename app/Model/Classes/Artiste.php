@@ -9,19 +9,22 @@ class Artiste {
     private $photo;
     private $images;
 
-    public function __construct($artiste_id, $nom, $bio, $photo, $images) {
+    public function __construct($artiste_id, $nom, $bio, $photo) {
         $this->artiste_id = $artiste_id;
         $this->nom = $nom;
         $this->bio = $bio;
         $this->photo = $photo;
-        $this->images = $images;
     }
 
+    // getters
     public function getArtisteId() {
         return $this->artiste_id;
     }
 
     public function getNom() {
+        if ($this->nom == null) {
+            return "Artiste inconnu";
+        }
         return $this->nom;
     }
 
@@ -33,10 +36,8 @@ class Artiste {
         return $this->photo;
     }
 
-    public function getImages() {
-        return $this->images;
-    }
 
+    // setters
     public function setArtisteId($artiste_id) {
         $this->artiste_id = $artiste_id;
     }
@@ -53,9 +54,6 @@ class Artiste {
         $this->photo = $photo;
     }
 
-    public function setImages($images) {
-        $this->images = $images;
-    }
 
     public function toArray() {
         return array(
@@ -63,7 +61,6 @@ class Artiste {
             "nom" => $this->nom,
             "bio" => $this->bio,
             "photo" => $this->photo,
-            "images" => $this->images
         );
     }
 }

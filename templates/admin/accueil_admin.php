@@ -52,6 +52,12 @@ if (!isset($_SESSION['user'])) {
             Gérer les utilisateurs
         </a>
     </div>
+    <div class="card">
+        <a href="?action=admin_genres">
+            <img src="../../static/images/musique.png" alt="icone genre">
+            Gérer les genres
+        </a>
+    </div>
 </div>
 
 

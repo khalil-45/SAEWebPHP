@@ -286,7 +286,7 @@ function render_ajout_utilisateur($user)
         } else {
             $role = 0;
         }
-        $user->insertUtilisateur($_POST['username'],$_POST['password'],$_POST['email']);
+        $user->insertUtilisateur($_POST['username'],$_POST['password'],$_POST['email'],$role);
         header('Location: ?action=admin_utilisateurs');
     }
 }
@@ -324,6 +324,58 @@ function addScript(): void
     }
     </script>';
 
+}
+
+
+function render_genres_admin($genres)
+{
+    echo '<h1>Gestion des genres</h1>';
+    echo '<a class="ajout" href="?action=admin_genres&admin=admin_ajout_genre">Ajouter un genre</a>';
+    echo '<table>';
+    echo '<tr>';
+    echo '<th>Nom</th>';
+    echo '<th colspan="2">Actions</th>';
+    echo '</tr>';
+    foreach ($genres as $genre) {
+        echo '<tr>';
+        echo '<td>' . $genre->getNomGenre() . '</td>';
+        echo '<td class="actions">';
+        echo '<a href="?action=admin_genres&admin=admin_editer_genre&id_genre=' . $genre->getIdGenre() . '">Éditer</a>';
+        echo '<a href="?action=admin_genres&admin=admin_supprimer_genre&id_genre=' . $genre->getIdGenre() . '">Supprimer</a>';
+        echo '</td>';
+        echo '</tr>';
+    }
+}
+
+function render_ajout_genre($genreBD)
+{
+    echo '<h1>Ajout d\'un genre</h1>';
+    echo '<form  method="post">';
+    echo '<label for="nom">Nom</label>';
+    echo '<input type="text" name="nom" id="nom" required>';
+    echo '<input type="submit" value="Ajouter">';
+    echo '</form>';
+
+    if (isset($_POST['nom'])) {
+        $genreBD->insertGenre($_POST['nom']);
+        header('Location: ?action=admin_genres');
+    }
+}
+
+
+function render_editer_genre($genre,$genreBD)
+{
+    echo '<h1>Édition d\'un genre</h1>';
+    echo '<form  method="post">';
+    echo '<label for="nom">Nom</label>';
+    echo '<input type="text" name="nom" id="nom" value="' . $genre->getNomGenre() . '" required>';
+    echo '<input type="submit" value="Modifier">';
+    echo '</form>';
+
+    if (isset($_POST['nom'])) {
+        $genreBD->updateGenre($genre->getIdGenre(),$_POST['nom']);
+        header('Location: ?action=admin_genres');
+    }
 }
 
 

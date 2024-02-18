@@ -104,6 +104,10 @@ switch ($action) {
         include 'templates/admin/admin_utilisateurs.php';
         break;
 
+    case 'admin_genres':
+        include 'templates/admin/admin_genres.php';
+        break;
+
     case 'detail_artiste':
         $album = $albumBD->getAllAlbums();
         include 'templates/detail_artiste.php';

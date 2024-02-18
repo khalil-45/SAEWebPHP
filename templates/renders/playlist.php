@@ -1,21 +1,14 @@
 <main>
     <section class="info-playlist">
         <div class="playlist-cover">
-            <img src="../../static/images/img_albums/220px-Folklore_hp.jpg" alt="image de la playlist">
+        <img src="<?php echo $imageAlbum; ?>" alt="image de la playlist">
         </div>
         <div class="playlist-info">
             <h2><?php echo $playlist->getTitre() ?></h2>
             <?php
-            // Fetch the username from the appropriate source
             $username = $username->getUsername();
             ?>
             <p><?php echo $username ?></p>
-            <div class="buttons">
-                <button class="play-button">
-                    <img src="../../static/images/bouton-jouer.png" alt="play button">
-                    <p>Lecture</p>
-                </button>
-            </div>
         </div>
     </section>
 

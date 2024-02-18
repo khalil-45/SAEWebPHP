@@ -37,61 +37,6 @@
     color: #888;
 }
 
-.buttons {
-    display: flex;
-    margin-top: auto;
-}
-
-.buttons button {
-    background-color: #fe0a69;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.buttons img {
-    width: 20px;
-    height: 20px;
-}
-
-/* Style du bouton "Play" */
-.play-button {
-    background-color: #fe0a69;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Style du bouton "Ajouter" */
-.add-button {
-    background-color: #535353;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.add-button p {
-    margin: 0;
-    color: #fff;
-    margin-left: 5px;
-}
-
-.play-button p {
-    margin: 0;
-    color: #fff;
-    margin-left: 5px;
-}
-
-.buttons{
-    display: flex;
-    margin-top: auto;
-}
 
 /* Change flex direction to column on smaller screens */
 @media (max-width: 768px) {

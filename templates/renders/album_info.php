@@ -35,15 +35,5 @@
                 <?php echo $album->getAnnee() ?>
             </p>
         </div>
-        <div class="buttons">
-            <button class="play-button">
-                <img src="../../static/images/bouton-jouer.png" alt="play button">
-                <p>Lecture</p>
-            </button>
-            <button class="add-button">
-                <img src="../../static/images/ajouter.png" alt="add button">
-                <p>Ajouter à la playlist</p>
-            </button>
-        </div>
     </div>
 </section>

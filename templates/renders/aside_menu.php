@@ -12,7 +12,7 @@
             <h1>Raspberry Music</h1>
         </div>
         <div class="recherche">
-        <form class="recherche" method="GET" action="../templates/recherche.php">
+        <form class="recherche" method="GET" action="/templates/recherche.php">
             <input type="text" name="recherche" placeholder="Rechercher">
             <button type="submit">Rechercher</button>
         </form>

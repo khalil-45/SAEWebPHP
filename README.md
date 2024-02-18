@@ -22,7 +22,7 @@ Notre groupe est composée de 3 personnes :
 ## Installation
 Pour installer le projet, il suffit de cloner le projet dans un dossier de votre serveur web. 
 ```bash
-git clone
+git clone https://github.com/khalil-45/SAEWebPHP
 ```
 
 ## Utilisation

@@ -242,13 +242,20 @@ function render_utilisateurs_admin($utilisateurs)
     echo '<th>Nom</th>';
     echo '<th>Prénom</th>';
     echo '<th>Email</th>';
+    echo '<th>Admin?</th>';
     echo '<th colspan="2">Actions</th>';
     echo '</tr>';
     foreach ($utilisateurs as $utilisateur) {
+        if($utilisateur['isAdmin'] == 1){
+            $utilisateur['isAdmin'] = "Oui";
+        } else {
+            $utilisateur['isAdmin'] = "Non";
+        }
         echo '<tr>';
         echo '<td>' . $utilisateur['username'] . '</td>';
         echo '<td>' . $utilisateur['password'] . '</td>';
         echo '<td>' . $utilisateur['email'] . '</td>';
+        echo '<td>' . $utilisateur['isAdmin'] . '</td>';
         echo '<td class="actions">';
         echo '<a href="?action=admin_utilisateurs&admin=admin_editer_utilisateur&id_utilisateur=' . $utilisateur['user_id'] . '">Éditer</a>';
         echo '<a href="?action=admin_utilisateurs&admin=admin_supprimer_utilisateur&id_utilisateur=' . $utilisateur['user_id'] . '">Supprimer</a>';
@@ -298,7 +305,7 @@ function render_editer_utilisateur($utilisateur,$utilisateurBD)
     echo '</form>';
 
     if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
-        $utilisateurBD->updateUtilisateur($utilisateur->getUserId(),$_POST['username'],$_POST['password'],$_POST['email']);
+        $utilisateurBD->updateUtilisateur($utilisateur->getUserId(),$_POST['username'],$_POST['password'],$_POST['email'],$utilisateur->isAdmin());
         header('Location: ?action=admin_utilisateurs');
     }
 }

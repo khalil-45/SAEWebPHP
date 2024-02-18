@@ -105,7 +105,7 @@ class UtilisateurBD
      */
     public function updateUtilisateur($id, $username, $password, $email, $isAdmin)
     {
-        $sql = "UPDATE UTILISATEUR SET username = :username, password = :password, email = :email WHERE id = :id, isAdmin = :isAdmin";
+        $sql = "UPDATE UTILISATEUR SET username = :username, password = :password, email = :email, isAdmin = :isAdmin WHERE user_id = :id";
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -125,5 +125,4 @@ class UtilisateurBD
     }
 
 }
-
 ?>

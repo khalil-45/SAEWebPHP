@@ -74,8 +74,8 @@ if (isset($_GET['recherche'])) {
         <div class="grid">
             <?= implode('', array_map('renderAlbum', $albumsParAnnee)) ?>
         </div>
-        <?php endif; ?>*
-        
+        <?php endif; ?>
+
     </main>
 </body>
 <?php include 'renders/insertion_js.php'; ?>

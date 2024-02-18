@@ -87,3 +87,13 @@ CREATE TABLE IMAGE_ARTISTE (
     artiste_id INT,
     FOREIGN KEY (artiste_id) REFERENCES ARTISTE(artiste_id)
 );
+
+CREATE TRIGGER update_note
+AFTER UPDATE ON NOTE
+FOR EACH ROW
+WHEN (SELECT COUNT(*) FROM NOTE WHERE album_id = NEW.album_id AND user_id = NEW.user_id) > 1
+BEGIN
+    DELETE FROM NOTE WHERE rowid = (
+        SELECT rowid FROM NOTE WHERE album_id = NEW.album_id AND user_id = NEW.user_id LIMIT 1
+    );
+END;

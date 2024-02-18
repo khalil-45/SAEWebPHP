@@ -3,6 +3,8 @@ include 'renders/fonctions.php';
 require '../app/Autoloader.php';
 Autoloader::register();
 
+session_start();
+
 use Model\Connection_BD;
 use Model\Classes\db_model\AlbumBD;
 use Model\Classes\db_model\ArtisteBD;

@@ -21,6 +21,7 @@ if (isset($_GET['admin'])) {
 
 $artistes = $artisteBD->getAllArtistes();
 $genres = $genreBD->getAllGenres();
+$album = $albumBD->getAllAlbums();
 ?>
 
 <!DOCTYPE html>

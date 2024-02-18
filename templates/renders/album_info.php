@@ -58,12 +58,16 @@ if ($album != null) {
             </div>
         </div>
         <div class="Notation">
+            <?php if (isset($_SESSION['user'])) {?>
             <form  method="post">
                 <input type="hidden" name="album_id" value="<?php echo $album->getAlbumId() ?>">
                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']->getUserId() ?>">
                 <input type="number" name="note" min="0" max="5" required>
                 <button type="submit">Noter</button>
             </form>
+            <?php } else {?>
+            <p>Connectez-vous pour noter cet album</p>
+            <?php }?>
         </div>
     </div>
 </section>

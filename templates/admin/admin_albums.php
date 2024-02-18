@@ -1,17 +1,8 @@
 <?php
 require 'app/Model/render.php';
 
-/*
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['user'])) {
-    header('Location: index.php?action=index');
-    exit();
-}
-*/
+require_once __DIR__ . '/../renders/fonctions.php';
+bloqueAdmin();
 
 if (isset($_GET['admin'])) {
     $action = $_GET['admin'];
@@ -21,6 +12,7 @@ if (isset($_GET['admin'])) {
 
 $artistes = $artisteBD->getAllArtistes();
 $genres = $genreBD->getAllGenres();
+$album = $albumBD->getAllAlbums();
 ?>
 
 <!DOCTYPE html>

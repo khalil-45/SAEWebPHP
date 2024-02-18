@@ -15,6 +15,7 @@ use Model\Classes\ChansonPlaylist;
 use Model\Classes\db_model\ChansonPlaylistBD;
 use Model\Classes\db_model\GenreBD;
 use Model\Classes\db_model\ImageArtisteBD;
+use Model\Classes\db_model\NoteBD;
 
 
 
@@ -29,6 +30,7 @@ $genreBD = new GenreBD($cnx);
 $imageBD = new ImageArtisteBD($cnx);
 $user = new UtilisateurBD($cnx);
 $utilisateurBD = new UtilisateurBD($cnx);
+$noteBD = new NoteBD($cnx);
 
 // Analyser la requête pour déterminer l'action à effectuer
 $action = $_GET['action'] ?? 'index'; // Si aucune action n'est spécifiée, l'action par défaut est 'index'
@@ -52,16 +54,21 @@ switch ($action) {
             $artiste = null;
         }
 
-        if ($_SESSION['user'] != null){
+        if (isset($_SESSION['user']) && $_SESSION['user'] != null){
             $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        } else {
+            $playlists = null;
         }
 
         include 'templates/pageAlbum.php';
         break;
     
     case 'playlists':
-        if ($_SESSION['user'] != null){
-        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        if (isset($_SESSION['user']) && $_SESSION['user'] != null){
+            $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        }
+        else {
+            $playlists = null;
         }
         include 'templates/page_playlists.php';
         break;
@@ -96,6 +103,10 @@ switch ($action) {
 
     case 'admin_utilisateurs':
         include 'templates/admin/admin_utilisateurs.php';
+        break;
+
+    case 'admin_genres':
+        include 'templates/admin/admin_genres.php';
         break;
 
     case 'detail_artiste':

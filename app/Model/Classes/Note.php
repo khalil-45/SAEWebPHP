@@ -2,7 +2,6 @@
 
 namespace Model\Classes;
 require_once __DIR__ . '/album.php';
-require_once __DIR__ . '/utilisateur.php';
 
 class Note {
     private $note_id;

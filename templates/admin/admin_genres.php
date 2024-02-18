@@ -1,12 +1,16 @@
 <?php
+
 require 'app/Model/render.php';
 require_once __DIR__ . '/../renders/fonctions.php';
 bloqueAdmin();
 
-$artistes = $artisteBD->getAllArtistes();
+if (isset($_GET['admin'])) {
+    $action = $_GET['admin'];
+} else {
+    $action = NAN;
+}
 $genres = $genreBD->getAllGenres();
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,23 +33,17 @@ $genres = $genreBD->getAllGenres();
 <body>
 <div class="content">
     <?php
-    if ($action == 'admin_ajout_artiste')
-    {
-        render_ajout_artiste($artisteBD, $imageBD);
+    if ($action == 'admin_ajout_genre') {
+        render_ajout_genre($genreBD);
+    } else if ($action == 'admin_editer_genre') {
+        $genre = $genreBD->getGenreById($_GET['id_genre']);
+        render_editer_genre($genre, $genreBD);
+    } else if ($action == 'admin_supprimer_genre') {
+        $genreBD->deleteGenre($_GET['id_genre']);
+        header('Location: ?action=admin_genres');
     }
-    else if ($action == 'admin_editer_artiste')
-    {
-        $artiste = $artisteBD->getArtisteById($_GET['id_artiste']);
-        render_editer_artiste($artiste, $artisteBD, $imageBD);
-    }
-    else if ($action == 'admin_supprimer_artiste')
-    {
-        $artisteBD->deleteArtisteById($_GET['id_artiste']);
-        header('Location: ?action=admin_artistes');
-    }
-    else
-    {
-        render_artistes_admin($artistes, $imageBD);
+    else {
+        render_genres_admin($genres);
     }
     ?>
 </div>

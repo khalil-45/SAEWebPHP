@@ -2,7 +2,7 @@
     <div class="titre-mes-playlists">
         <h2>Mes playlists</h2>
     </div>
-    <?php if ($_SESSION['user'] == null) {
+    <?php if (!isset($_SESSION['user'])){
         echo "<p style='text-align: center;'>Vous devez être connecté pour accéder à cette page</p>";
     } else {
         ?>

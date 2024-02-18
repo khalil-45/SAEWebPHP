@@ -1,5 +1,21 @@
-<!-- album_info.php -->
+ <!-- album_info.php -->
+<?php
+global $noteBD,$album;
 
+if (isset($_POST['note'])) {
+    $noteBD->insertNote($_POST['album_id'], $_POST['user_id'], $_POST['note']);
+}
+
+if ($album != null) {
+    $note = $noteBD->moyenneNoteByAlbumId($album->getAlbumId());
+    $nbNotes = $noteBD->getNombreNotesByAlbumId($album->getAlbumId());
+} else {
+    $note = 0;
+    $nbNotes = 0;
+}
+
+
+?>
 <main>
 <section class="info-album">
     <div class="album-cover">
@@ -34,6 +50,25 @@
             <p>
                 <?php echo $album->getAnnee() ?>
             </p>
+
+            <div class="note">
+                <p>Note : <?php echo $note  ?>/5</p>
+
+                <p>Nombre de notes : <?php echo $nbNotes ?></p>
+            </div>
         </div>
+        <div class="Notation">
+            <?php if (isset($_SESSION['user'])) {?>
+            <form  method="post">
+                <input type="hidden" name="album_id" value="<?php echo $album->getAlbumId() ?>">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']->getUserId() ?>">
+                <input type="number" name="note" min="0" max="5" required>
+                <button type="submit">Noter</button>
+            </form>
+            <?php } else {?>
+            <p>Connectez-vous pour noter cet album</p>
+            <?php }?>
+        </div>
+
     </div>
 </section>

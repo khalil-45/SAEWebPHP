@@ -19,6 +19,7 @@
     flex-direction: column;
     margin-left: 20px;
     height: 100%;
+    width: 100%;
 }
 
 .album-info h2 {
@@ -33,10 +34,69 @@
 
 .date-genre {
     display: flex;
-    justify-content: space-between;
     color: #888;
 }
 
+.date-genre p {
+    margin: 0;
+    margin-right: 3rem;
+}
+
+.buttons {
+    display: flex;
+    margin-top: auto;
+}
+
+.buttons button {
+    background-color: #fe0a69;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.buttons img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Style du bouton "Play" */
+.play-button {
+    background-color: #fe0a69;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Style du bouton "Ajouter" */
+.add-button {
+    background-color: #535353;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.add-button p {
+    margin: 0;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.play-button p {
+    margin: 0;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.buttons{
+    display: flex;
+    margin-top: auto;
+}
 
 /* Change flex direction to column on smaller screens */
 @media (max-width: 768px) {

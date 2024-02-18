@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
 
     // Check if the song is already in the playlist
     if ($chansonPlaylistBD->isChansonInPlaylist($chansonId, $playlistId)) {
-        $_SESSION['error'] = "The song is already in the playlist.";
+        $_SESSION['error'] = "La musique est déjà présente dans cette playlist.";
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
     } else {

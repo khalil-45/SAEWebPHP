@@ -2,7 +2,7 @@
 
 namespace Model\Classes\db_model;
 
-require_once __DIR__ . '/../Connection_BD.php';
+require_once __DIR__ . '/../../Connection_BD.php';
 require_once __DIR__ . '/../../Classes/Note.php';
 
 use Model\Classes\Note;
@@ -67,6 +67,26 @@ class NoteBD
         $stmt = $this->cnx->prepare($sql);
         $stmt->bindParam(':album_id', $album_id, PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    public function moyenneNoteByAlbumId($album_id)
+    {
+        $sql = "SELECT AVG(note) FROM NOTE WHERE album_id = :album_id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':album_id', $album_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['AVG(note)'];
+    }
+
+    public function getNombreNotesByAlbumId($getAlbumId)
+    {
+        $sql = "SELECT COUNT(note) FROM NOTE WHERE album_id = :album_id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':album_id', $getAlbumId, PDO::PARAM_INT);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['COUNT(note)'];
     }
 }
 

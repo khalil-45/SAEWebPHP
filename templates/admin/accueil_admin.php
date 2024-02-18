@@ -1,15 +1,7 @@
 <?php
-/*
+require_once __DIR__ . '/../renders/fonctions.php';
+bloqueAdmin();
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['user'])) {
-    header('Location: index.php?action=index');
-    exit();
-}
-*/
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +42,12 @@ if (!isset($_SESSION['user'])) {
         <a href="?action=admin_utilisateurs">
             <img src="../../static/images/profil-de-lutilisateur.png" alt="icone utilisateur">
             Gérer les utilisateurs
+        </a>
+    </div>
+    <div class="card">
+        <a href="?action=admin_genres">
+            <img src="../../static/images/musique.png" alt="icone genre">
+            Gérer les genres
         </a>
     </div>
 </div>

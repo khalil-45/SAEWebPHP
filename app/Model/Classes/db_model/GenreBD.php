@@ -105,6 +105,18 @@ class GenreBD
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
+
+    /**
+     * @param int $id
+     */
+    public function updateGenre($id, $nom_genre)
+    {
+        $sql = "UPDATE GENRE SET nom_genre = :nom_genre WHERE id_genre = :id";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':nom_genre', $nom_genre, PDO::PARAM_STR);
+        $stmt->execute();
+    }
 }
 
 ?>

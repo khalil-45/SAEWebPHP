@@ -20,6 +20,7 @@ if (isset($_GET['recherche'])) {
     $query = $_GET['recherche'];
     $albumsRecherche = $albumBD->searchAlbums($query);
     $artistesRecherche = $artisteBD->searchArtiste($query);
+    $albumsParAnnee = $albumBD->searchAlbumsByAnnee($query);
 }
 ?>
 <!DOCTYPE html>
@@ -44,18 +45,37 @@ if (isset($_GET['recherche'])) {
         <div class="titre">
             <h2>Albums</h2>
         </div>
+        <?php if (empty($albumsRecherche)) : ?>
+            <p>Aucun album trouvé</p>
+        <?php else : ?>
         <div class="grid">
             <?= implode('', array_map('renderAlbum', $albumsRecherche)) ?>
         </div>
+        <?php endif; ?>
 
         <div class="titre">
             <h2>Artistes</h2>
         </div>
 
+        <?php if (empty($artistesRecherche)) : ?>
+            <p>Aucun artiste trouvé</p>
+        <?php else : ?>
         <div class="grid">
             <?= implode('', array_map('renderArtiste', $artistesRecherche)) ?>
         </div>
+        <?php endif; ?>
 
+        <div class="titre">
+            <h2>Albums par année</h2>
+        </div>
+        <?php if (empty($albumsParAnnee)) : ?>
+            <p>Aucun album trouvé</p>
+        <?php else : ?>
+        <div class="grid">
+            <?= implode('', array_map('renderAlbum', $albumsParAnnee)) ?>
+        </div>
+        <?php endif; ?>*
+        
     </main>
 </body>
 <?php include 'renders/insertion_js.php'; ?>

@@ -39,7 +39,10 @@ if (isset($_GET['recherche'])) {
     <?php include 'renders/aside_menu.php'; ?>
     <main>
         <div class="titre">
-            <h2>Résultats de la recherche</h2>
+            <h1>Résultats de la recherche</h1>
+        </div>
+        <div class="titre">
+            <h2>Albums</h2>
         </div>
         <div class="grid">
             <?= implode('', array_map('renderAlbum', $albumsRecherche)) ?>

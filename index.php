@@ -15,6 +15,7 @@ use Model\Classes\ChansonPlaylist;
 use Model\Classes\db_model\ChansonPlaylistBD;
 use Model\Classes\db_model\GenreBD;
 use Model\Classes\db_model\ImageArtisteBD;
+use Model\Classes\db_model\NoteBD;
 
 
 
@@ -29,6 +30,7 @@ $genreBD = new GenreBD($cnx);
 $imageBD = new ImageArtisteBD($cnx);
 $user = new UtilisateurBD($cnx);
 $utilisateurBD = new UtilisateurBD($cnx);
+$noteBD = new NoteBD($cnx);
 
 // Analyser la requête pour déterminer l'action à effectuer
 $action = $_GET['action'] ?? 'index'; // Si aucune action n'est spécifiée, l'action par défaut est 'index'

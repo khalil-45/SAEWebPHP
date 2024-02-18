@@ -9,7 +9,7 @@
                 </p>
                 <img src="../../static/images/bouton-jouer-petit.png" alt="bouton play">
                 <?php echo $chanson->getTitre() ;
-                if ($_SESSION['user'] != null) : ?>
+                if (isset($_SESSION['user'])) : ?>
                 <button class="add-to-playlist-button" onclick="showPlaylistsPopup(<?php echo $chanson->getChansonId() ?>)">Ajouter à la
                     playlist</button>
                 <?php else : ?>

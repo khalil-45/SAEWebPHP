@@ -52,16 +52,21 @@ switch ($action) {
             $artiste = null;
         }
 
-        if ($_SESSION['user'] != null){
+        if (isset($_SESSION['user']) && $_SESSION['user'] != null){
             $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        } else {
+            $playlists = null;
         }
 
         include 'templates/pageAlbum.php';
         break;
     
     case 'playlists':
-        if ($_SESSION['user'] != null){
-        $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        if (isset($_SESSION['user']) && $_SESSION['user'] != null){
+            $playlists = $playlistBD->getAllPlaylistsByUserId($_SESSION['user']->getUserId());
+        }
+        else {
+            $playlists = null;
         }
         include 'templates/page_playlists.php';
         break;

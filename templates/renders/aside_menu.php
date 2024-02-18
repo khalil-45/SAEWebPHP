@@ -1,3 +1,10 @@
+<?php
+$is_admin = false;
+if (isset($_SESSION['user']) && $_SESSION['user'] != null) {
+    $is_admin = $_SESSION['user']->isAdmin();
+}
+?>
+
 <div class="overlay"></div>
     <button class="menu-button">
         <div class="toggle">
@@ -25,9 +32,11 @@
                 <a href="/?action=playlists">
                     <li><img src="../static/images/playlist.png" alt="icone playlists">Mes Playlists</li>
                 </a>
-                <a href="?action=admin">
-                    <li><img src="../static/images/parametres.png" alt="admin">Admin</li>
-                </a>
+                <?php if ($is_admin) : ?>
+                    <a href="/?action=admin">
+                        <li><img src="../static/images/parametres.png" alt="icone admin">Admin</li>
+                    </a>
+                <?php endif; ?>
             </ul>
         </nav>
         <div class="profil">

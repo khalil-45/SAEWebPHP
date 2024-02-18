@@ -71,4 +71,6 @@ Un bouton "Admin" apparaîtra dans la barre de navigation sur le côté gauche.
 - Ajout de musiques à une playlist
 - Suppression de musiques de la playlist
 
+## Documentation
+Pour plus d'informations, vous pouvez consulter les diagrammes relatifs à ce projet dans le dossier `Diagrammes`.
 

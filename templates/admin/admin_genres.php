@@ -1,6 +1,8 @@
 <?php
 
 require 'app/Model/render.php';
+require_once __DIR__ . '/../renders/fonctions.php';
+bloqueAdmin();
 
 if (isset($_GET['admin'])) {
     $action = $_GET['admin'];

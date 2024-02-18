@@ -91,3 +91,24 @@ function renderPagePlaylist($playlist, $chansons, $username, $imageAlbum) {
     renderPlaylist($playlist, $chansons, $username, $imageAlbum);
     renderInsertionJs();
 }
+
+function bloqueAdmin() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['user'])) {
+        header('Location: index.php?action=index');
+        exit();
+    }else if (!$_SESSION['user']->isAdmin()){
+        header('Location: index.php?action=index');
+        exit();
+    }
+
+    if (isset($_GET['admin'])) {
+        $action = $_GET['admin'];
+    } else {
+        $action = NAN;
+    }
+
+}

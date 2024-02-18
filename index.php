@@ -11,7 +11,6 @@ use Model\Classes\db_model\ChansonBD;
 use Model\Classes\db_model\ArtisteBD;
 use Model\Classes\db_model\UtilisateurBD;
 use Model\Classes\db_model\PlaylistBD;
-use Model\Classes\ChansonPlaylist;
 use Model\Classes\db_model\ChansonPlaylistBD;
 use Model\Classes\db_model\GenreBD;
 use Model\Classes\db_model\ImageArtisteBD;

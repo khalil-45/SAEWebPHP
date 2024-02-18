@@ -18,7 +18,7 @@ function renderAlbum($album) {
     $id = $album->getAlbumId();
     $titre = $album->getTitre();
     return <<<HTML
-        <a href="?action=album&id_album=$id">
+        <a href="/?action=album&id_album=$id">
             <div class="head">
                 <i class='fab fa-apple' style='font-size:13.5px;'></i>
                 <h5 class="top">Music</h5>
@@ -37,7 +37,7 @@ function renderArtiste($artiste) {
     $id = $artiste->getArtisteId();
     $nom = $artiste->getNom();
     return <<<HTML
-        <a href="?action=detail_artiste&id_artiste=$id">
+        <a href="/?action=detail_artiste&id_artiste=$id">
             <div class="head">
                 <i class='fab fa-apple' style='font-size:13.5px;'></i>
                 <h5 class="top">Music</h5>

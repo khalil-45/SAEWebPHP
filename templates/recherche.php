@@ -1,14 +1,12 @@
 <?php
 include 'renders/fonctions.php';
-require_once '../app/Model/Classes/db_model/AlbumBD.php';
-require_once '../app/Model/Connection_BD.php';
-require_once '../app/Model/Classes/db_model/ArtisteBD.php';
-require_once '../app/Model/Classes/db_model/ImageArtisteBD.php';
+require '../app/Autoloader.php';
+Autoloader::register();
 
+use Model\Connection_BD;
 use Model\Classes\db_model\AlbumBD;
 use Model\Classes\db_model\ArtisteBD;
 use Model\Classes\db_model\ImageArtisteBD;
-use Model\Connection_BD;
 
 $cnx = Connection_BD::getInstance();
 $albumBD = new AlbumBD($cnx);

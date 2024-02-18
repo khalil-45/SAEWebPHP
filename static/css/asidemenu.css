@@ -154,38 +154,7 @@ aside ul img{
 
 /* RECHERCHE */
 
-.recherche {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #2d2d2d;
-    margin-bottom: 2em;
-    border-radius: 0.5rem;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    border-bottom: #ccc 1px solid;
-}
 
-.recherche button{
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    outline: none;
-    height: 100%;
-}
-
-.recherche input{
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 1.1rem;
-    margin: 0.5rem;
-    outline: none;
-}
 
 /* PROFIL */
 

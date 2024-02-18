@@ -9,8 +9,20 @@
         <section class="playlists">
             <?php foreach ($playlists as $p): ?>
                 <div class="playlist">
+                    <?php 
+                    global $chansonPlaylistBD;
+                    global $chansonBD;
+                    global $albumBD;
+                    $chansons = $chansonPlaylistBD->getAllChansonsPlaylistByPlaylistId($p->getPlaylistId());
+                    if ($chansons != null){
+                        $premiereChanson = $chansonBD->getChansonById($chansons[0]->getChansonId());
+                        $imageAlbum = $albumBD->getAlbumById($premiereChanson->getAlbumId())->getPochette();
+                    } else {
+                        $imageAlbum = "default.jpg";
+                    }
+                    ?>
                     <a href="/?action=playlist&id_playlist=<?php echo urlencode($p->getPlaylistId()); ?>">
-                        <img src="../../static/images/img_albums/220px-DarkChords.jpg" alt="image de la playlist">
+                        <img src="../../static/images/img_albums/<?php echo $imageAlbum; ?>" alt="image de la playlist">
                         <p>
                             <?php echo $p->getTitre() ?>
                         </p>

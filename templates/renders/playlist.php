@@ -1,7 +1,7 @@
 <main>
     <section class="info-playlist">
         <div class="playlist-cover">
-            <img src="../../static/images/img_albums/220px-Folklore_hp.jpg" alt="image de la playlist">
+        <img src="../../static/images/img_albums/<?php echo $imageAlbum; ?>" alt="image de la playlist">
         </div>
         <div class="playlist-info">
             <h2><?php echo $playlist->getTitre() ?></h2>

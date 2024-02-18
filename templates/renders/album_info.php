@@ -69,5 +69,6 @@ if ($album != null) {
             <p>Connectez-vous pour noter cet album</p>
             <?php }?>
         </div>
+
     </div>
 </section>

@@ -137,6 +137,20 @@ class ArtisteBD
         return $maxID;
     }
 
+    public function searchArtiste($nom)
+    {
+        $sql = "SELECT * FROM ARTISTE WHERE nom LIKE :nom";
+        $stmt = $this->cnx->prepare($sql);
+        $stmt->bindValue(':nom', '%' . $nom . '%', PDO::PARAM_STR);
+        $stmt->execute();
+        $artistes = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $artiste = new Artiste($row['artiste_id'], $row['nom'], $row['bio'], $row['photo']);
+            $artistes[] = $artiste;
+        }
+        return $artistes;
+    }
+
 }
 
 ?>
